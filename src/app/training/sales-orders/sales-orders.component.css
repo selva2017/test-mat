@@ -1,0 +1,11 @@
+.mat-table {
+    overflow: auto;
+    /* max-height: 500px; */
+    /* Max height shows vertical scrool and STATIC TOP TOOL BARS  */
+  }
+  .mat-column-userId {
+    flex: 0 0 10px;
+  }
+  /* .mat-button, .mat-raised-button{
+    background-color:red;
+} */

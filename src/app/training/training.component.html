@@ -1,0 +1,21 @@
+<mat-tab-group *ngIf="!ongoingTraining">
+  <!-- <mat-tab label="New Exercise">
+    <app-new-training></app-new-training>
+  </mat-tab>
+  <mat-tab label="Past Exercises">
+    <app-past-trainings></app-past-trainings>
+  </mat-tab> -->
+  <mat-tab label="Sales Orders">
+    <app-sales-orders></app-sales-orders>
+  </mat-tab>
+  <mat-tab label="Selected Sales Orders">
+    <app-selected-orders></app-selected-orders>
+  </mat-tab>
+  <mat-tab label="Orders BF GSM">
+    <app-orders-bfgsm></app-orders-bfgsm>
+  </mat-tab>
+  <mat-tab label="Orders BF GSM Size">
+    <app-orders-bfgsmsize></app-orders-bfgsmsize>
+  </mat-tab>
+</mat-tab-group>
+<app-current-training *ngIf="ongoingTraining"></app-current-training>
