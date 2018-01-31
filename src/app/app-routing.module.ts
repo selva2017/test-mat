@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'training', component: TrainingComponent, canActivate: [AuthGuard] },
-  { path: 'plan', component: SalesOrdersComponent }
+  { path: 'plan', component: SalesOrdersComponent, canActivate: [AuthGuard] }
   // { path: 'plan', component: SalesOrdersComponent, canActivate: [AuthGuard] }
 ];
 
@@ -22,4 +22,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

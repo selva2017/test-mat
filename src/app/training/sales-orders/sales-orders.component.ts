@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input,ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
 import { SelectedOrdersComponent } from './../selected-orders/selected-orders.component';
+
 @Component({
   selector: 'app-sales-orders',
   templateUrl: './sales-orders.component.html',
@@ -16,10 +17,14 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
   dataSource = new MatTableDataSource<ProdPlan>();
-  dataSource1 = new MatTableDataSource<ProdPlan>();
+  dataSource2 = new MatTableDataSource<ProdPlan>();
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('table1') table1: MatSort;
+  @ViewChild('table2') table2: MatSort;
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild('paginator2') paginator2: MatPaginator;
 // childMessage="Test";
   subscription: Subscription;
   salesOrder: ProdPlan[];
@@ -33,26 +38,55 @@ export class SalesOrdersComponent implements OnInit {
   salesOrder_BFGSM: ProdPlan[] = [];
   salesOrder_BFGSMSize: ProdPlan[] = [];
   salesOrder_BF: ProdPlan[] = [];
+
+  // Working 1
+  // parentMessage = "message from parent";
+  // @ViewChild(SelectedOrdersComponent) child;
+  // message:string;
+
+
+  // Working 2
+  // @Input() childMessage: string;
+  // message: string = "Hola Mundo!";
+
+// @Input() childMessage: string;
+  //  message: ProdPlan[];
+    // message: string = "SAles Order Component";
+
   constructor(private serverService: ServerService) {
     this.showLoader = true;
   }
-
   ngOnInit() {
     console.log("ng on init");
     this.refreshList();
   }
   ngAfterViewInit() {
+// working 1
+    // this.message = this.child.message;
     console.log("after view init");
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.dataSource1.sort = this.sort;
-    this.dataSource1.paginator = this.paginator;
+    // this.dataSource2.sort = this.sort;
+    this.dataSource2.sort = this.table2;
+    this.dataSource2.paginator = this.paginator2;
+  }
+  
+  _setDataSource(indexNumber) {
+    setTimeout(() => {
+      switch (indexNumber) {
+        case 0:
+          !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+          break;
+        case 1:
+          !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
+      }
+    });
   }
   
   doFilter(filterValue: string) {
     console.log("do filter");
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.dataSource1.filter = filterValue.trim().toLowerCase();
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
 
   displayINR(amount: number) {
@@ -65,7 +99,8 @@ export class SalesOrdersComponent implements OnInit {
   showSelected() {
     this.showAll = !this.showAll;
     // console.log(this.showAll);
-    this.dataSource1.data=this.salesOrder_selected;
+    // this.dataSource2.data=this.salesOrder_selected;
+    // this.message=this.salesOrder_selected;
   }
   confirmProduction() {
     // this.salesOrderUpdated = true;
@@ -184,8 +219,8 @@ export class SalesOrdersComponent implements OnInit {
         break;
       }
     }
-    // this.dataSource1.data=this.salesOrder_selected;
-    // this.dataSource1.data=this.salesOrder_selected.slice();
+    // this.dataSource2.data=this.salesOrder_selected;
+    this.dataSource2.data=this.salesOrder_selected.slice();
     // this.dataSource.data = this.salesOrder.slice();
     this.generateItemBFGSM();
     this.generateItemBFGMSSize();
@@ -199,10 +234,10 @@ export class SalesOrdersComponent implements OnInit {
         break;
       }
     }
-    this.dataSource1.data=this.salesOrder_selected;
+    this.dataSource2.data=this.salesOrder_selected;
     this.dataSource.data=this.salesOrder;
     this.ngAfterViewInit();
-    // this.dataSource1.data=this.salesOrder_selected.slice();
+    // this.dataSource2.data=this.salesOrder_selected.slice();
     // this.dataSource.data = this.salesOrder.slice();
     this.generateItemBFGSM();
     this.generateItemBFGMSSize();
