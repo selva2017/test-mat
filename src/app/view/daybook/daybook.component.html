@@ -1,0 +1,41 @@
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="voucherKey">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Key</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.voucherKey }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="partyLedgerName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Ledger Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.partyLedgerName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="voucherNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Number</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.voucherNumber }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="voucherType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Type</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.voucherType }}</mat-cell>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>amount</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{row.amount }}</mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>Select
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-raised-button color="primary" (click)="onClickView(row)">Select</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+    </mat-paginator>

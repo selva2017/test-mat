@@ -57,13 +57,11 @@ export class SalesOrdersComponent implements OnInit {
     this.showLoader = true;
   }
   ngOnInit() {
-    console.log("ng on init");
     this.refreshList();
   }
   ngAfterViewInit() {
 // working 1
     // this.message = this.child.message;
-    console.log("after view init");
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     // this.dataSource2.sort = this.sort;
@@ -84,7 +82,6 @@ export class SalesOrdersComponent implements OnInit {
   }
   
   doFilter(filterValue: string) {
-    console.log("do filter");
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource2.filter = filterValue.trim().toLowerCase();
   }

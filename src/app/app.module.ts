@@ -25,6 +25,8 @@ import { SalesOrdersComponent } from './training/sales-orders/sales-orders.compo
 import { OrdersBfgsmsizeComponent } from './training/orders-bfgsmsize/orders-bfgsmsize.component';
 import { OrdersBfgsmComponent } from './training/orders-bfgsm/orders-bfgsm.component';
 import { SelectedOrdersComponent } from './training/selected-orders/selected-orders.component';
+import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
+import { DaybookComponent } from './view/daybook/daybook.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { SelectedOrdersComponent } from './training/selected-orders/selected-ord
     SalesOrdersComponent,
     OrdersBfgsmsizeComponent,
     OrdersBfgsmComponent,
-    SelectedOrdersComponent
+    SelectedOrdersComponent,
+    TrialBalComponent,
+    DaybookComponent
   ],
   imports: [
     BrowserModule,
