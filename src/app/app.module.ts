@@ -27,6 +27,7 @@ import { OrdersBfgsmComponent } from './training/orders-bfgsm/orders-bfgsm.compo
 import { SelectedOrdersComponent } from './training/selected-orders/selected-orders.component';
 import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
 import { DaybookComponent } from './view/daybook/daybook.component';
+import { DaybookDialogComponent } from './view/daybook/daybook-dialog.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { DaybookComponent } from './view/daybook/daybook.component';
     OrdersBfgsmComponent,
     SelectedOrdersComponent,
     TrialBalComponent,
-    DaybookComponent
+    DaybookComponent,
+    DaybookDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,6 @@ import { DaybookComponent } from './view/daybook/daybook.component';
   ],
   providers: [AuthService, TrainingService,ServerService],
   bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+  entryComponents: [StopTrainingComponent,DaybookDialogComponent]
 })
 export class AppModule { }

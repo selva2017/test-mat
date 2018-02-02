@@ -1,9 +1,10 @@
 import { Component, OnInit, Input,ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
 import { Daybook } from '../../shared/daybook';
+import { DaybookDialogComponent } from './daybook-dialog.component';
 
 @Component({
   selector: 'app-daybook',
@@ -20,7 +21,7 @@ export class DaybookComponent implements OnInit {
   dayBook_row: Daybook[] = [];
   showLoader: boolean;
 
-  constructor(private serverService: ServerService) { 
+  constructor(private serverService: ServerService, private dialog: MatDialog) { 
     this.showLoader = true;
   }
 
@@ -47,6 +48,20 @@ export class DaybookComponent implements OnInit {
   onClickView(record) {
     this.dayBook_row = record;
     // console.log(this.dayBook_row);
+    const dialogRef = this.dialog.open(DaybookDialogComponent, {
+      data: {
+        progress: this.dayBook_row
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+console.log("true");
+} else {
+  console.log("false");
+      }
+    });
+  
+
   }
   
 }

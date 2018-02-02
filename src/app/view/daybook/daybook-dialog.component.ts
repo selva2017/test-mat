@@ -1,0 +1,79 @@
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { Daybook } from '../../shared/daybook';
+
+
+@Component({
+    selector: 'daybook-dialog',
+    template: `
+    <h5 class="blockquote blockquote-reverse">Master Details</h5>
+    <table class="w-100 p-3 table-striped table-bordered ">
+      <tr>
+        <td>Voucher Date</td>
+        <td>{{passedData.progress.voucherDate}} </td>
+      </tr>
+      <tr>
+        <td>Ledger Name</td>
+        <td>{{passedData.progress.partyLedgerName}} </td>
+      </tr>
+      <tr>
+        <td>Voucher Type</td>
+        <td>{{passedData.progress.voucherType}} </td>
+      </tr>
+      <tr>
+        <td>Voucher Number</td>
+        <td>{{passedData.progress.voucherNumber}} </td>
+      </tr>
+      <tr>
+        <td>Voucher Key</td>
+        <td>{{passedData.progress.voucherKey}} </td>
+      </tr>
+    </table>
+    <hr class="style2">
+    <h5 *ngIf="passedData.progress.ledgerEntryVOs?.length > 0">Ledger Details</h5>
+    <table *ngIf="passedData.progress.ledgerEntryVOs?.length > 0" class="w-100 p-3 table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ledger of passedData.progress.ledgerEntryVOs">
+          <td>{{ledger.ledgerName}} </td>
+          <td>{{ledger.amount }} </td>
+        </tr>
+      </tbody>
+     
+    </table>
+    <hr class="style2">
+
+    <h5 *ngIf="passedData.progress.inventoryEntryVOs?.length > 0">Inventory Details</h5>
+
+    <table *ngIf="passedData.progress.inventoryEntryVOs?.length > 0" class="w-100 p-3 table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Rate/ton</th>
+          <th>Amount</th>
+          <th>Billed Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inventory of passedData.progress.inventoryEntryVOs">
+          <td>{{inventory.stockItemName}} </td>
+          <td>{{inventory.rate}} </td>
+          <td>{{inventory.amount }} </td>
+          <td>{{inventory.billedQuantity}} </td>
+        </tr>
+      </tbody>
+    </table>
+`
+  })
+  export class DaybookDialogComponent {
+    constructor(@Inject(MAT_DIALOG_DATA) public passedData: any) {
+        console.log("passedData");
+        console.log(passedData);
+    }
+  }
+  
