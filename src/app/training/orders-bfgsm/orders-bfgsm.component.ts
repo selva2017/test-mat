@@ -62,14 +62,14 @@ export class OrdersBfgsmComponent implements OnInit {
   confirmProduction() {
     this.salesOrderUpdated = true;
     this.showAll = true;
-    this.serverService.completedOrders(this.salesOrder_selected)
+    this.serverService.createProductionPlan(this.salesOrder_selected)
       .subscribe(
       (success) => {
         console.log("success");
       },
       (error) => console.log(error)
       );
-    this.serverService.completedOrders(this.salesOrder_modified)
+    this.serverService.createProductionPlan(this.salesOrder_modified)
       .subscribe(
       (success) => {
         console.log("success");

@@ -241,7 +241,7 @@ export class SalesOrdersComponent implements OnInit {
     this.generateItemBF();
   }
   refreshList() {
-    this.subscription = this.serverService.getSalesOrder().
+    this.subscription = this.serverService.getActiveSalesOrders().
       subscribe(list => {
         // this.dataSource.data = list;
         this.salesOrder = list;

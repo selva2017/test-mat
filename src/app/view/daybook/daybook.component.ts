@@ -12,7 +12,7 @@ import { DaybookDialogComponent } from './daybook-dialog.component';
   styleUrls: ['./daybook.component.css']
 })
 export class DaybookComponent implements OnInit {
-  displayedColumns = ['voucherKey', 'partyLedgerName', 'voucherNumber','voucherType','select'];
+  displayedColumns = ['voucherKey', 'partyLedgerName', 'voucherNumber','voucherType','select','action'];
   dataSource = new MatTableDataSource<Daybook>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,6 +49,10 @@ export class DaybookComponent implements OnInit {
     this.dayBook_row = record;
     // console.log(this.dayBook_row);
     const dialogRef = this.dialog.open(DaybookDialogComponent, {
+      height: '90%',
+      width: '60%',   
+      //  height: "700px",
+      // width: '"1000px"',   
       data: {
         progress: this.dayBook_row
       }

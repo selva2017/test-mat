@@ -6,8 +6,12 @@ import { Daybook } from '../../shared/daybook';
 @Component({
     selector: 'daybook-dialog',
     template: `
+    <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+    <div class="col-md-12">
     <h5 class="blockquote blockquote-reverse">Master Details</h5>
-    <table class="w-100 p-3 table-striped table-bordered ">
+    <table class="table-responsive-vertical" class="w-100 p-3 table-striped table-bordered ">
       <tr>
         <td>Voucher Date</td>
         <td>{{passedData.progress.voucherDate}} </td>
@@ -68,6 +72,14 @@ import { Daybook } from '../../shared/daybook';
         </tr>
       </tbody>
     </table>
+    <mat-dialog-actions>
+              <button mat-raised-button color="warn" [mat-dialog-close]="true">Hide</button>
+              <button mat-raised-button color="primary" [mat-dialog-close]="false">Close</button>
+            </mat-dialog-actions>
+            </div>
+        </div>
+    </div>
+</div>
 `
   })
   export class DaybookDialogComponent {

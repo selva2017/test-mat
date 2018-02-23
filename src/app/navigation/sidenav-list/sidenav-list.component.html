@@ -7,17 +7,19 @@
     <mat-icon>input</mat-icon>
     <span class="nav-caption">Login</span>
   </a>
-  <a mat-list-item routerLink="/training" (click)="onClose()" *ngIf="isAuth">
-    <mat-icon>assignment</mat-icon>
-    <span class="nav-caption">Planning</span>
-  </a>
-    <a mat-list-item routerLink="/training" (click)="onClose()" *ngIf="isAuth">
-      <span class="nav-caption">Trial Balance</span>
-    </a>
-  <a mat-list-item routerLink="/trial-bal" (click)="onClose()" *ngIf="isAuth">
+  <a mat-list-item routerLink="/daybook" (click)="onClose()" *ngIf="isAuth">
+    <mat-icon>view_list</mat-icon>
     <!-- <mat-icon>fitness_center</mat-icon> -->
     <span class="nav-caption">Daybook</span>
     <!-- <span class="nav-caption">Training</span> -->
+  </a>
+  <a mat-list-item routerLink="/trial-bal" (click)="onClose()" *ngIf="isAuth">
+    <mat-icon>account_balance</mat-icon>
+    <span class="nav-caption">Trial Balance</span>
+  </a>
+<a mat-list-item routerLink="/training" (click)="onClose()" *ngIf="isAuth">
+    <mat-icon>assignment</mat-icon>
+    <span class="nav-caption">Planning</span>
   </a>
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="isAuth">

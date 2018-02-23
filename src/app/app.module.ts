@@ -28,7 +28,7 @@ import { SelectedOrdersComponent } from './training/selected-orders/selected-ord
 import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
 import { DaybookComponent } from './view/daybook/daybook.component';
 import { DaybookDialogComponent } from './view/daybook/daybook-dialog.component';
-
+import { InventoryService } from './shared/inventory.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,7 @@ import { DaybookDialogComponent } from './view/daybook/daybook-dialog.component'
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [AuthService, TrainingService,ServerService],
+  providers: [InventoryService,AuthService, TrainingService,ServerService],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent,DaybookDialogComponent]
 })
