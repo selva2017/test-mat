@@ -12,10 +12,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() sidenavToggle = new EventEmitter<void>();
   isAuth = false;
   authSubscription: Subscription;
+  companyId: string;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.companyId = localStorage.getItem('companyId');
+
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });

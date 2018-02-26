@@ -1,4 +1,12 @@
-    <mat-table #table [dataSource]="dataSource" matSort>
+<div>
+    <!-- <div *ngIf="showAll"> -->
+    <div fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  
+    </div>
+      <mat-table #table [dataSource]="dataSource" matSort  (selectedIndexChange)="_setDataSource($event)">
 
       <ng-container matColumnDef="voucherKey">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Key</mat-header-cell>
@@ -45,3 +53,4 @@
 
     <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
     </mat-paginator>
+  </div>

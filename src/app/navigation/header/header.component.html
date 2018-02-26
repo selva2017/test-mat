@@ -5,27 +5,32 @@
     </button>
   </div>
   <div>
-    <a routerLink="/">LOGO</a>
+    <img src="https://s3.ap-south-1.amazonaws.com/bizdaz-images/web/{{companyId}}.png">
+    <!-- <a routerLink="/">LOGO</a> -->
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+    <ul fxLayout fxLayoutGap="20px" class="navigation-items">
       <li *ngIf="!isAuth">
-        <a routerLink="/signup">Signup</a>
+        <a routerLinkActive="active" routerLink="/signup">Signup</a>
       </li>
       <li *ngIf="!isAuth">
         <a routerLink="/login">Login</a>
       </li>
       <li *ngIf="isAuth">
         <!-- <a routerLink="/training">Training</a> -->
-        <a routerLink="/trial-bal">Trial Balance</a>
+        <a routerLinkActive="active" routerLink="/trial-bal">Trial Balance</a>
       </li>
       <li *ngIf="isAuth">
         <!-- <a routerLink="/training">Training</a> -->
-        <a routerLink="/daybook">Daybook</a>
+        <a routerLinkActive="active" routerLink="/daybook">Daybook</a>
       </li>
       <li *ngIf="isAuth">
         <!-- <a routerLink="/training">Training</a> -->
-        <a routerLink="/training">Planning</a>
+        <a routerLinkActive="active" routerLink="/training">Planning</a>
+      </li>
+      <li *ngIf="isAuth">
+        <!-- <a routerLink="/training">Training</a> -->
+        <a routerLinkActive="active" routerLink="/view">Reports</a>
       </li>
       <li *ngIf="isAuth">
         <a style="cursor: pointer" (click)="onLogout()">Logout</a>

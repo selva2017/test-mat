@@ -29,6 +29,10 @@ import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
 import { DaybookComponent } from './view/daybook/daybook.component';
 import { DaybookDialogComponent } from './view/daybook/daybook-dialog.component';
 import { InventoryService } from './shared/inventory.service';
+import { SalesComponent } from './view/sales/sales.component';
+import { StocksComponent } from './view/stocks/stocks.component';
+import { ReceiptsComponent } from './view/receipts/receipts.component';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,11 @@ import { InventoryService } from './shared/inventory.service';
     SelectedOrdersComponent,
     TrialBalComponent,
     DaybookComponent,
-    DaybookDialogComponent
+    DaybookDialogComponent,
+    SalesComponent,
+    StocksComponent,
+    ReceiptsComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,

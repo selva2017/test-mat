@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -12,7 +12,7 @@ import { DaybookDialogComponent } from './daybook-dialog.component';
   styleUrls: ['./daybook.component.css']
 })
 export class DaybookComponent implements OnInit {
-  displayedColumns = ['voucherKey', 'partyLedgerName', 'voucherNumber','voucherType','select','action'];
+  displayedColumns = ['voucherKey', 'partyLedgerName', 'voucherNumber', 'voucherType', 'select', 'action'];
   dataSource = new MatTableDataSource<Daybook>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -21,7 +21,7 @@ export class DaybookComponent implements OnInit {
   dayBook_row: Daybook[] = [];
   showLoader: boolean;
 
-  constructor(private serverService: ServerService, private dialog: MatDialog) { 
+  constructor(private serverService: ServerService, private dialog: MatDialog) {
     this.showLoader = true;
   }
 
@@ -29,17 +29,22 @@ export class DaybookComponent implements OnInit {
     this.refreshList();
   }
   ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-  }    
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  _setDataSource(indexNumber) {
+    setTimeout(() => {
+      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+    });
+  }
   refreshList() {
-    this.subscription=this.serverService.getTallyDaybook().
+    this.subscription = this.serverService.getTallyDaybook().
       subscribe(list => {
         // console.log(list);
- this.dayBook=list;
+        this.dayBook = list;
         this.dataSource.data = list;
         this.showLoader = false;
       })
@@ -49,23 +54,23 @@ export class DaybookComponent implements OnInit {
     this.dayBook_row = record;
     // console.log(this.dayBook_row);
     const dialogRef = this.dialog.open(DaybookDialogComponent, {
-      height: '90%',
-      width: '60%',   
-      //  height: "700px",
-      // width: '"1000px"',   
+      // height: '90%',
+      // width: '60%',
+      height: "640px",
+      width: '"640px"',
       data: {
         progress: this.dayBook_row
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-console.log("true");
-} else {
-  console.log("false");
+        console.log("true");
+      } else {
+        console.log("false");
       }
     });
-  
+
 
   }
-  
+
 }

@@ -1,0 +1,62 @@
+<div>
+  <!-- <div *ngIf="showAll"> -->
+  <div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
+    <ng-container matColumnDef="stockItemName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Stock ItemName</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.stockItemName}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="voucherEffectiveDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Eff Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherEffectiveDate}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.amount }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="batchName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>BatchName</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.batchName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="bfAct">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>BF Act</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.bfAct }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="bfTgt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>BF Tgt</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.bfTgt }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gsmAct">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>GSM Act</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.gsmAct}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gsmTgt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>GSM Tgt</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.gsmTgt}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="voucherKey">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Key</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherKey}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="voucherNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Number</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherNumber}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="units">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Units</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.units}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+  </mat-paginator>
+</div>

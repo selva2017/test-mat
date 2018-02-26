@@ -1,0 +1,20 @@
+<!-- <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)"> -->
+<mat-tab-group #tabGroup>
+  <mat-tab label="Stock Details">
+    <app-stocks></app-stocks>
+  </mat-tab>
+  <mat-tab label="Sales Details">
+    <app-sales></app-sales>
+  </mat-tab>
+  <mat-tab label="Receipt Details">
+    <app-receipts></app-receipts>
+  </mat-tab>
+  <mat-tab label="Orders BF GSM">
+    <app-orders-bfgsm></app-orders-bfgsm>
+  </mat-tab>
+  <mat-tab label="Orders BF GSM Size">
+    <app-orders-bfgsmsize></app-orders-bfgsmsize>
+  </mat-tab>
+</mat-tab-group>
+<!-- <app-selected-orders [salesOrderChild]="childMessage"></app-selected-orders> -->
+<!-- <app-selected-orders [salesOrderChild]="salesOrder_selected"></app-selected-orders> -->

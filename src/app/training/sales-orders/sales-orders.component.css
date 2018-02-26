@@ -3,9 +3,23 @@
     /* max-height: 500px; */
     /* Max height shows vertical scrool and STATIC TOP TOOL BARS  */
   }
-  .mat-column-userId {
-    flex: 0 0 10px;
-  }
+  /* .mat-column-userId {
+    flex: 0 0 75px;
+  } */
   /* .mat-button, .mat-raised-button{
     background-color:red;
 } */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  /* max-height: 500px; */
+  /* min-width: 300px; */
+}
+
+/* .mat-table { */
+  /* overflow: auto; */
+  /* max-height: 500px; */
+/* } */
+/* .mat-column-reel { */
+  /* flex: 0 0 25px; */
+/* } */

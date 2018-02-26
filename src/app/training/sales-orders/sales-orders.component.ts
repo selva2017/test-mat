@@ -1,10 +1,11 @@
-import { Component, OnInit, Input,ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
 import { SelectedOrdersComponent } from './../selected-orders/selected-orders.component';
+import { SalesOrdersPlanned } from '../../shared/sales-order-planned';
 
 @Component({
   selector: 'app-sales-orders',
@@ -13,11 +14,23 @@ import { SelectedOrdersComponent } from './../selected-orders/selected-orders.co
 })
 export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
-  displayedColumns = ['id', 'orderDate', 'orderNumber','company','bf', 'gsm',  'reel', 'size', 'voucherKey', 'weight','select'];
+  displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm',  'size', 'weight','reel', 'select'];
+  displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm',  'size', 'weight','reel','reelInStock', 'select'];
+  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
+  displayedColumns_bf = ['bf', 'weight'];
+  displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
+  displayedColumns_bfgsmsize = ['bf', 'gsm', 'size', 'weight'];
+  displayedColumns_planned = ['createdDate', 'batchNumber','details','reports'];
+  displayedColumns_modifyplan = ['createdDate', 'batchNumber','action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
   dataSource = new MatTableDataSource<ProdPlan>();
   dataSource2 = new MatTableDataSource<ProdPlan>();
+  dataSource_BF = new MatTableDataSource<ProdPlan>();
+  dataSource_BFGSM = new MatTableDataSource<ProdPlan>();
+  dataSource_BFGSMSize = new MatTableDataSource<ProdPlan>();
+  dataSource_restore = new MatTableDataSource<ProdPlan>();
+  dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
 
   @ViewChild(MatSort) sort: MatSort;
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -25,7 +38,7 @@ export class SalesOrdersComponent implements OnInit {
   @ViewChild('table2') table2: MatSort;
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
-// childMessage="Test";
+  // childMessage="Test";
   subscription: Subscription;
   salesOrder: ProdPlan[];
   salesOrder_selected: ProdPlan[] = [];
@@ -38,6 +51,8 @@ export class SalesOrdersComponent implements OnInit {
   salesOrder_BFGSM: ProdPlan[] = [];
   salesOrder_BFGSMSize: ProdPlan[] = [];
   salesOrder_BF: ProdPlan[] = [];
+  salesOrderRestore: ProdPlan[] = [];
+  salesOrdersPlanned: SalesOrdersPlanned[] = [];
 
   // Working 1
   // parentMessage = "message from parent";
@@ -49,18 +64,20 @@ export class SalesOrdersComponent implements OnInit {
   // @Input() childMessage: string;
   // message: string = "Hola Mundo!";
 
-// @Input() childMessage: string;
+  // @Input() childMessage: string;
   //  message: ProdPlan[];
-    // message: string = "SAles Order Component";
+  // message: string = "SAles Order Component";
 
   constructor(private serverService: ServerService) {
     this.showLoader = true;
   }
   ngOnInit() {
-    this.refreshList();
+    this.refreshActiveList();
+    this.refreshInActiveList();
+    this.onViewProductionPlans();
   }
   ngAfterViewInit() {
-// working 1
+    // working 1
     // this.message = this.child.message;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -68,7 +85,7 @@ export class SalesOrdersComponent implements OnInit {
     this.dataSource2.sort = this.table2;
     this.dataSource2.paginator = this.paginator2;
   }
-  
+
   _setDataSource(indexNumber) {
     setTimeout(() => {
       switch (indexNumber) {
@@ -80,7 +97,9 @@ export class SalesOrdersComponent implements OnInit {
       }
     });
   }
-  
+  showReel() {
+    // console.log(this.salesOrder);
+  }
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource2.filter = filterValue.trim().toLowerCase();
@@ -100,23 +119,15 @@ export class SalesOrdersComponent implements OnInit {
     // this.message=this.salesOrder_selected;
   }
   confirmProduction() {
-    // this.salesOrderUpdated = true;
-    // this.showAll = true;
-    // this.serverService.completedOrders(this.salesOrder_selected)
-    //   .subscribe(
-    //   (success) => {
-    //     console.log("success");
-    //   },
-    //   (error) => console.log(error)
-    //   );
-    // this.serverService.completedOrders(this.salesOrder_modified)
-    //   .subscribe(
-    //   (success) => {
-    //     console.log("success");
-    //   },
-    //   (error) => console.log(error)
-    //   );
-    // this.salesOrderUpdated = false;
+    // console.log(this.salesOrder_selected);
+    this.serverService.createProductionPlan(this.salesOrder_selected)
+      .subscribe(
+      (success) => {
+        console.log("success");
+        this.clearAll();
+      },
+      (error) => console.log(error)
+      );
   }
   clearAll() {
     this.salesOrder_selected = [];
@@ -125,7 +136,8 @@ export class SalesOrdersComponent implements OnInit {
     this.salesOrder_BFGSM = [];
     this.salesOrder_BF = [];
     this.salesOrder_modified = [];
-    this.refreshList();
+    this.refreshActiveList();
+    this.dataSource2.data = this.salesOrder_selected;
     this.showAll = true;
   }
   extractModified() {
@@ -157,6 +169,7 @@ export class SalesOrdersComponent implements OnInit {
 
       }
     }
+    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
   }
   generateItemBFGMSSize() {
     this.salesOrder_BFGSMSize = [];
@@ -177,6 +190,7 @@ export class SalesOrdersComponent implements OnInit {
         }
       }
     }
+    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
   generateItemBF() {
     this.salesOrder_BF = [];
@@ -199,6 +213,8 @@ export class SalesOrdersComponent implements OnInit {
         }
       }
     }
+    // console.log(this.salesOrder_BF);
+    this.dataSource_BF.data = this.salesOrder_BF;
   }
 
   // selectFromAll(key, voucherKey, newQuantity) {
@@ -212,12 +228,12 @@ export class SalesOrdersComponent implements OnInit {
     for (var i = 0; i < this.salesOrder.length; i++) {
       if (this.salesOrder[i].id === id) {
         this.salesOrder.splice(i, 1);
-        this.dataSource.data=this.salesOrder;
+        this.dataSource.data = this.salesOrder;
         break;
       }
     }
     // this.dataSource2.data=this.salesOrder_selected;
-    this.dataSource2.data=this.salesOrder_selected.slice();
+    this.dataSource2.data = this.salesOrder_selected.slice();
     // this.dataSource.data = this.salesOrder.slice();
     this.generateItemBFGSM();
     this.generateItemBFGMSSize();
@@ -231,8 +247,8 @@ export class SalesOrdersComponent implements OnInit {
         break;
       }
     }
-    this.dataSource2.data=this.salesOrder_selected;
-    this.dataSource.data=this.salesOrder;
+    this.dataSource2.data = this.salesOrder_selected;
+    this.dataSource.data = this.salesOrder;
     this.ngAfterViewInit();
     // this.dataSource2.data=this.salesOrder_selected.slice();
     // this.dataSource.data = this.salesOrder.slice();
@@ -240,7 +256,7 @@ export class SalesOrdersComponent implements OnInit {
     this.generateItemBFGMSSize();
     this.generateItemBF();
   }
-  refreshList() {
+  refreshActiveList() {
     this.subscription = this.serverService.getActiveSalesOrders().
       subscribe(list => {
         // this.dataSource.data = list;
@@ -252,6 +268,53 @@ export class SalesOrdersComponent implements OnInit {
       })
     this.showLoader = false;
   }
+  onDeleteSalesOrders() {
+    this.refreshActiveList();
+  }
+  deleteSalesOrder(id) {
+    // this.showLoader=true;
+    this.serverService.removeSalesOrderStatus(id)
+      .subscribe(
+      (success) => {
+        this.refreshActiveList();
+      },
+      (error) => console.log(error)
+      );
+  }
+
+  restoreSalesOrder(id) {
+    this.showLoader = true;
+    this.serverService.restoreSalesOrderStatus(id)
+      .subscribe(
+      (success) => {
+        this.refreshInActiveList();
+      },
+      (error) => console.log(error)
+      );
+  }
+  refreshInActiveList() {
+    this.salesOrderRestore = [];
+    // this.showLoader = true;
+    this.subscription = this.serverService.getInActiveSalesOrders().
+      subscribe(list => {
+        this.salesOrderRestore = list;
+        // console.log(this.salesOrderRestore);
+        this.showLoader = false;
+        this.dataSource_restore.data = list;
+      })
+      // this.showLoader = false;
+    }
+    
+    onViewProductionPlans() {
+      this.subscription = this.serverService.getSalesOrdersPlanned().
+      subscribe(list => {
+        this.salesOrdersPlanned = list;
+        this.dataSource_prodplans.data = this.salesOrdersPlanned;
+        // console.log(this.salesOrdersPlanned);
+        // this.showLoader = false;
+      })
+  }
+  
   convertReel(weight, size) {
     return ((weight * 1000) / (size * 10)).toFixed(3);
   }
@@ -304,7 +367,7 @@ export class SalesOrdersComponent implements OnInit {
 //   }
 
 //   ngOnInit() {
-//     this.refreshList();
+//     this.refreshActiveList();
 //   }
 //   displayINR(amount: number) {
 //     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
@@ -342,7 +405,7 @@ export class SalesOrdersComponent implements OnInit {
 //     this.salesOrder_BFGSM = [];
 //     this.salesOrder_BF = [];
 //     this.salesOrder_modified = [];
-//     this.refreshList();
+//     this.refreshActiveList();
 //     this.showAll = true;
 //   }
 //   extractModified() {
@@ -446,7 +509,7 @@ export class SalesOrdersComponent implements OnInit {
 //     this.generateItemBFGMSSize();
 //     this.generateItemBF();
 //   }
-//   refreshList() {
+//   refreshActiveList() {
 //     this.subscription = this.serverService.getSalesOrder().
 //       subscribe(list => {
 //         this.salesOrder = list;

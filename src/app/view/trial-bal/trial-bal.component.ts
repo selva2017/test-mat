@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -11,16 +11,16 @@ import { TrialBal } from '../../shared/trialbal';
   styleUrls: ['./trial-bal.component.css']
 })
 export class TrialBalComponent implements OnInit {
-  displayedColumns = ['reportId','createdTime', 'reportKey', 'reportValue1','reportValue2','tallySummaryIid'];
+  displayedColumns = ['reportId', 'createdTime', 'reportKey', 'reportValue1', 'reportValue2', 'tallySummaryIid'];
   dataSource = new MatTableDataSource<TrialBal>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  products:TrialBal[];
+  products: TrialBal[];
   subscription: Subscription;
-  items:TrialBal[] = [];
+  items: TrialBal[] = [];
   showLoader: boolean;
 
-  constructor(private productService: ServerService) {     
+  constructor(private productService: ServerService) {
     this.showLoader = true;
   }
 
@@ -42,9 +42,14 @@ export class TrialBalComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-}    
-doFilter(filterValue: string) {
-this.dataSource.filter = filterValue.trim().toLowerCase();
-}
+  }
+  doFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  _setDataSource(indexNumber) {
+    setTimeout(() => {
+      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+    });
+  }
 
 }
