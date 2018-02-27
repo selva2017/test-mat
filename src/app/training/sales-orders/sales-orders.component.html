@@ -347,7 +347,7 @@
           </div>
         </mat-tab>
         <mat-tab label="Production Plans">
-          <div>
+          <div *ngIf="!prodution_plan_details_selected">
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
@@ -368,14 +368,14 @@
               <ng-container matColumnDef="details">
                 <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                  <button mat-raised-button color="primary">Production Report</button>
+                  <button mat-raised-button color="primary" (click)="onViewProductionReportModel(row.salesOrderPlanneds,row.salesOrdersBf,row.salesOrdersBfGsm,row.salesOrdersBfGsmSize)">Production Report</button>
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="reports">
                 <mat-header-cell *matHeaderCellDef>Reports</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                  <button mat-raised-button color="accent">Dispatch Report</button>
+                  <button mat-raised-button color="accent" (click)="onViewDispatchModel(row.batchNumber,row.createdDate)">Dispatch Report</button>
                 </mat-cell>
               </ng-container>
 
@@ -386,9 +386,86 @@
             <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
             </mat-paginator>
           </div>
+
+          <div *ngIf="prodution_plan_details_selected">
+            <p>Production plan Details</p>
+            <!-- <div *ngIf="showAll"> -->
+            <div fxLayoutAlign="center center">
+              <mat-form-field fxFlex="40%">
+                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+              </mat-form-field>
+            </div>
+            <mat-table #table [dataSource]="dataSource_prodplans" matSort>
+
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="orderDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.orderDate }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="orderNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="company">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="bf">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>BF</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="gsm">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>GSM</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.gsm }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="size">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Size</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="weight">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="reel">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <input type="text" [ngModel]="element.reel" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reel=$event" (change)="showReel()"
+                  />
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="reelInStock">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Reel In Stock</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.reelInStock }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button mat-raised-button color="warn" (click)="updatePlannedSalesOrder(row.salesOrderPlannedId,row.reel)">Update</button>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns_prod_plan_details"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns_prod_plan_details;"></mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+            </mat-paginator>
+          </div>
         </mat-tab>
         <mat-tab label="Modify Production Plans">
-          <div>
+          <div *ngIf="modifyProductionPlan">
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
@@ -409,7 +486,7 @@
               <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                  <button mat-raised-button color="accent">Add/Delete Plans</button>
+                  <button mat-raised-button color="accent" (click)="onModifyPlannedReports(row.salesOrderPlanneds,row.salesOrdersBf,row.salesOrdersBfGsm,row.salesOrdersBfGsmSize,row.createdDate,row.batchNumber)">Add/Delete Plans</button>
                 </mat-cell>
               </ng-container>
 
@@ -420,6 +497,176 @@
             <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
             </mat-paginator>
           </div>
+          <div *ngIf="!modifyProductionPlan">
+              <!-- <div *ngIf="showAll"> -->
+              <!-- <div fxLayoutAlign="center center">
+                <mat-form-field fxFlex="40%">
+                  <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                </mat-form-field>
+              </div> -->
+              <p>Selected Production Plan Details</p>
+              <p>{{dispatchHeader}}</p>
+              <mat-table #table2="matSort" [dataSource]="dataSource_prodplans" matSort>
+
+                  <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="orderDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.orderDate }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="orderNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="company">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="bf">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>BF</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="gsm">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>GSM</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.gsm }}</mat-cell>
+                  </ng-container>
+    
+    
+                  <ng-container matColumnDef="size">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Size</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
+                  </ng-container>
+    
+                  <!-- <ng-container matColumnDef="voucherKey">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Key</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.voucherKey }}</mat-cell>
+                  </ng-container> -->
+    
+                  <ng-container matColumnDef="weight">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="reel">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
+                    <!-- <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell> -->
+                    <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="reelInStock">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Reel In Stock</mat-header-cell>
+                    <!-- <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell> -->
+                    <mat-cell *matCellDef="let element">
+                      <input type="text" [ngModel]="element.reelInStock" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reelInStock=$event"
+                        (change)="showReel()" />
+                    </mat-cell>
+    
+                  </ng-container>
+    
+                  <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef>Action
+                      <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
+                      <!-- </mat-checkbox> -->
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <button mat-raised-button color="warn" (click)="selectFromSelected(row,row.id)">Remove</button>
+                      <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
+                      <!-- </mat-checkbox> -->
+                    </mat-cell>
+                  </ng-container>
+    
+                  <mat-header-row *matHeaderRowDef="displayedColumns_selected"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns_selected;"></mat-row>
+                </mat-table>
+               <p>Available Sales Order Items List</p> 
+              <mat-table #table [dataSource]="dataSource" matSort>
+                  <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="orderDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.orderDate }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="orderNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="company">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="bf">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>BF</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="gsm">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>GSM</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.gsm }}</mat-cell>
+                  </ng-container>
+    
+    
+                  <ng-container matColumnDef="size">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Size</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="reel">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
+                    <!-- <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell> -->
+                    <!-- <mat-cell fxFlex="70px" *matCellDef="let element"> -->
+                    <mat-cell *matCellDef="let element">
+                      <input type="text" [ngModel]="element.reel" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reel=$event" (change)="showReel()"
+                      />
+                    </mat-cell>
+    
+                  </ng-container>
+    
+    
+                  <!-- <ng-container matColumnDef="voucherKey">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>VoucherKey</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.voucherKey }}</mat-cell>
+                  </ng-container> -->
+    
+                  <ng-container matColumnDef="weight">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <input type="text" [ngModel]="element.weight" pattern="[0-9]" maxlength="3" (ngModelChange)="element.weight=$event" (change)="showReel()"
+                      />
+                    </mat-cell>
+                    <!-- <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell> -->
+                  </ng-container>
+                  <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef>Select
+                      <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
+                      <!-- </mat-checkbox> -->
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <button mat-raised-button color="primary" (click)="selectFromAll(row,row.id)">Select</button>
+                      <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
+                      <!-- </mat-checkbox> -->
+                    </mat-cell>
+                  </ng-container>
+    
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+  
+              <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+              </mat-paginator>
+            </div>
         </mat-tab>
       </mat-tab-group>
       <!-- <app-selected-orders [salesOrderChild]="childMessage"></app-selected-orders> -->
@@ -663,8 +910,29 @@
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns_bfgsmsize;"></mat-row>
+            <ng-container matColumnDef="reel">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="reelInStock">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Prod Reel</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.reelInStock}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize_prod_plan"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns_bfgsmsize_prod_plan;"></mat-row>
+
+            <!-- <ng-template *ngIf="!showReelInStock_prod_plan">
+              <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns_bfgsmsize;"></mat-row>
+            </ng-template>
+
+            <ng-template *ngIf="showReelInStock_prod_plan">
+              <mat-header-row *matHeaderRowDef="displayedColumns_prod_plan_details"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns_prod_plan_details;"></mat-row>
+            </ng-template> -->
+
           </mat-table>
         </div>
       </div>
