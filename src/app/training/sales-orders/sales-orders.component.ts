@@ -15,16 +15,23 @@ import { DispatchReport } from '../../shared/dispatch-report';
 })
 export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
-  displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'select'];
-  displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
-  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
+  displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'reel', 'select'];
+  // displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'select'];
+  displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'reel', 'reelInStock', 'select'];
+  // displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
+  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'select'];
+  // displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
   displayedColumns_bf = ['bf', 'weight'];
-  displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
-  displayedColumns_bfgsmsize = ['bf', 'gsm', 'size', 'weight', 'reel'];
-  displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
+  displayedColumns_bfgsm = ['bf', 'weight'];
+  // displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
+  displayedColumns_bfgsmsize = ['bf', 'weight', 'reel'];
+  // displayedColumns_bfgsmsize = ['bf', 'gsm', 'size', 'weight', 'reel'];
+  displayedColumns_bfgsmsize_prod_plan = ['bf', 'weight', 'reel', 'reelInStock'];
+  // displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
   displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports'];
   displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
-  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'reel', 'reelInStock', 'action'];
+  // displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
   dataSource = new MatTableDataSource<ProdPlan>();
@@ -58,13 +65,19 @@ export class SalesOrdersComponent implements OnInit {
   salesOrderRestore: ProdPlan[] = [];
   salesOrdersPlanned: SalesOrdersPlanned[] = [];
   salesOrdersPlanned_row1: SalesOrdersPlanned[] = [];
-  prodution_plan_details_selected: boolean = false;
+  prodution_plan_details_selected_main: boolean = true;
+  prodution_plan_details_selected_details: boolean = false;
+  prodution_plan_details_selected_right: boolean = false;
   showReelInStock_prod_plan: boolean = false;
   dispatchSalesOrders: DispatchReport[] = [];
   dispatchHeader: string;
   batch_number = "";
-  modifyProductionPlan: boolean = true;
+  modifyProductionPlan_main: boolean = true;
   showDispatchReport: boolean = false;
+  showAllSalesOrders: boolean = true;
+  showSelectedOrders: boolean = false;
+  modifyProductionPlan_right: boolean = false;
+  modifyProductionPlan_details: boolean = false;
   // Working 1
   // parentMessage = "message from parent";
   // @ViewChild(SelectedOrdersComponent) child;
@@ -102,15 +115,34 @@ export class SalesOrdersComponent implements OnInit {
       switch (indexNumber) {
         case 0:
           !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+          this.showAllSalesOrders = true;
           break;
         case 1:
           !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
+          this.showAllSalesOrders = false;
+          this.showSelectedOrders = true;
+          break;
+        case 2:
+          this.showAllSalesOrders = false;
+          this.showSelectedOrders = false;
+          break;
+        case 3:
+          this.showAllSalesOrders = false;
+          this.showSelectedOrders = false;
         case 4:
           this.dataSource_prodplans.data = this.salesOrdersPlanned;
-          this.prodution_plan_details_selected = false;
           this.showReelInStock_prod_plan = true;
-        case 5:
-          this.modifyProductionPlan = true;
+          this.prodution_plan_details_selected_main = true;
+          this.prodution_plan_details_selected_details = false;
+          this.prodution_plan_details_selected_right = false;
+          this.modifyProductionPlan_right = false;
+          this.modifyProductionPlan_main = false;
+          case 5:
+          this.dataSource_prodplans.data = this.salesOrdersPlanned;
+          this.prodution_plan_details_selected_right = false;
+          this.modifyProductionPlan_main = true;
+          this.modifyProductionPlan_details = false;
+          this.modifyProductionPlan_right = false;
       }
     });
   }
@@ -126,7 +158,11 @@ export class SalesOrdersComponent implements OnInit {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }
   onViewProductionReportModel(record1, record2, record3, record4) {
-    this.prodution_plan_details_selected = true;
+    this.prodution_plan_details_selected_main = false;
+    this.prodution_plan_details_selected_details = true;
+    this.prodution_plan_details_selected_right = true;
+    this.showAllSalesOrders=false;
+    this.showSelectedOrders=false;
     this.showReelInStock_prod_plan = true;
     // console.log(record1);
     // console.log(record2);
@@ -151,6 +187,7 @@ export class SalesOrdersComponent implements OnInit {
   }
   onViewDispatchModel(batch_number, createdDate) {
     this.showDispatchReport = true
+    this.prodution_plan_details_selected_main = false
     this.batch_number = batch_number;
     this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
     // this.showConsolidatedReports = true;
@@ -165,10 +202,13 @@ export class SalesOrdersComponent implements OnInit {
   }
 
   onModifyPlannedReports(record1, record2, record3, record4, createdDate, batch_number) {
+    this.modifyProductionPlan_main = false;
+    this.modifyProductionPlan_details = true;
+    this.modifyProductionPlan_right = true;
     this.batch_number = batch_number;
     this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
 
-    this.modifyProductionPlan = false;
+    // this.modifyProductionPlan = false;
     this.salesOrdersPlanned_row1 = [];
     this.salesOrdersPlanned_row1 = record1;
     this.dataSource_prodplans.data = [];
@@ -225,6 +265,53 @@ export class SalesOrdersComponent implements OnInit {
       (error) => console.log(error)
       );
   }
+  onAddItemToExistingProductionPlan(key, voucherKey, newWeight) {
+    console.log(key, voucherKey, newWeight);
+    console.log(this.batch_number);
+    // this.showConsolidatedReports = false;
+    key["altered"] = 0;
+    if (newWeight > 0) {
+      var wt = Number(key["weight"]) - Number(newWeight);
+      key.weight = Number(newWeight);
+      key["altered"] = 1;
+      key["newWeight"] = wt;
+      key['reel'] = this.reel(newWeight, key['size']);
+      this.salesOrder_modified.push(key);
+    }
+    this.salesOrder_selected.push(key);
+    for (var i = 0; i < this.salesOrder.length; i++) {
+      if (this.salesOrder[i].id === voucherKey) {
+        this.salesOrder.splice(i, 1);
+        break;
+      }
+    }
+    // this.generateItemBFGSM();
+    // this.generateItemBFGMSSize();
+    // this.generateItemBF();
+
+    this.serverService.addItemToExistingProductionPlan(this.salesOrder_selected, this.batch_number)
+      .subscribe(
+      (success) => {
+        console.log("success");
+        this.refreshActiveList();
+        this.onEditProductionPlans();
+      },
+      (error) => console.log(error)
+      );
+    // this.clearAll();
+  }
+  onEditProductionPlans() {
+    this.salesOrdersPlanned = [];
+
+    this.subscription = this.serverService.getSalesOrdersPlanned().
+      subscribe(list => {
+        this.salesOrdersPlanned = list;
+        this.dataSource_prodplans.data = this.salesOrdersPlanned;
+        // console.log(this.salesOrdersPlanned);
+        // this.showLoader = false;
+      })
+  }
+
   clearAll() {
     this.salesOrder_selected = [];
     this.salesOrder_selected1 = [];
