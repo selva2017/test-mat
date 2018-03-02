@@ -31,3 +31,13 @@ input.custom {
   /* border: transparent; */
   border: 1px solid blueviolet(207, 230, 164);
 }
+.customWidthReel{
+  flex: 0 0 75px;
+}
+.customWidthClass{
+  flex: 0 0 150px;
+}
+
+.customWidthCell{
+  flex: 0 0 50px;
+}

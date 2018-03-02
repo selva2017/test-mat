@@ -15,12 +15,13 @@ import { DispatchReport } from '../../shared/dispatch-report';
 })
 export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
-  displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'reel', 'select'];
+  displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'select'];
   // displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'select'];
-  displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'reel', 'reelInStock', 'select'];
+  displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'select'];
   // displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
-  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'select'];
+  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel','select'];
   // displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
+  displayedColumns_delete = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight','reel', 'select'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
   // displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
@@ -30,7 +31,7 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
   displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports'];
   displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
-  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'weight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
   // displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
@@ -137,7 +138,7 @@ export class SalesOrdersComponent implements OnInit {
           this.prodution_plan_details_selected_right = false;
           this.modifyProductionPlan_right = false;
           this.modifyProductionPlan_main = false;
-          case 5:
+        case 5:
           this.dataSource_prodplans.data = this.salesOrdersPlanned;
           this.prodution_plan_details_selected_right = false;
           this.modifyProductionPlan_main = true;
@@ -150,8 +151,11 @@ export class SalesOrdersComponent implements OnInit {
     // console.log(this.salesOrder);
   }
   doFilter(filterValue: string) {
+    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource2.filter = filterValue.trim().toLowerCase();
+    this.dataSource_restore.filter = filterValue.trim().toLowerCase();
+    this.dataSource_prodplans.filter = filterValue.trim().toLowerCase();
   }
 
   displayINR(amount: number) {
@@ -161,8 +165,8 @@ export class SalesOrdersComponent implements OnInit {
     this.prodution_plan_details_selected_main = false;
     this.prodution_plan_details_selected_details = true;
     this.prodution_plan_details_selected_right = true;
-    this.showAllSalesOrders=false;
-    this.showSelectedOrders=false;
+    this.showAllSalesOrders = false;
+    this.showSelectedOrders = false;
     this.showReelInStock_prod_plan = true;
     // console.log(record1);
     // console.log(record2);
