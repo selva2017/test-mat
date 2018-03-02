@@ -7,7 +7,7 @@
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
             <mat-table #table [dataSource]="dataSource" matSort style="background:rgb(209, 235, 229)">
@@ -103,7 +103,7 @@
             <!-- <div *ngIf="!showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
               <button mat-raised-button color="accent" (click)="confirmProduction()">Confirm</button>
             </div>
@@ -197,7 +197,7 @@
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
             <mat-table #table [dataSource]="dataSource" matSort>
@@ -280,7 +280,7 @@
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
             <mat-table #table_res [dataSource]="dataSource_restore" matSort>
@@ -367,7 +367,7 @@
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
             <mat-table #table_prod_plans [dataSource]="dataSource_prodplans" matSort>
@@ -408,7 +408,7 @@
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
             <mat-table #table_prod_plans [dataSource]="dataSource_prodplans" matSort>
@@ -488,7 +488,7 @@
             <!-- <div *ngIf="showAll"> -->
             <div fxLayoutAlign="center center">
               <mat-form-field fxFlex="40%">
-                <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
             <mat-table #table_prod_plans [dataSource]="dataSource_prodplans" matSort>
@@ -520,7 +520,7 @@
             <!-- <div *ngIf="showAll"> -->
             <!-- <div fxLayoutAlign="center center">
                   <mat-form-field fxFlex="40%">
-                    <input matInput type="text" (keyup)="doFilter($event.target.ngModel)" placeholder="Filter">
+                    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
                   </mat-form-field>
                 </div> -->
             <p>Selected Production Plan Details</p>
@@ -603,7 +603,7 @@
                   <!-- </mat-checkbox> -->
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                  <button mat-raised-button color="warn" (click)="selectFromSelected(row,row.id)">Remove</button>
+                  <button mat-raised-button color="warn" (click)="onDeleteProductionPlanItem(row)">Remove</button>
                   <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
                   <!-- </mat-checkbox> -->
                 </mat-cell>
@@ -673,7 +673,7 @@
               <ng-container matColumnDef="newWeight">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Weight Plan</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <input id="text" [ngModel]="element.newWeight" (ngModelChange)="element.newWeight=$event" />
+                  <input id="text" #newWeight [ngModel]="element.newWeight" (ngModelChange)="element.newWeight=$event" />
                   <!-- <input type="text" [ngModel]="element.newWeight" pattern="[0-9]" maxlength="3" (ngModelChange)="element.newWeight=?$event" -->
                   <!-- (change)="showReel()" /> -->
                 </mat-cell>
@@ -718,14 +718,14 @@
                   <!-- </mat-checkbox> -->
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                  <button mat-raised-button color="primary" (click)="onAddItemToExistingProductionPlan(row,row['id'],newWeight.value)">Add</button>
+                  <button mat-raised-button color="primary" (click)="onAddItemToExistingProductionPlan(row,row['id'])">Added</button>
                   <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
                   <!-- </mat-checkbox> -->
                 </mat-cell>
               </ng-container>
 
-              <mat-header-row *matHeaderRowDef="displayedColumns_prod_plan_details"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns_prod_plan_details;"></mat-row>
+              <mat-header-row *matHeaderRowDef="displayedColumns_avail_sales_order"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns_avail_sales_order;"></mat-row>
             </mat-table>
 
             <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">

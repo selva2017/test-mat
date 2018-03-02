@@ -33,6 +33,7 @@ import { SalesComponent } from './view/sales/sales.component';
 import { StocksComponent } from './view/stocks/stocks.component';
 import { ReceiptsComponent } from './view/receipts/receipts.component';
 import { ViewComponent } from './view/view.component';
+import { DispatchDialogComponent } from './training/sales-orders/dispatch-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ViewComponent } from './view/view.component';
     TrialBalComponent,
     DaybookComponent,
     DaybookDialogComponent,
+    DispatchDialogComponent,
     SalesComponent,
     StocksComponent,
     ReceiptsComponent,
@@ -71,6 +73,6 @@ import { ViewComponent } from './view/view.component';
   ],
   providers: [InventoryService,AuthService, TrainingService,ServerService],
   bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent,DaybookDialogComponent]
+  entryComponents: [StopTrainingComponent,DaybookDialogComponent,DispatchDialogComponent]
 })
 export class AppModule { }

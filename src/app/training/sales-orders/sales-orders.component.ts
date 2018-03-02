@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator,MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
@@ -7,6 +7,7 @@ import { ProdPlan } from './../../shared/prod_plan';
 import { SelectedOrdersComponent } from './../selected-orders/selected-orders.component';
 import { SalesOrdersPlanned } from '../../shared/sales-order-planned';
 import { DispatchReport } from '../../shared/dispatch-report';
+import { DispatchDialogComponent } from './dispatch-dialog.component';
 
 @Component({
   selector: 'app-sales-orders',
@@ -31,7 +32,8 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
   displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports'];
   displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
-  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_avail_sales_order = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
   // displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
@@ -71,6 +73,7 @@ export class SalesOrdersComponent implements OnInit {
   prodution_plan_details_selected_right: boolean = false;
   showReelInStock_prod_plan: boolean = false;
   dispatchSalesOrders: DispatchReport[] = [];
+  dispatchSalesOrders_dialog: DispatchReport[] = [];
   dispatchHeader: string;
   batch_number = "";
   modifyProductionPlan_main: boolean = true;
@@ -93,7 +96,7 @@ export class SalesOrdersComponent implements OnInit {
   //  message: ProdPlan[];
   // message: string = "SAles Order Component";
 
-  constructor(private serverService: ServerService) {
+  constructor(private serverService: ServerService,private dialog: MatDialog) {
     this.showLoader = true;
   }
   ngOnInit() {
@@ -148,7 +151,7 @@ export class SalesOrdersComponent implements OnInit {
     });
   }
   showReel() {
-    // console.log(this.salesOrder);
+    console.log("this.salesOrder");
   }
   doFilter(filterValue: string) {
     console.log(filterValue);
@@ -190,6 +193,7 @@ export class SalesOrdersComponent implements OnInit {
     this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
   onViewDispatchModel(batch_number, createdDate) {
+    console.log(batch_number);
     this.showDispatchReport = true
     this.prodution_plan_details_selected_main = false
     this.batch_number = batch_number;
@@ -199,7 +203,8 @@ export class SalesOrdersComponent implements OnInit {
       subscribe(list => {
         this.dispatchSalesOrders = list;
         this.dataSource_dispatch.data = this.dispatchSalesOrders;
-        // console.log(list);
+        // console.log(JSON.stringify(list));
+        this.onClickView(list);
         // console.log(this.dispatchSalesOrders);
         // this.showLoader = false;
       })
@@ -234,8 +239,26 @@ export class SalesOrdersComponent implements OnInit {
     this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
 
-  onClickView(record) {
-    this.salesOrder_row = record;
+  onClickView(record: DispatchReport[]) {
+    // this.salesOrder_row = record;
+    // this.dispatchSalesOrders_dialog = record;
+    const dialogRef = this.dialog.open(DispatchDialogComponent, {
+      // height: '90%',
+      // width: '60%',
+      height: "640px",
+      width: '"640px"',
+      data: {
+        progress: record
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("true");
+      } else {
+        console.log("false");
+      }
+    });
+
   }
   showSelected() {
     this.showAll = !this.showAll;
@@ -269,8 +292,10 @@ export class SalesOrdersComponent implements OnInit {
       (error) => console.log(error)
       );
   }
-  onAddItemToExistingProductionPlan(key, voucherKey, newWeight) {
-    console.log(key, voucherKey, newWeight);
+  onAddItemToExistingProductionPlan(key, voucherKey) {
+    console.log("inside");
+    var newWeight=key.newWeight;
+    console.log(key, voucherKey, key.newWeight);
     console.log(this.batch_number);
     // this.showConsolidatedReports = false;
     key["altered"] = 0;
@@ -315,7 +340,18 @@ export class SalesOrdersComponent implements OnInit {
         // this.showLoader = false;
       })
   }
+  onDeleteProductionPlanItem(row) {
 
+    this.serverService.deleteProductionPlanItem(row.id, row.salesOrderPlannedId, row.altered, row.weight)
+      .subscribe(
+      (success) => {
+        this.refreshActiveList();
+        this.onEditProductionPlans();
+      },
+      (error) => console.log(error)
+      );
+
+  }
   clearAll() {
     this.salesOrder_selected = [];
     this.salesOrder_selected1 = [];
@@ -449,7 +485,7 @@ export class SalesOrdersComponent implements OnInit {
         // this.dataSource.data = list;
         this.salesOrder = list;
         this.showLoader = false;
-        this.dataSource.data = list;
+        this.dataSource.data = this.salesOrder;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })
