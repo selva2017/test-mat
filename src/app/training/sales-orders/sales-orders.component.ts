@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator,MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
@@ -20,9 +20,9 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'select'];
   displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'select'];
   // displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
-  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel','select'];
+  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   // displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
-  displayedColumns_delete = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight','reel', 'select'];
+  displayedColumns_delete = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
   // displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
@@ -42,6 +42,8 @@ export class SalesOrdersComponent implements OnInit {
   dataSource_BF = new MatTableDataSource<ProdPlan>();
   dataSource_BFGSM = new MatTableDataSource<ProdPlan>();
   dataSource_BFGSMSize = new MatTableDataSource<ProdPlan>();
+  dataSource_delete = new MatTableDataSource<ProdPlan>();
+  dataSource_avail_so_pp = new MatTableDataSource<ProdPlan>();
   dataSource_restore = new MatTableDataSource<ProdPlan>();
   dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
   dataSource_dispatch = new MatTableDataSource<DispatchReport>();
@@ -52,6 +54,9 @@ export class SalesOrdersComponent implements OnInit {
   @ViewChild('table2') table2: MatSort;
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
+  @ViewChild('paginator3') paginator3: MatPaginator;
+  @ViewChild('paginator4') paginator4: MatPaginator;
+  @ViewChild('paginator5') paginator5: MatPaginator;
   // childMessage="Test";
   subscription: Subscription;
   salesOrder: ProdPlan[];
@@ -96,7 +101,7 @@ export class SalesOrdersComponent implements OnInit {
   //  message: ProdPlan[];
   // message: string = "SAles Order Component";
 
-  constructor(private serverService: ServerService,private dialog: MatDialog) {
+  constructor(private serverService: ServerService, private dialog: MatDialog) {
     this.showLoader = true;
   }
   ngOnInit() {
@@ -112,6 +117,9 @@ export class SalesOrdersComponent implements OnInit {
     // this.dataSource2.sort = this.sort;
     this.dataSource2.sort = this.table2;
     this.dataSource2.paginator = this.paginator2;
+    this.dataSource_delete.paginator = this.paginator3;
+    this.dataSource_restore.paginator = this.paginator4;
+    this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
 
   _setDataSource(indexNumber) {
@@ -120,17 +128,23 @@ export class SalesOrdersComponent implements OnInit {
         case 0:
           !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
           this.showAllSalesOrders = true;
+          this.modifyProductionPlan_right = false;
+          this.prodution_plan_details_selected_right = false;
           break;
         case 1:
           !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
           this.showAllSalesOrders = false;
           this.showSelectedOrders = true;
+          this.modifyProductionPlan_right = false;
+          this.prodution_plan_details_selected_right = false;
           break;
         case 2:
+          !this.dataSource_delete.paginator ? this.dataSource_delete.paginator = this.paginator3 : null;
           this.showAllSalesOrders = false;
           this.showSelectedOrders = false;
           break;
         case 3:
+          !this.dataSource_restore.paginator ? this.dataSource_restore.paginator = this.paginator4 : null;
           this.showAllSalesOrders = false;
           this.showSelectedOrders = false;
         case 4:
@@ -141,12 +155,17 @@ export class SalesOrdersComponent implements OnInit {
           this.prodution_plan_details_selected_right = false;
           this.modifyProductionPlan_right = false;
           this.modifyProductionPlan_main = false;
+          this.showSelectedOrders = false;
+          this.showAllSalesOrders = false;
         case 5:
+          !this.dataSource_avail_so_pp.paginator ? this.dataSource_avail_so_pp.paginator = this.paginator5 : null;
           this.dataSource_prodplans.data = this.salesOrdersPlanned;
           this.prodution_plan_details_selected_right = false;
           this.modifyProductionPlan_main = true;
           this.modifyProductionPlan_details = false;
           this.modifyProductionPlan_right = false;
+          this.showSelectedOrders = false;
+          this.showAllSalesOrders = false;
       }
     });
   }
@@ -248,7 +267,7 @@ export class SalesOrdersComponent implements OnInit {
       height: "640px",
       width: '"640px"',
       data: {
-        progress: record
+        progress: record, header: this.dispatchHeader
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -294,7 +313,7 @@ export class SalesOrdersComponent implements OnInit {
   }
   onAddItemToExistingProductionPlan(key, voucherKey) {
     console.log("inside");
-    var newWeight=key.newWeight;
+    var newWeight = key.newWeight;
     console.log(key, voucherKey, key.newWeight);
     console.log(this.batch_number);
     // this.showConsolidatedReports = false;
@@ -340,8 +359,11 @@ export class SalesOrdersComponent implements OnInit {
         // this.showLoader = false;
       })
   }
-  onDeleteProductionPlanItem(row) {
 
+  onDeleteProductionPlanItem(row) {
+    this.modifyProductionPlan_main = true;
+    this.modifyProductionPlan_details = false;
+    this.modifyProductionPlan_right = false;
     this.serverService.deleteProductionPlanItem(row.id, row.salesOrderPlannedId, row.altered, row.weight)
       .subscribe(
       (success) => {
@@ -480,14 +502,18 @@ export class SalesOrdersComponent implements OnInit {
     this.generateItemBF();
   }
   refreshActiveList() {
+
+    this.salesOrder = [];
     this.subscription = this.serverService.getActiveSalesOrders().
       subscribe(list => {
         // this.dataSource.data = list;
         this.salesOrder = list;
         this.showLoader = false;
-        this.dataSource.data = this.salesOrder;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
+        this.dataSource.data = this.salesOrder;
+        this.dataSource_delete.data = this.salesOrder;
+        this.dataSource_avail_so_pp.data = this.salesOrder;
       })
     this.showLoader = false;
   }
@@ -500,6 +526,7 @@ export class SalesOrdersComponent implements OnInit {
       .subscribe(
       (success) => {
         this.refreshActiveList();
+        this.dataSource_delete.data = this.salesOrder;
       },
       (error) => console.log(error)
       );
@@ -514,6 +541,7 @@ export class SalesOrdersComponent implements OnInit {
       },
       (error) => console.log(error)
       );
+
   }
   refreshInActiveList() {
     this.salesOrderRestore = [];
@@ -523,12 +551,13 @@ export class SalesOrdersComponent implements OnInit {
         this.salesOrderRestore = list;
         // console.log(this.salesOrderRestore);
         this.showLoader = false;
-        this.dataSource_restore.data = list;
+        this.dataSource_restore.data = this.salesOrderRestore;
       })
     // this.showLoader = false;
   }
 
   onViewProductionPlans() {
+    this.salesOrdersPlanned = [];
     this.subscription = this.serverService.getSalesOrdersPlanned().
       subscribe(list => {
         this.salesOrdersPlanned = list;
@@ -557,6 +586,7 @@ export class SalesOrdersComponent implements OnInit {
     }
 
   }
+
 }
 
 

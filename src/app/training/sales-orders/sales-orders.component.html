@@ -10,7 +10,7 @@
                 <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
-            <mat-table #table [dataSource]="dataSource" matSort style="background:rgb(209, 235, 229)">
+            <mat-table #table [dataSource]="dataSource" matSort>
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -200,7 +200,7 @@
                 <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
-            <mat-table #table [dataSource]="dataSource" matSort>
+            <mat-table #table3 [dataSource]="dataSource_delete" matSort>
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -271,7 +271,7 @@
               <mat-row *matRowDef="let row; columns: displayedColumns_delete;"></mat-row>
             </mat-table>
 
-            <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+            <mat-paginator #paginator3 [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
             </mat-paginator>
           </div>
         </mat-tab>
@@ -283,7 +283,7 @@
                 <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
               </mat-form-field>
             </div>
-            <mat-table #table_res [dataSource]="dataSource_restore" matSort>
+            <mat-table #table4 [dataSource]="dataSource_restore" matSort>
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -358,7 +358,7 @@
               <mat-row *matRowDef="let row; columns: displayedColumns_restore;"></mat-row>
             </mat-table>
 
-            <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+            <mat-paginator #paginator4 [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
             </mat-paginator>
           </div>
         </mat-tab>
@@ -613,7 +613,7 @@
               <mat-row *matRowDef="let row; columns: displayedColumns_selected;"></mat-row>
             </mat-table>
             <p>Available Sales Order Items List</p>
-            <mat-table #table11 [dataSource]="dataSource" matSort>
+            <mat-table #table11 [dataSource]="dataSource_avail_so_pp" matSort>
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -728,14 +728,14 @@
               <mat-row *matRowDef="let row; columns: displayedColumns_avail_sales_order;"></mat-row>
             </mat-table>
 
-            <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+            <mat-paginator #paginator5 [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
             </mat-paginator>
           </div>
         </mat-tab>
       </mat-tab-group>
     </div>
 
-    <div fxFlex="25" class="sec3" fxFlex.xs="25">
+    <div fxFlex="23" class="sec3" fxFlex.xs="23">
       <div *ngIf="showAllSalesOrders || showSelectedOrders">
         <div>
           <!-- <h5>Items Selected for Planning</h5> -->
@@ -825,7 +825,7 @@
         </div>
       </div>
       <!-- </div> -->
-      <!-- <div fxFlex="25" class="sec3" fxFlex.xs="25"> -->
+      <!-- <div fxFlex="23" class="sec3" fxFlex.xs="23"> -->
       <div *ngIf="prodution_plan_details_selected_right">
         <div>
           <!-- <h5>Items Selected for Planning</h5> -->
@@ -916,7 +916,7 @@
       </div>
       <!-- </div> -->
 
-      <!-- <div fxFlex="25" class="sec3" fxFlex.xs="25"> -->
+      <!-- <div fxFlex="23" class="sec3" fxFlex.xs="23"> -->
       <div *ngIf="modifyProductionPlan_right">
         <div>
           <!-- <h5>Items Selected for Planning</h5> -->
