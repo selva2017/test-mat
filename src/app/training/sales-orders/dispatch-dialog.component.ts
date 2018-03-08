@@ -7,7 +7,7 @@ import { DispatchReport } from '../../shared/dispatch-report';
 @Component({
   selector: 'dispatch-dialog',
   template: `
-  <div class="main-content">
+  <div class="main-content" id="print_dispatch_report">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -67,7 +67,7 @@ import { DispatchReport } from '../../shared/dispatch-report';
           </div>
           <br>
           <div align="center">
-            <button mat-raised-button color="primary" (click)="onClickPrint()">Print</button>
+            <button mat-raised-button color="primary" (click)="onClickPrint('print_dispatch_report')">Print</button>
             <button mat-raised-button color="warn" [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
           </div>
         </div>
@@ -84,7 +84,29 @@ export class DispatchDialogComponent {
   sumReels(reel, reelInstock) {
     return (Number(reel) + Number(reelInstock));
   }
-  onClickPrint() {
-    window.print();
+  onClickPrint(printSectionId: string) {
+    // window.print();
+    // let popupWinindow;
+    // let innerContents = document.getElementById(printSectionId).innerHTML;
+    // popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+    // popupWinindow.document.open();
+    // popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+    // popupWinindow.document.close();
+    let printContents, popupWin;
+    printContents = document.getElementById('print_dispatch_report').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
   }
 }

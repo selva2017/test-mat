@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatTabChangeEvent } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
@@ -18,11 +18,11 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
   displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'select'];
   // displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'select'];
-  displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'select'];
+  displayedColumns_selected = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'select'];
   // displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
-  displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
+  displayedColumns_restore = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   // displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
-  displayedColumns_delete = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
+  displayedColumns_delete = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
   // displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
@@ -32,8 +32,8 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
   displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports'];
   displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
-  displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'action'];
-  displayedColumns_avail_sales_order = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_prod_plan_details = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_avail_sales_order = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
   // displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
@@ -76,13 +76,13 @@ export class SalesOrdersComponent implements OnInit {
   prodution_plan_details_selected_main: boolean = true;
   prodution_plan_details_selected_details: boolean = false;
   prodution_plan_details_selected_right: boolean = false;
-  showReelInStock_prod_plan: boolean = false;
+  // showReelInStock_prod_plan: boolean = false;
   dispatchSalesOrders: DispatchReport[] = [];
   dispatchSalesOrders_dialog: DispatchReport[] = [];
   dispatchHeader: string;
   batch_number = "";
   modifyProductionPlan_main: boolean = true;
-  showDispatchReport: boolean = false;
+  // showDispatchReport: boolean = false;
   showAllSalesOrders: boolean = true;
   showSelectedOrders: boolean = false;
   modifyProductionPlan_right: boolean = false;
@@ -110,6 +110,7 @@ export class SalesOrdersComponent implements OnInit {
     this.onViewProductionPlans();
   }
   ngAfterViewInit() {
+    this.showLoader = true;
     // working 1
     // this.message = this.child.message;
     this.dataSource.sort = this.sort;
@@ -121,17 +122,26 @@ export class SalesOrdersComponent implements OnInit {
     this.dataSource_restore.paginator = this.paginator4;
     this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
-
+  onLinkClick(event: MatTabChangeEvent) {
+    console.log('event => ', event);
+    console.log('index => ', event.index);
+    console.log('tab => ', event.tab);
+    if (event.tab.textLabel == "Sales Orders") {
+      console.log("Sales Orders");
+    }
+  }
   _setDataSource(indexNumber) {
     setTimeout(() => {
       switch (indexNumber) {
         case 0:
-          !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-          this.showAllSalesOrders = true;
-          this.modifyProductionPlan_right = false;
-          this.prodution_plan_details_selected_right = false;
-          break;
+        console.log("0");
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        this.showAllSalesOrders = true;
+        this.modifyProductionPlan_right = false;
+        this.prodution_plan_details_selected_right = false;
+        break;
         case 1:
+        console.log("1");
           !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
           this.showAllSalesOrders = false;
           this.showSelectedOrders = true;
@@ -148,8 +158,10 @@ export class SalesOrdersComponent implements OnInit {
           this.showAllSalesOrders = false;
           this.showSelectedOrders = false;
         case 4:
+          this.salesOrdersPlanned = [];
+          this.onEditProductionPlans();
           this.dataSource_prodplans.data = this.salesOrdersPlanned;
-          this.showReelInStock_prod_plan = true;
+          // this.showReelInStock_prod_plan = true;
           this.prodution_plan_details_selected_main = true;
           this.prodution_plan_details_selected_details = false;
           this.prodution_plan_details_selected_right = false;
@@ -158,8 +170,11 @@ export class SalesOrdersComponent implements OnInit {
           this.showSelectedOrders = false;
           this.showAllSalesOrders = false;
         case 5:
-          !this.dataSource_avail_so_pp.paginator ? this.dataSource_avail_so_pp.paginator = this.paginator5 : null;
+          // !this.dataSource_avail_so_pp.paginator ? this.dataSource_avail_so_pp.paginator = this.paginator5 : null;
+          // this.dataSource_prodplans.data = this.salesOrdersPlanned;
+          this.onEditProductionPlans();
           this.dataSource_prodplans.data = this.salesOrdersPlanned;
+          // this.dataSource_avail_so_pp.data = this.salesOrder;
           this.prodution_plan_details_selected_right = false;
           this.modifyProductionPlan_main = true;
           this.modifyProductionPlan_details = false;
@@ -173,7 +188,6 @@ export class SalesOrdersComponent implements OnInit {
     console.log("this.salesOrder");
   }
   doFilter(filterValue: string) {
-    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource2.filter = filterValue.trim().toLowerCase();
     this.dataSource_restore.filter = filterValue.trim().toLowerCase();
@@ -183,13 +197,13 @@ export class SalesOrdersComponent implements OnInit {
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }
-  onViewProductionReportModel(record1, record2, record3, record4) {
+  onViewProductionReport(record1, record2, record3, record4) {
     this.prodution_plan_details_selected_main = false;
     this.prodution_plan_details_selected_details = true;
     this.prodution_plan_details_selected_right = true;
     this.showAllSalesOrders = false;
     this.showSelectedOrders = false;
-    this.showReelInStock_prod_plan = true;
+    // this.showReelInStock_prod_plan = true;
     // console.log(record1);
     // console.log(record2);
     // console.log(record3);
@@ -211,10 +225,12 @@ export class SalesOrdersComponent implements OnInit {
     this.dataSource_BFGSMSize.data = [];
     this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
-  onViewDispatchModel(batch_number, createdDate) {
-    console.log(batch_number);
-    this.showDispatchReport = true
-    this.prodution_plan_details_selected_main = false
+  onViewDispatchReport(batch_number, createdDate) {
+    // console.log(batch_number);
+    // this.showDispatchReport = true
+    // this.prodution_plan_details_selected_main = false;
+    // this.prodution_plan_details_selected_details = true;
+    // this.prodution_plan_details_selected_right = true;
     this.batch_number = batch_number;
     this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
     // this.showConsolidatedReports = true;
@@ -286,7 +302,7 @@ export class SalesOrdersComponent implements OnInit {
     // this.message=this.salesOrder_selected;
   }
   updatePlannedSalesOrder(id, reel) {
-    // console.log(id,reel);
+    // console.log(id, reel);
     this.serverService.updateProductionPlanItemReel(id, reel)
       .subscribe(
       // (res: Daybook) => console.log(res),
@@ -294,12 +310,14 @@ export class SalesOrdersComponent implements OnInit {
         // console.log("success");
         this.onViewProductionPlans();
         // this.refreshActiveList();
+        this.prodution_plan_details_selected_main = true;
+        this.prodution_plan_details_selected_details = false;
+        this.prodution_plan_details_selected_right = false;
       },
       (error) => console.log(error)
       );
 
   }
-
   confirmProduction() {
     // console.log(this.salesOrder_selected);
     this.serverService.createProductionPlan(this.salesOrder_selected)
@@ -312,10 +330,14 @@ export class SalesOrdersComponent implements OnInit {
       );
   }
   onAddItemToExistingProductionPlan(key, voucherKey) {
-    console.log("inside");
+    this.showLoader = true;
+    this.modifyProductionPlan_main = true;
+    this.modifyProductionPlan_details = false;
+    this.modifyProductionPlan_right = false;
+    // console.log("inside");
     var newWeight = key.newWeight;
-    console.log(key, voucherKey, key.newWeight);
-    console.log(this.batch_number);
+    // console.log(key, voucherKey, key.newWeight);
+    // console.log(this.batch_number);
     // this.showConsolidatedReports = false;
     key["altered"] = 0;
     if (newWeight > 0) {
@@ -343,6 +365,7 @@ export class SalesOrdersComponent implements OnInit {
         console.log("success");
         this.refreshActiveList();
         this.onEditProductionPlans();
+        this.showLoader = false;
       },
       (error) => console.log(error)
       );
@@ -361,6 +384,7 @@ export class SalesOrdersComponent implements OnInit {
   }
 
   onDeleteProductionPlanItem(row) {
+    this.showLoader = true;
     this.modifyProductionPlan_main = true;
     this.modifyProductionPlan_details = false;
     this.modifyProductionPlan_right = false;
@@ -369,6 +393,7 @@ export class SalesOrdersComponent implements OnInit {
       (success) => {
         this.refreshActiveList();
         this.onEditProductionPlans();
+        this.showLoader = false;
       },
       (error) => console.log(error)
       );
@@ -383,7 +408,15 @@ export class SalesOrdersComponent implements OnInit {
     this.salesOrder_modified = [];
     this.refreshActiveList();
     this.dataSource2.data = this.salesOrder_selected;
+    this.dataSource_BF.data = this.salesOrder_BF;
+    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
+    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
     this.showAll = true;
+  }
+  clearRightOnly() {
+    this.dataSource_BF.data = this.salesOrder_BF;
+    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
+    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
   extractModified() {
     for (var i = 0; i < this.salesOrder_selected.length; i++) {
@@ -508,36 +541,38 @@ export class SalesOrdersComponent implements OnInit {
       subscribe(list => {
         // this.dataSource.data = list;
         this.salesOrder = list;
-        this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
         this.dataSource.data = this.salesOrder;
         this.dataSource_delete.data = this.salesOrder;
         this.dataSource_avail_so_pp.data = this.salesOrder;
+        this.showLoader = false;
       })
-    this.showLoader = false;
+    // this.showLoader = false;
   }
   onDeleteSalesOrders() {
     this.refreshActiveList();
   }
   deleteSalesOrder(id) {
-    // this.showLoader=true;
+    this.showLoader = true;
     this.serverService.removeSalesOrderStatus(id)
       .subscribe(
       (success) => {
         this.refreshActiveList();
-        this.dataSource_delete.data = this.salesOrder;
+        // this.dataSource_delete.data = this.salesOrder;
       },
       (error) => console.log(error)
       );
   }
 
   restoreSalesOrder(id) {
+    // console.log(this.showLoader);
     this.showLoader = true;
     this.serverService.restoreSalesOrderStatus(id)
       .subscribe(
       (success) => {
         this.refreshInActiveList();
+        this.showLoader = false;
       },
       (error) => console.log(error)
       );
@@ -550,8 +585,8 @@ export class SalesOrdersComponent implements OnInit {
       subscribe(list => {
         this.salesOrderRestore = list;
         // console.log(this.salesOrderRestore);
-        this.showLoader = false;
         this.dataSource_restore.data = this.salesOrderRestore;
+        this.showLoader = false;
       })
     // this.showLoader = false;
   }
