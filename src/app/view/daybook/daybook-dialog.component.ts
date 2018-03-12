@@ -88,8 +88,8 @@ import { Daybook } from '../../shared/daybook';
   })
   export class DaybookDialogComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public passedData: any) {
-        console.log("passedData");
-        console.log(passedData);
+        // console.log("passedData");
+        // console.log(passedData);
     }
     onClickPrint() {
       window.print();
