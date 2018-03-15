@@ -27,6 +27,7 @@ export class SalesComponent implements OnInit {
 
   ngOnInit() {
     this.refreshList();
+    this.refreshCustomersList();
   }
 
   ngAfterViewInit() {
@@ -53,6 +54,18 @@ export class SalesComponent implements OnInit {
         // console.log(this.dataSource.data);
       })
     this.showLoader = false;
+  }
+  refreshCustomersList() {
+    this.subscription = this.serverService.getCustomersList().
+      subscribe(list => {
+        // this.dataSource.data = list;
+        // this.products = list;
+        // this.showLoader = false;
+        // this.dataSource.data = list;
+        // this.dataSource.data = this.salesOrder.slice();
+        // console.log(list);
+      })
+    // this.showLoader = false;
   }
 
   displayINR(amount: number) {

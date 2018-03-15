@@ -1,0 +1,53 @@
+<div>
+  <div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
+    <ng-container matColumnDef="companyId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Company ID</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.companyId }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.createdDate }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerGroup">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Group</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.customerGroup }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerID">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Customer ID</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.customerID }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.customerType}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gstNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>GST No</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.gstNo}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Modify Reports</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-raised-button color="accent" (click)="onViewDetails(row.gstNo)">View Sales/Receipts</button>
+        </mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+  </mat-paginator>
+</div>

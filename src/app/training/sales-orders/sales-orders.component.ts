@@ -694,6 +694,7 @@ export class SalesOrdersComponent implements OnInit {
     this.salesOrder_BFGSMSize.slice();
     // console.log(this.salesOrder_BFGSMSize);
   }
+  
   refreshActiveList() {
 
     this.salesOrder = [];

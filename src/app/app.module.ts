@@ -34,6 +34,11 @@ import { StocksComponent } from './view/stocks/stocks.component';
 import { ReceiptsComponent } from './view/receipts/receipts.component';
 import { ViewComponent } from './view/view.component';
 import { DispatchDialogComponent } from './training/sales-orders/dispatch-dialog.component';
+import { CustomersComponent } from './view/customers/customers.component';
+import { CustomerDialog } from './view/customers/customer-dialog.component';
+import { DeleteSalesordersComponent } from './training/delete-salesorders/delete-salesorders.component';
+import { RestoreSalesordersComponent } from './training/restore-salesorders/restore-salesorders.component';
+import { PlannedComponent } from './training/planned/planned.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +64,12 @@ import { DispatchDialogComponent } from './training/sales-orders/dispatch-dialog
     SalesComponent,
     StocksComponent,
     ReceiptsComponent,
-    ViewComponent
+    ViewComponent,
+    CustomersComponent,
+    CustomerDialog,
+    DeleteSalesordersComponent,
+    RestoreSalesordersComponent,
+    PlannedComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +83,6 @@ import { DispatchDialogComponent } from './training/sales-orders/dispatch-dialog
   ],
   providers: [InventoryService,AuthService, TrainingService,ServerService],
   bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent,DaybookDialogComponent,DispatchDialogComponent]
+  entryComponents: [StopTrainingComponent,DaybookDialogComponent,DispatchDialogComponent,CustomerDialog]
 })
 export class AppModule { }

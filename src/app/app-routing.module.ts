@@ -12,6 +12,7 @@ import { DaybookComponent } from './view/daybook/daybook.component';
 import { SalesComponent } from './view/sales/sales.component';
 import { ReceiptsComponent } from './view/receipts/receipts.component';
 import { ViewComponent } from './view/view.component';
+import { CustomersComponent } from './view/customers/customers.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'daybook', component: DaybookComponent, canActivate: [AuthGuard] },
   { path: 'view', component: ViewComponent, canActivate: [AuthGuard] },
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard] },
-  { path: 'receipts', component: ReceiptsComponent, canActivate: [AuthGuard] }
+  { path: 'receipts', component: ReceiptsComponent, canActivate: [AuthGuard] },
+  { path: 'customers', component: CustomersComponent }
 ];
 
 @NgModule({
