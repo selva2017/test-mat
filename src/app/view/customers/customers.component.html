@@ -41,7 +41,7 @@
     <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef>Modify Reports</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <button mat-raised-button color="accent" (click)="onViewDetails(row.gstNo)">View Sales/Receipts</button>
+          <button mat-raised-button color="accent" (click)="onViewDetails(row.customerID)">View Sales/Receipts</button>
         </mat-cell>
       </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

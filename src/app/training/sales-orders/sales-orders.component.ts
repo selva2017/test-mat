@@ -22,7 +22,6 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
   displayedColumns_restore = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   // displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
-  displayedColumns_delete = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
   // displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
@@ -32,9 +31,6 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
   displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports', 'action'];
   displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
-  displayedColumns_modifyplandetails = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'update', 'delete'];
-  displayedColumns_prod_plan_details = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock'];
-  displayedColumns_avail_sales_order = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
   // displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
@@ -122,7 +118,6 @@ export class SalesOrdersComponent implements OnInit {
     // this.dataSource2.sort = this.sort;
     this.dataSource2.sort = this.table2;
     this.dataSource2.paginator = this.paginator2;
-    this.dataSource_delete.paginator = this.paginator3;
     this.dataSource_restore.paginator = this.paginator4;
     this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
@@ -299,111 +294,6 @@ export class SalesOrdersComponent implements OnInit {
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }
-  onViewProductionReport(record1, record2, record3, record4) {
-    this.prodution_plan_details_selected_main = false;
-    this.prodution_plan_details_selected_details = true;
-    this.prodution_plan_details_selected_right = true;
-    this.modifyProductionPlan_details = false;
-    this.modifyProductionPlan_right = false;
-    this.showAllSalesOrders = false;
-    this.showSelectedOrders = false;
-
-    // this.showReelInStock_prod_plan = true;
-    // console.log(record1);
-    // console.log(record2);
-    // console.log(record3);
-    // console.log(record4);
-    this.salesOrdersPlanned_row1 = [];
-    this.salesOrdersPlanned_row1 = record1;
-    this.dataSource_prodplans.data = [];
-    this.dataSource_prodplans.data = this.salesOrdersPlanned_row1;
-    this.salesOrder_BF = [];
-    this.salesOrder_BF = record2;
-    this.dataSource_BF.data = [];
-    this.dataSource_BF.data = this.salesOrder_BF;
-    this.salesOrder_BFGSM = [];
-    this.salesOrder_BFGSM = record3;
-    this.dataSource_BFGSM.data = [];
-    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
-    this.salesOrder_BFGSMSize = [];
-    this.salesOrder_BFGSMSize = record4;
-    this.dataSource_BFGSMSize.data = [];
-    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
-  }
-  onViewDispatchReport(batch_number, createdDate) {
-    // console.log(batch_number);
-    // this.showDispatchReport = true
-    // this.prodution_plan_details_selected_main = false;
-    // this.prodution_plan_details_selected_details = true;
-    // this.prodution_plan_details_selected_right = true;
-    this.batch_number = batch_number;
-    this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
-    // this.showConsolidatedReports = true;
-    this.subscription = this.serverService.getSalesOrdersDispatch(batch_number).
-      subscribe(list => {
-        this.dispatchSalesOrders = list;
-        this.dataSource_dispatch.data = this.dispatchSalesOrders;
-        // console.log(JSON.stringify(list));
-        this.onClickView(list);
-        // console.log(this.dispatchSalesOrders);
-        // this.showLoader = false;
-      })
-  }
-
-  onModifyPlannedReports(record1, record2, record3, record4, createdDate, batch_number) {
-    // console.log(record1);
-    // console.log(record2);
-    // console.log(record3);
-    // console.log(record4);
-    this.prodution_plan_details_selected_main = false;
-    this.modifyProductionPlan_details = true;
-    this.modifyProductionPlan_right = true;
-    this.batch_number = batch_number;
-    this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
-
-    // this.modifyProductionPlan = false;
-    this.salesOrdersPlanned_row1 = [];
-    this.salesOrdersPlanned_row1 = record1;
-    this.dataSource_prodplans.data = [];
-    this.dataSource_prodplans.data = this.salesOrdersPlanned_row1;
-    // console.log(this.salesOrdersPlanned_row1);
-    this.salesOrder_BF = [];
-    this.salesOrder_BF = record2;
-    this.dataSource_BF.data = [];
-    this.dataSource_BF.data = this.salesOrder_BF;
-    // console.log(this.salesOrder_BF);
-    this.salesOrder_BFGSM = [];
-    this.salesOrder_BFGSM = record3;
-    this.dataSource_BFGSM.data = [];
-    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
-    // console.log(this.salesOrder_BFGSM);
-    this.salesOrder_BFGSMSize = [];
-    this.salesOrder_BFGSMSize = record4;
-    this.dataSource_BFGSMSize.data = [];
-    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
-  }
-
-  onClickView(record: DispatchReport[]) {
-    // this.salesOrder_row = record;
-    // this.dispatchSalesOrders_dialog = record;
-    const dialogRef = this.dialog.open(DispatchDialogComponent, {
-      // height: '90%',
-      // width: '60%',
-      height: "640px",
-      width: '"640px"',
-      data: {
-        progress: record, header: this.dispatchHeader
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log("true");
-      } else {
-        console.log("false");
-      }
-    });
-
-  }
   showSelected() {
     this.showAll = !this.showAll;
     // console.log(this.showAll);
@@ -494,22 +384,6 @@ export class SalesOrdersComponent implements OnInit {
       })
   }
 
-  onDeleteProductionPlanItem(row) {
-    this.showLoader = true;
-    this.modifyProductionPlan_main = true;
-    this.modifyProductionPlan_details = false;
-    this.modifyProductionPlan_right = false;
-    this.serverService.deleteProductionPlanItem(row.id, row.salesOrderPlannedId, row.altered, row.weight)
-      .subscribe(
-      (success) => {
-        this.refreshActiveList();
-        this.onEditProductionPlans();
-        this.showLoader = false;
-      },
-      (error) => console.log(error)
-      );
-
-  }
   clearAll() {
     this.salesOrder_selected = [];
     this.salesOrder_selected1 = [];
@@ -717,19 +591,6 @@ export class SalesOrdersComponent implements OnInit {
   onDeleteSalesOrders() {
     this.refreshActiveList();
   }
-  deleteSalesOrder(id) {
-    this.showLoader = true;
-    this.serverService.removeSalesOrderStatus(id)
-      .subscribe(
-      (success) => {
-        this.refreshActiveList();
-        this.showLoader = false;
-        // this.dataSource_delete.data = this.salesOrder;
-      },
-      (error) => console.log(error)
-      );
-  }
-
   restoreSalesOrder(id) {
     // console.log(this.showLoader);
     this.showLoader = true;

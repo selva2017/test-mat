@@ -59,34 +59,40 @@ export class CustomersComponent implements OnInit {
   }
   onViewDetails(record) {
     console.log(record);
-    // this.receipt = [];
-    this.subscription = this.serverService.getReceiptList(record).
+    this.subscription = this.serverService.getCustomerDetails(record).
       subscribe(list => {
         this.receipt = list;
         console.log(list);
       })
-    // this.sales = [];
-    this.subscription = this.serverService.getSalesList(record).
-      subscribe(list => {
-        this.sales = list;
-        console.log(list);
-      })
 
-    const dialogRef = this.dialog.open(CustomerDialog, {
-      // height: '90%',
-      // width: '60%',
-      height: "640px",
-      width: '"640px"',
-      data: {
-        sales_data: this.sales.slice(), receipt_data: this.receipt.slice()
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log("true");
-      } else {
-        console.log("false");
-      }
-    });
+    // this.receipt = [];
+    // this.subscription = this.serverService.getReceiptList(record).
+    //   subscribe(list => {
+    //     this.receipt = list;
+    //     console.log(list);
+    //   })
+    // // this.sales = [];
+    // this.subscription = this.serverService.getSalesList(record).
+    //   subscribe(list => {
+    //     this.sales = list;
+    //     console.log(list);
+    //   })
+
+    // const dialogRef = this.dialog.open(CustomerDialog, {
+    //   // height: '90%',
+    //   // width: '60%',
+    //   height: "640px",
+    //   width: '"640px"',
+    //   data: {
+    //     sales_data: this.sales.slice(), receipt_data: this.receipt.slice()
+    //   }
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     console.log("true");
+    //   } else {
+    //     console.log("false");
+    //   }
+    // });
   }
 }

@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { DispatchDialogComponent } from './../sales-orders/dispatch-dialog.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
+import { ServerService } from './../../shared/server.service';
+import { ProdPlan } from './../../shared/prod_plan';
+import { SalesOrdersPlanned } from '../../shared/sales-order-planned';
+import { DispatchReport } from '../../shared/dispatch-report';
 
 @Component({
   selector: 'app-planned',
@@ -6,10 +13,243 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./planned.component.css']
 })
 export class PlannedComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  subscription: Subscription;
+  dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
+  dataSource_dispatch = new MatTableDataSource<DispatchReport>();
+  displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports', 'action'];
+  displayedColumns_avail_sales_order = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_modifyplandetails = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'update', 'delete'];
+  displayedColumns_prod_plan_details = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock'];
+  showLoader: boolean;
+  dataSource = new MatTableDataSource<ProdPlan>();
 
-  constructor() { }
+  salesOrder_BFGSM: ProdPlan[] = [];
+  salesOrder_BFGSMSize: ProdPlan[] = [];
+  salesOrder_BF: ProdPlan[] = [];
+  salesOrdersPlanned: SalesOrdersPlanned[] = [];
+  dataSource_BF = new MatTableDataSource<ProdPlan>();
+  dataSource_BFGSM = new MatTableDataSource<ProdPlan>();
+  dataSource_BFGSMSize = new MatTableDataSource<ProdPlan>();
+  dispatchSalesOrders: DispatchReport[] = [];
+  dispatchSalesOrders_dialog: DispatchReport[] = [];
+  dispatchHeader: string;
+  batch_number = "";
+  dataSource_delete = new MatTableDataSource<ProdPlan>();
+  dataSource_avail_so_pp = new MatTableDataSource<ProdPlan>();
+  salesOrder: ProdPlan[];
+  salesOrderSource: ProdPlan[] = [];
+
+  prodution_plan_details_selected_main: boolean = true;
+  prodution_plan_details_selected_details: boolean = false;
+  prodution_plan_details_selected_right: boolean = false;
+  modifyProductionPlan_main: boolean = true;
+  // showDispatchReport: boolean = false;
+  showAllSalesOrders: boolean = true;
+  showSelectedOrders: boolean = false;
+  modifyProductionPlan_right: boolean = false;
+  modifyProductionPlan_details: boolean = false;
+
+  constructor(private serverService: ServerService, private dialog: MatDialog) {
+    this.showLoader = true;
+  }
 
   ngOnInit() {
+    this.onViewProductionPlans();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  doFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  setDataSource(indexNumber) {
+    setTimeout(() => {
+      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+    });
+  }
+
+  showPlansInProduction(show_tables: boolean) {
+    // console.log("Restore Sales Orders");
+    if (show_tables == true) {
+      this.showLoader = true;
+      this.salesOrdersPlanned = [];
+      this.onViewProductionPlans();
+      this.dataSource_prodplans.data = this.salesOrdersPlanned;
+      // this.showReelInStock_prod_plan = true;
+      this.prodution_plan_details_selected_main = true;
+      this.prodution_plan_details_selected_details = false;
+      this.prodution_plan_details_selected_right = false;
+      this.modifyProductionPlan_main = false;
+      this.modifyProductionPlan_details = false;
+      this.modifyProductionPlan_right = false;
+      this.showSelectedOrders = false;
+      this.showAllSalesOrders = false;
+    }
+
+    if (show_tables == false) {
+      // this.showLoader = true;
+      // this.salesOrdersPlanned = [];
+      // this.onViewProductionPlans();
+      // this.dataSource.data = this.salesOrdersPlanned;
+      // this.showReelInStock_prod_plan = true;
+      this.prodution_plan_details_selected_main = false;
+      this.prodution_plan_details_selected_details = false;
+      this.prodution_plan_details_selected_right = false;
+      this.modifyProductionPlan_main = false;
+      this.modifyProductionPlan_details = false;
+      this.modifyProductionPlan_right = false;
+      this.showSelectedOrders = false;
+      this.showAllSalesOrders = false;
+      this.dataSource_BF.data = [];
+      // this.salesOrder_BFGSM = [];
+      this.dataSource_BFGSM.data = [];
+      // this.salesOrder_BFGSMSize = [];
+      this.dataSource_BFGSMSize.data = [];
+    }
+
+  }
+  onViewProductionPlans() {
+    this.salesOrdersPlanned = [];
+    this.subscription = this.serverService.getSalesOrdersPlanned().
+      subscribe(list => {
+        this.salesOrdersPlanned = list;
+        this.dataSource_prodplans.data = this.salesOrdersPlanned;
+        // console.log(this.salesOrdersPlanned);
+        this.showLoader = false;
+      })
+  }
+  onViewProductionReport(record1, record2, record3, record4) {
+    this.prodution_plan_details_selected_main = false;
+    this.prodution_plan_details_selected_details = true;
+    this.prodution_plan_details_selected_right = true;
+    this.modifyProductionPlan_details = false;
+    this.modifyProductionPlan_right = false;
+    this.showAllSalesOrders = false;
+    this.showSelectedOrders = false;
+
+    this.salesOrder_BF = [];
+    this.salesOrder_BF = record2;
+    this.dataSource_BF.data = [];
+    this.dataSource_BF.data = this.salesOrder_BF;
+    this.salesOrder_BFGSM = [];
+    this.salesOrder_BFGSM = record3;
+    this.dataSource_BFGSM.data = [];
+    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
+    this.salesOrder_BFGSMSize = [];
+    this.salesOrder_BFGSMSize = record4;
+    this.dataSource_BFGSMSize.data = [];
+    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
+  }
+  onViewDispatchReport(batch_number, createdDate) {
+    this.batch_number = batch_number;
+    this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
+    // this.showConsolidatedReports = true;
+    this.subscription = this.serverService.getSalesOrdersDispatch(batch_number).
+      subscribe(list => {
+        this.dispatchSalesOrders = list;
+        this.dataSource_dispatch.data = this.dispatchSalesOrders;
+        // console.log(JSON.stringify(list));
+        this.onClickView(list);
+        // console.log(this.dispatchSalesOrders);
+        // this.showLoader = false;
+      })
+  }
+  onClickView(record: DispatchReport[]) {
+    // this.salesOrder_row = record;
+    // this.dispatchSalesOrders_dialog = record;
+    const dialogRef = this.dialog.open(DispatchDialogComponent, {
+      // height: '90%',
+      // width: '60%',
+      height: "640px",
+      width: '"640px"',
+      data: {
+        progress: record, header: this.dispatchHeader
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("true");
+      } else {
+        console.log("false");
+      }
+    });
+
+  }
+
+  onModifyPlannedReports(record1, record2, record3, record4, createdDate, batch_number) {
+    this.prodution_plan_details_selected_main = false;
+    this.modifyProductionPlan_details = true;
+    this.modifyProductionPlan_right = true;
+    this.batch_number = batch_number;
+    this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
+
+    this.salesOrder_BF = [];
+    this.salesOrder_BF = record2;
+    this.dataSource_BF.data = [];
+    this.dataSource_BF.data = this.salesOrder_BF;
+    // console.log(this.salesOrder_BF);
+    this.salesOrder_BFGSM = [];
+    this.salesOrder_BFGSM = record3;
+    this.dataSource_BFGSM.data = [];
+    this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
+    // console.log(this.salesOrder_BFGSM);
+    this.salesOrder_BFGSMSize = [];
+    this.salesOrder_BFGSMSize = record4;
+    this.dataSource_BFGSMSize.data = [];
+    this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
+  }
+
+  onDeleteProductionPlanItem(row) {
+    this.showLoader = true;
+    this.modifyProductionPlan_main = true;
+    this.modifyProductionPlan_details = false;
+    this.modifyProductionPlan_right = false;
+    this.serverService.deleteProductionPlanItem(row.id, row.salesOrderPlannedId, row.altered, row.weight)
+      .subscribe(
+      (success) => {
+        this.refreshActiveList();
+        this.onEditProductionPlans();
+        this.showLoader = false;
+      },
+      (error) => console.log(error)
+      );
+
+  }
+  onEditProductionPlans() {
+    this.salesOrdersPlanned = [];
+
+    this.subscription = this.serverService.getSalesOrdersPlanned().
+      subscribe(list => {
+        this.salesOrdersPlanned = list;
+        this.dataSource_prodplans.data = this.salesOrdersPlanned;
+        // console.log(this.salesOrdersPlanned);
+        this.showLoader = false;
+      })
+  }
+  refreshActiveList() {
+
+    this.salesOrder = [];
+    this.salesOrderSource = [];
+    this.subscription = this.serverService.getActiveSalesOrders().
+      subscribe(list => {
+        // this.dataSource.data = list;
+        this.salesOrder = list;
+        this.salesOrderSource = this.salesOrder.map(x => Object.assign({}, x));
+        // this.dataSource.data = this.salesOrder.slice();
+        // console.log(this.dataSource.data);
+        this.dataSource.data = this.salesOrder;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        this.dataSource_delete.data = this.salesOrder;
+        this.dataSource_avail_so_pp.data = this.salesOrder;
+        this.showLoader = false;
+      })
+    // this.showLoader = false;
   }
 
 }

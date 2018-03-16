@@ -1,3 +1,86 @@
-<p>
-  delete-salesorders works!
-</p>
+<!-- <mat-tab label="Delete Sales Orders"> -->
+    <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div *ngIf="!showLoader">
+      <!-- <div *ngIf="showAll"> -->
+      <div fxLayoutAlign="center center">
+        <mat-form-field fxFlex="40%">
+          <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+      <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.orderDate }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="orderNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="bf">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Item</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.bf }} BF {{ element.gsm }} GSM </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="gsm">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>GSM</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.gsm }}</mat-cell>
+          </ng-container> -->
+
+
+        <ng-container matColumnDef="size">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Inch)</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="voucherKey">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Cm)</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
+        </ng-container>
+        <!-- <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Cm)</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
+          </ng-container> -->
+        <ng-container matColumnDef="weight">
+          <mat-header-cell fxFlex="70px" *matHeaderCellDef mat-sort-header>Weight (Tons)</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reel">
+          <mat-header-cell fxFlex="100px" *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ (element.reel) | number: '1.0-0' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>Action
+            <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
+            <!-- </mat-checkbox> -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-raised-button color="warn" (click)="deleteSalesOrder(row.id)">Delete</button>
+            <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
+            <!-- </mat-checkbox> -->
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+      </mat-paginator>
+    </div>
+  <!-- </mat-tab> -->
