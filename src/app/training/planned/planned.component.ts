@@ -255,8 +255,8 @@ export class PlannedComponent implements OnInit {
     this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
   onDeleteProductionPlanItem(row) {
-    this.showLoader = true;
-    this.modifyProductionPlan_main = true;
+    // this.showLoader = true;
+    // this.modifyProductionPlan_main = true;
     this.modifyProductionPlan_details = false;
     this.modifyProductionPlan_right = false;
     this.serverService.deleteProductionPlanItem(row.id, row.salesOrderPlannedId, row.altered, row.weight)
@@ -264,6 +264,9 @@ export class PlannedComponent implements OnInit {
       (success) => {
         this.refreshActiveList();
         this.onEditProductionPlans();
+        this.prodution_plan_details_selected_main = true;
+        this.prodution_plan_details_selected_details = false;
+        this.prodution_plan_details_selected_right = false;
         this.showLoader = false;
       },
       (error) => console.log(error)
@@ -301,10 +304,10 @@ export class PlannedComponent implements OnInit {
     // this.showLoader = false;
   }
   onAddItemToExistingProductionPlan(key, voucherKey) {
-    this.showLoader = true;
-    this.modifyProductionPlan_main = true;
+    // this.showLoader = true;
+    // this.modifyProductionPlan_main = true;
     this.modifyProductionPlan_details = false;
-    this.modifyProductionPlan_right = false;
+    // this.modifyProductionPlan_right = false;
     // console.log("inside");
     var newWeight = key.newWeight;
     // console.log(key, voucherKey, key.newWeight);
@@ -340,6 +343,10 @@ export class PlannedComponent implements OnInit {
       (error) => console.log(error)
       );
     // this.clearAll();
+    this.prodution_plan_details_selected_main = true;
+    this.modifyProductionPlan_right = false;
+    this.prodution_plan_details_selected_details = false;
+    this.prodution_plan_details_selected_right = false;
   }
   reel(weight, size) {
     var reel: any;
@@ -351,6 +358,25 @@ export class PlannedComponent implements OnInit {
     else {
       return Math.ceil(reel);
     }
+
+  }
+  updatePlannedSalesOrder(row, id, reel) {
+    // console.log(row);
+    // console.log(id);
+    // console.log(reel);
+    this.serverService.updateProductionPlanItemReel(id, reel)
+      .subscribe(
+      // (res: Daybook) => console.log(res),
+      (success) => {
+        // console.log("success");
+        this.onViewProductionPlans();
+        // this.refreshActiveList();
+        this.prodution_plan_details_selected_main = true;
+        this.prodution_plan_details_selected_details = false;
+        this.prodution_plan_details_selected_right = false;
+      },
+      (error) => console.log(error)
+      );
 
   }
 }

@@ -20,17 +20,17 @@ export class SalesOrdersComponent implements OnInit {
   // displayedColumns = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'select'];
   displayedColumns_selected = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'select'];
   // displayedColumns_selected = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'select'];
-  displayedColumns_restore = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
+  // displayedColumns_restore = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   // displayedColumns_restore = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'select'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
   // displayedColumns_bfgsm = ['bf', 'gsm', 'weight'];
   displayedColumns_bfgsmsize = ['bf', 'weight', 'reel', 'reelInStock'];
   // displayedColumns_bfgsmsize = ['bf', 'gsm', 'size', 'weight', 'reel'];
-  displayedColumns_bfgsmsize_prod_plan = ['bf', 'weight', 'reel', 'reelInStock'];
+  // displayedColumns_bfgsmsize_prod_plan = ['bf', 'weight', 'reel', 'reelInStock'];
   // displayedColumns_bfgsmsize_prod_plan = ['bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock'];
-  displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports', 'action'];
-  displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
+  // displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports', 'action'];
+  // displayedColumns_modifyplan = ['createdDate', 'batchNumber', 'action'];
   // displayedColumns_prod_plan_details = ['id', 'orderDate', 'orderNumber', 'company', 'bf', 'gsm', 'size', 'weight', 'reel', 'reelInStock', 'action'];
   // displayedColumns = ['bf', 'company', 'gsm', 'id', 'orderDate','reel','size','voucherKey','weight'];
   // dataSource = new MatTableDataSource<ProdPlan>();
@@ -39,11 +39,11 @@ export class SalesOrdersComponent implements OnInit {
   dataSource_BF = new MatTableDataSource<ProdPlan>();
   dataSource_BFGSM = new MatTableDataSource<ProdPlan>();
   dataSource_BFGSMSize = new MatTableDataSource<ProdPlan>();
-  dataSource_delete = new MatTableDataSource<ProdPlan>();
-  dataSource_avail_so_pp = new MatTableDataSource<ProdPlan>();
-  dataSource_restore = new MatTableDataSource<ProdPlan>();
-  dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
-  dataSource_dispatch = new MatTableDataSource<DispatchReport>();
+  // dataSource_delete = new MatTableDataSource<ProdPlan>();
+  // dataSource_avail_so_pp = new MatTableDataSource<ProdPlan>();
+  // dataSource_restore = new MatTableDataSource<ProdPlan>();
+  // dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
+  // dataSource_dispatch = new MatTableDataSource<DispatchReport>();
 
   @ViewChild(MatSort) sort: MatSort;
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -51,9 +51,9 @@ export class SalesOrdersComponent implements OnInit {
   @ViewChild('table2') table2: MatSort;
   @ViewChild('paginator1') paginator1: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
-  @ViewChild('paginator3') paginator3: MatPaginator;
-  @ViewChild('paginator4') paginator4: MatPaginator;
-  @ViewChild('paginator5') paginator5: MatPaginator;
+  // @ViewChild('paginator3') paginator3: MatPaginator;
+  // @ViewChild('paginator4') paginator4: MatPaginator;
+  // @ViewChild('paginator5') paginator5: MatPaginator;
   // childMessage="Test";
   subscription: Subscription;
   salesOrder: ProdPlan[];
@@ -71,20 +71,20 @@ export class SalesOrdersComponent implements OnInit {
   salesOrderRestore: ProdPlan[] = [];
   salesOrdersPlanned: SalesOrdersPlanned[] = [];
   salesOrdersPlanned_row1: SalesOrdersPlanned[] = [];
-  prodution_plan_details_selected_main: boolean = true;
-  prodution_plan_details_selected_details: boolean = false;
-  prodution_plan_details_selected_right: boolean = false;
+  // prodution_plan_details_selected_main: boolean = true;
+  // prodution_plan_details_selected_details: boolean = false;
+  // prodution_plan_details_selected_right: boolean = false;
   // showReelInStock_prod_plan: boolean = false;
-  dispatchSalesOrders: DispatchReport[] = [];
-  dispatchSalesOrders_dialog: DispatchReport[] = [];
-  dispatchHeader: string;
-  batch_number = "";
-  modifyProductionPlan_main: boolean = true;
+  // dispatchSalesOrders: DispatchReport[] = [];
+  // dispatchSalesOrders_dialog: DispatchReport[] = [];
+  // dispatchHeader: string;
+  // batch_number = "";
+  // modifyProductionPlan_main: boolean = true;
   // showDispatchReport: boolean = false;
   showAllSalesOrders: boolean = true;
   showSelectedOrders: boolean = false;
-  modifyProductionPlan_right: boolean = false;
-  modifyProductionPlan_details: boolean = false;
+  // modifyProductionPlan_right: boolean = false;
+  // modifyProductionPlan_details: boolean = false;
   // Working 1
   // parentMessage = "message from parent";
   // @ViewChild(SelectedOrdersComponent) child;
@@ -104,8 +104,8 @@ export class SalesOrdersComponent implements OnInit {
   }
   ngOnInit() {
     this.refreshActiveList();
-    this.refreshInActiveList();
-    this.onViewProductionPlans();
+    // this.refreshInActiveList();
+    // this.onViewProductionPlans();
   }
   ngAfterViewInit() {
     this.showLoader = true;
@@ -118,201 +118,183 @@ export class SalesOrdersComponent implements OnInit {
     // this.dataSource2.sort = this.sort;
     this.dataSource2.sort = this.table2;
     this.dataSource2.paginator = this.paginator2;
-    this.dataSource_restore.paginator = this.paginator4;
-    this.dataSource_avail_so_pp.paginator = this.paginator5;
+    // this.dataSource_restore.paginator = this.paginator4;
+    // this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
 
   onLinkClick(event: MatTabChangeEvent) {
-    // console.log('event => ', event);
-    // console.log('index => ', event.index);
-    // console.log('tab => ', event.tab);
-    if (event.tab.textLabel == "Sales Orders") {
-      // console.log("Sales Orders");
-      this.showLoader = false;
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
-      this.showAllSalesOrders = true;
-      this.modifyProductionPlan_right = false;
-      this.prodution_plan_details_selected_right = false;
-      this.showPlansInProduction(false);
-    }
-    if (event.tab.textLabel == "Selected Orders") {
-      // console.log("Sales Orders");
-      this.showPlansInProduction(false);
-    }
-    if (event.tab.textLabel == "Delete Sales Orders") {
-      // console.log("Delete Sales Orders");
-      this.dataSource_delete.data = [];
-      this.showLoader = true;
-      // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-      this.showAllSalesOrders = true;
-      this.modifyProductionPlan_right = false;
-      this.prodution_plan_details_selected_right = false;
-      this.subscription = this.serverService.getActiveSalesOrders().
-        subscribe(list => {
-          this.dataSource_delete.data = list;
-          this.showLoader = false;
-        })
-    }
-    if (event.tab.textLabel == "Restore Sales Orders") {
-      // console.log("Restore Sales Orders");
-      this.dataSource_restore.data = [];
-      this.showLoader = true;
-      // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-      this.showAllSalesOrders = true;
-      this.modifyProductionPlan_right = false;
-      this.prodution_plan_details_selected_right = false;
-      this.subscription = this.serverService.getInActiveSalesOrders().
-        subscribe(list => {
-          this.dataSource_restore.data = list;
-          this.showLoader = false;
-        })
-    }
-    if (event.tab.textLabel == "Plans In Production") {
-      this.showPlansInProduction(true);
-      // console.log("Restore Sales Orders");
-      // this.showLoader = true;
-      // this.salesOrdersPlanned = [];
-      // this.onViewProductionPlans();
-      // this.dataSource_prodplans.data = this.salesOrdersPlanned;
-      // // this.showReelInStock_prod_plan = true;
-      // this.prodution_plan_details_selected_main = true;
-      // this.prodution_plan_details_selected_details = false;
-      // this.prodution_plan_details_selected_right = false;
-      // this.modifyProductionPlan_right = false;
-      // this.modifyProductionPlan_main = false;
-      // this.showSelectedOrders = false;
-      // this.showAllSalesOrders = false;
-    }
+  //   // console.log('event => ', event);
+  //   // console.log('index => ', event.index);
+  //   // console.log('tab => ', event.tab);
+  //   if (event.tab.textLabel == "Sales Orders") {
+  //     // console.log("Sales Orders");
+  //     this.showLoader = false;
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
+  //     this.showAllSalesOrders = true;
+  //     this.modifyProductionPlan_right = false;
+  //     this.prodution_plan_details_selected_right = false;
+  //     this.showPlansInProduction(false);
+  //   }
+  //   if (event.tab.textLabel == "Selected Orders") {
+  //     // console.log("Sales Orders");
+  //     this.showPlansInProduction(false);
+  //   }
+  //   if (event.tab.textLabel == "Delete Sales Orders") {
+  //     // console.log("Delete Sales Orders");
+  //     this.dataSource_delete.data = [];
+  //     this.showLoader = true;
+  //     // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //     this.showAllSalesOrders = true;
+  //     this.modifyProductionPlan_right = false;
+  //     this.prodution_plan_details_selected_right = false;
+  //     this.subscription = this.serverService.getActiveSalesOrders().
+  //       subscribe(list => {
+  //         this.dataSource_delete.data = list;
+  //         this.showLoader = false;
+  //       })
+  //   }
+  //   if (event.tab.textLabel == "Restore Sales Orders") {
+  //     // console.log("Restore Sales Orders");
+  //     this.dataSource_restore.data = [];
+  //     this.showLoader = true;
+  //     // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //     this.showAllSalesOrders = true;
+  //     this.modifyProductionPlan_right = false;
+  //     this.prodution_plan_details_selected_right = false;
+  //     this.subscription = this.serverService.getInActiveSalesOrders().
+  //       subscribe(list => {
+  //         this.dataSource_restore.data = list;
+  //         this.showLoader = false;
+  //       })
+  //   }
+  //   if (event.tab.textLabel == "Plans In Production") {
+  //     this.showPlansInProduction(true);
+  //     // console.log("Restore Sales Orders");
+  //     // this.showLoader = true;
+  //     // this.salesOrdersPlanned = [];
+  //     // this.onViewProductionPlans();
+  //     // this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //     // // this.showReelInStock_prod_plan = true;
+  //     // this.prodution_plan_details_selected_main = true;
+  //     // this.prodution_plan_details_selected_details = false;
+  //     // this.prodution_plan_details_selected_right = false;
+  //     // this.modifyProductionPlan_right = false;
+  //     // this.modifyProductionPlan_main = false;
+  //     // this.showSelectedOrders = false;
+  //     // this.showAllSalesOrders = false;
+  //   }
   }
-  showPlansInProduction(show_tables: boolean){
-     // console.log("Restore Sales Orders");
-      if (show_tables == true) {
-      this.showLoader = true;
-      this.salesOrdersPlanned = [];
-      this.onViewProductionPlans();
-      this.dataSource_prodplans.data = this.salesOrdersPlanned;
-      // this.showReelInStock_prod_plan = true;
-      this.prodution_plan_details_selected_main = true;
-      this.prodution_plan_details_selected_details = false;
-      this.prodution_plan_details_selected_right = false;
-      this.modifyProductionPlan_main = false;
-      this.modifyProductionPlan_details = false;
-      this.modifyProductionPlan_right = false;
-      this.showSelectedOrders = false;
-      this.showAllSalesOrders = false;
-      }
+  // showPlansInProduction(show_tables: boolean){
+  //    // console.log("Restore Sales Orders");
+  //     if (show_tables == true) {
+  //     this.showLoader = true;
+  //     this.salesOrdersPlanned = [];
+  //     // this.onViewProductionPlans();
+  //     this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //     // this.showReelInStock_prod_plan = true;
+  //     this.prodution_plan_details_selected_main = true;
+  //     this.prodution_plan_details_selected_details = false;
+  //     this.prodution_plan_details_selected_right = false;
+  //     this.modifyProductionPlan_main = false;
+  //     this.modifyProductionPlan_details = false;
+  //     this.modifyProductionPlan_right = false;
+  //     this.showSelectedOrders = false;
+  //     this.showAllSalesOrders = false;
+  //     }
     
-      if (show_tables == false) {
-      // this.showLoader = true;
-      // this.salesOrdersPlanned = [];
-      // this.onViewProductionPlans();
-      // this.dataSource_prodplans.data = this.salesOrdersPlanned;
-      // this.showReelInStock_prod_plan = true;
-      this.prodution_plan_details_selected_main = false;
-      this.prodution_plan_details_selected_details = false;
-      this.prodution_plan_details_selected_right = false;
-      this.modifyProductionPlan_main = false;
-      this.modifyProductionPlan_details = false;
-      this.modifyProductionPlan_right = false;
-      this.showSelectedOrders = false;
-      this.showAllSalesOrders = false;
-      // this.dataSource_BF.data = [];
-      // this.salesOrder_BFGSM = [];
-      // this.dataSource_BFGSM.data = [];
-      // this.salesOrder_BFGSMSize = [];
-      // this.dataSource_BFGSMSize.data = [];
-      }
+  //     if (show_tables == false) {
+  //     // this.showLoader = true;
+  //     // this.salesOrdersPlanned = [];
+  //     // this.onViewProductionPlans();
+  //     // this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //     // this.showReelInStock_prod_plan = true;
+  //     this.prodution_plan_details_selected_main = false;
+  //     this.prodution_plan_details_selected_details = false;
+  //     this.prodution_plan_details_selected_right = false;
+  //     this.modifyProductionPlan_main = false;
+  //     this.modifyProductionPlan_details = false;
+  //     this.modifyProductionPlan_right = false;
+  //     this.showSelectedOrders = false;
+  //     this.showAllSalesOrders = false;
+  //     // this.dataSource_BF.data = [];
+  //     // this.salesOrder_BFGSM = [];
+  //     // this.dataSource_BFGSM.data = [];
+  //     // this.salesOrder_BFGSMSize = [];
+  //     // this.dataSource_BFGSMSize.data = [];
+  //     }
     
-  }
-  _setDataSource(indexNumber) {
-    setTimeout(() => {
-      switch (indexNumber) {
-        case 0:
-          console.log("0");
-          !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
-          this.showAllSalesOrders = true;
-          this.modifyProductionPlan_right = false;
-          this.prodution_plan_details_selected_right = false;
-          break;
-        // case 1:
-        //   console.log("1");
-        //   !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
-        //   this.showAllSalesOrders = false;
-        //   this.showSelectedOrders = true;
-        //   this.modifyProductionPlan_right = false;
-        //   this.prodution_plan_details_selected_right = false;
-        //   break;
-        case 1:
-          !this.dataSource_delete.paginator ? this.dataSource_delete.paginator = this.paginator3 : null;
-          this.showAllSalesOrders = false;
-          this.showSelectedOrders = false;
-          break;
-          case 2:
-          !this.dataSource_restore.paginator ? this.dataSource_restore.paginator = this.paginator4 : null;
-          this.showAllSalesOrders = false;
-          this.showSelectedOrders = false;
-          break;
-          case 3:
-          console.log("index 4");
-          this.salesOrdersPlanned = [];
-          this.onEditProductionPlans();
-          this.dataSource_prodplans.data = this.salesOrdersPlanned;
-          // this.showReelInStock_prod_plan = true;
-          this.prodution_plan_details_selected_main = true;
-          this.prodution_plan_details_selected_details = false;
-          this.prodution_plan_details_selected_right = false;
-          this.modifyProductionPlan_right = false;
-          this.modifyProductionPlan_main = false;
-          this.showSelectedOrders = false;
-          this.showAllSalesOrders = false;
-          break;
-          // case 5:
-        //   // !this.dataSource_avail_so_pp.paginator ? this.dataSource_avail_so_pp.paginator = this.paginator5 : null;
-        //   // this.dataSource_prodplans.data = this.salesOrdersPlanned;
-        //   this.onEditProductionPlans();
-        //   this.dataSource_prodplans.data = this.salesOrdersPlanned;
-        //   // this.dataSource_avail_so_pp.data = this.salesOrder;
-        //   this.prodution_plan_details_selected_right = false;
-        //   this.modifyProductionPlan_main = true;
-        //   this.modifyProductionPlan_details = false;
-        //   this.modifyProductionPlan_right = false;
-        //   this.showSelectedOrders = false;
-        //   this.showAllSalesOrders = false;
-      }
-    });
-  }
+  // }
+  // _setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     switch (indexNumber) {
+  //       case 0:
+  //         console.log("0");
+  //         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
+  //         this.showAllSalesOrders = true;
+  //         this.modifyProductionPlan_right = false;
+  //         this.prodution_plan_details_selected_right = false;
+  //         break;
+  //       // case 1:
+  //       //   console.log("1");
+  //       //   !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
+  //       //   this.showAllSalesOrders = false;
+  //       //   this.showSelectedOrders = true;
+  //       //   this.modifyProductionPlan_right = false;
+  //       //   this.prodution_plan_details_selected_right = false;
+  //       //   break;
+  //       case 1:
+  //         // !this.dataSource_delete.paginator ? this.dataSource_delete.paginator = this.paginator3 : null;
+  //         this.showAllSalesOrders = false;
+  //         this.showSelectedOrders = false;
+  //         break;
+  //         case 2:
+  //         // !this.dataSource_restore.paginator ? this.dataSource_restore.paginator = this.paginator4 : null;
+  //         this.showAllSalesOrders = false;
+  //         this.showSelectedOrders = false;
+  //         break;
+  //         case 3:
+  //         console.log("index 4");
+  //         this.salesOrdersPlanned = [];
+  //         this.onEditProductionPlans();
+  //         this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //         // this.showReelInStock_prod_plan = true;
+  //         this.prodution_plan_details_selected_main = true;
+  //         this.prodution_plan_details_selected_details = false;
+  //         this.prodution_plan_details_selected_right = false;
+  //         this.modifyProductionPlan_right = false;
+  //         this.modifyProductionPlan_main = false;
+  //         this.showSelectedOrders = false;
+  //         this.showAllSalesOrders = false;
+  //         break;
+  //         // case 5:
+  //       //   // !this.dataSource_avail_so_pp.paginator ? this.dataSource_avail_so_pp.paginator = this.paginator5 : null;
+  //       //   // this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //       //   this.onEditProductionPlans();
+  //       //   this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //       //   // this.dataSource_avail_so_pp.data = this.salesOrder;
+  //       //   this.prodution_plan_details_selected_right = false;
+  //       //   this.modifyProductionPlan_main = true;
+  //       //   this.modifyProductionPlan_details = false;
+  //       //   this.modifyProductionPlan_right = false;
+  //       //   this.showSelectedOrders = false;
+  //       //   this.showAllSalesOrders = false;
+  //     }
+  //   });
+  // }
   showReel() {
     console.log("this.salesOrder");
   }
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource2.filter = filterValue.trim().toLowerCase();
-    this.dataSource_restore.filter = filterValue.trim().toLowerCase();
-    this.dataSource_prodplans.filter = filterValue.trim().toLowerCase();
+    // this.dataSource_restore.filter = filterValue.trim().toLowerCase();
+    // this.dataSource_prodplans.filter = filterValue.trim().toLowerCase();
   }
 
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }
-  updatePlannedSalesOrder(row, id, reel) {
-    // console.log(row);
-    // console.log(id);
-    // console.log(reel);
-    this.serverService.updateProductionPlanItemReel(id, reel)
-      .subscribe(
-      // (res: Daybook) => console.log(res),
-      (success) => {
-        // console.log("success");
-        this.onViewProductionPlans();
-        // this.refreshActiveList();
-        this.prodution_plan_details_selected_main = true;
-        this.prodution_plan_details_selected_details = false;
-        this.prodution_plan_details_selected_right = false;
-      },
-      (error) => console.log(error)
-      );
-
-  }
+ 
   showSalesOrders(){
     this.showAll = !this.showAll;
   }
@@ -334,55 +316,55 @@ export class SalesOrdersComponent implements OnInit {
       (error) => console.log(error)
       );
   }
-  onAddItemToExistingProductionPlan(key, voucherKey) {
-    this.showLoader = true;
-    this.modifyProductionPlan_main = true;
-    this.modifyProductionPlan_details = false;
-    this.modifyProductionPlan_right = false;
-    // console.log("inside");
-    var newWeight = key.newWeight;
-    // console.log(key, voucherKey, key.newWeight);
-    // console.log(this.batch_number);
-    // this.showConsolidatedReports = false;
-    key["altered"] = 0;
-    if (newWeight > 0) {
-      var wt = Number(key["weight"]) - Number(newWeight);
-      key.weight = Number(newWeight);
-      key["altered"] = 1;
-      key["newWeight"] = wt;
-      key['reel'] = this.reel(newWeight, key['size']);
-      this.salesOrder_modified.push(key);
-    }
-    this.salesOrder_selected.push(key);
-    for (var i = 0; i < this.salesOrder.length; i++) {
-      if (this.salesOrder[i].id === voucherKey) {
-        this.salesOrder.splice(i, 1);
-        break;
-      }
-    }
-    // this.generateItemBFGSM();
-    // this.generateItemBFGMSSize();
-    // this.generateItemBF();
+  // onAddItemToExistingProductionPlan(key, voucherKey) {
+  //   this.showLoader = true;
+  //   this.modifyProductionPlan_main = true;
+  //   this.modifyProductionPlan_details = false;
+  //   this.modifyProductionPlan_right = false;
+  //   // console.log("inside");
+  //   var newWeight = key.newWeight;
+  //   // console.log(key, voucherKey, key.newWeight);
+  //   // console.log(this.batch_number);
+  //   // this.showConsolidatedReports = false;
+  //   key["altered"] = 0;
+  //   if (newWeight > 0) {
+  //     var wt = Number(key["weight"]) - Number(newWeight);
+  //     key.weight = Number(newWeight);
+  //     key["altered"] = 1;
+  //     key["newWeight"] = wt;
+  //     key['reel'] = this.reel(newWeight, key['size']);
+  //     this.salesOrder_modified.push(key);
+  //   }
+  //   this.salesOrder_selected.push(key);
+  //   for (var i = 0; i < this.salesOrder.length; i++) {
+  //     if (this.salesOrder[i].id === voucherKey) {
+  //       this.salesOrder.splice(i, 1);
+  //       break;
+  //     }
+  //   }
+  //   // this.generateItemBFGSM();
+  //   // this.generateItemBFGMSSize();
+  //   // this.generateItemBF();
 
-    this.serverService.addItemToExistingProductionPlan(this.salesOrder_selected, this.batch_number)
-      .subscribe(
-      (success) => {
-        console.log("success");
-        this.refreshActiveList();
-        this.onEditProductionPlans();
-        this.showLoader = false;
-      },
-      (error) => console.log(error)
-      );
-    // this.clearAll();
-  }
+  //   this.serverService.addItemToExistingProductionPlan(this.salesOrder_selected, this.batch_number)
+  //     .subscribe(
+  //     (success) => {
+  //       console.log("success");
+  //       this.refreshActiveList();
+  //       this.onEditProductionPlans();
+  //       this.showLoader = false;
+  //     },
+  //     (error) => console.log(error)
+  //     );
+  //   // this.clearAll();
+  // }
   onEditProductionPlans() {
     this.salesOrdersPlanned = [];
 
     this.subscription = this.serverService.getSalesOrdersPlanned().
       subscribe(list => {
         this.salesOrdersPlanned = list;
-        this.dataSource_prodplans.data = this.salesOrdersPlanned;
+        // this.dataSource_prodplans.data = this.salesOrdersPlanned;
         // console.log(this.salesOrdersPlanned);
         this.showLoader = false;
       })
@@ -524,7 +506,6 @@ export class SalesOrdersComponent implements OnInit {
   }
   selectFromSelected(key, voucherKey) {
     this.showAll=false;
-    // this.showLoader=false;
     console.log("key" + key);
     console.log("voucher key " + voucherKey);
     console.log("sso "+this.salesOrder_selected.length);
@@ -560,6 +541,7 @@ export class SalesOrdersComponent implements OnInit {
     this.generateItemBFGSM();
     this.generateItemBFGMSSize();
     this.generateItemBF();
+    this.showLoader=false;
   }
   stockReel(reelInStock, reel, id) {
     // console.log(id);
@@ -593,51 +575,51 @@ export class SalesOrdersComponent implements OnInit {
         // console.log(this.dataSource.data);
         this.dataSource.data = this.salesOrder;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
-        this.dataSource_delete.data = this.salesOrder;
-        this.dataSource_avail_so_pp.data = this.salesOrder;
+        // this.dataSource_delete.data = this.salesOrder;
+        // this.dataSource_avail_so_pp.data = this.salesOrder;
         this.showLoader = false;
       })
     // this.showLoader = false;
   }
-  onDeleteSalesOrders() {
-    this.refreshActiveList();
-  }
-  restoreSalesOrder(id) {
-    // console.log(this.showLoader);
-    this.showLoader = true;
-    this.serverService.restoreSalesOrderStatus(id)
-      .subscribe(
-      (success) => {
-        this.refreshInActiveList();
-        this.showLoader = false;
-      },
-      (error) => console.log(error)
-      );
+  // onDeleteSalesOrders() {
+  //   this.refreshActiveList();
+  // }
+  // restoreSalesOrder(id) {
+  //   // console.log(this.showLoader);
+  //   this.showLoader = true;
+  //   this.serverService.restoreSalesOrderStatus(id)
+  //     .subscribe(
+  //     (success) => {
+  //       this.refreshInActiveList();
+  //       this.showLoader = false;
+  //     },
+  //     (error) => console.log(error)
+  //     );
 
-  }
-  refreshInActiveList() {
-    this.salesOrderRestore = [];
-    // this.showLoader = true;
-    this.subscription = this.serverService.getInActiveSalesOrders().
-      subscribe(list => {
-        this.salesOrderRestore = list;
-        // console.log(this.salesOrderRestore);
-        this.dataSource_restore.data = this.salesOrderRestore;
-        this.showLoader = false;
-      })
-    // this.showLoader = false;
-  }
+  // }
+  // refreshInActiveList() {
+  //   this.salesOrderRestore = [];
+  //   // this.showLoader = true;
+  //   this.subscription = this.serverService.getInActiveSalesOrders().
+  //     subscribe(list => {
+  //       this.salesOrderRestore = list;
+  //       // console.log(this.salesOrderRestore);
+  //       this.dataSource_restore.data = this.salesOrderRestore;
+  //       this.showLoader = false;
+  //     })
+  //   // this.showLoader = false;
+  // }
 
-  onViewProductionPlans() {
-    this.salesOrdersPlanned = [];
-    this.subscription = this.serverService.getSalesOrdersPlanned().
-      subscribe(list => {
-        this.salesOrdersPlanned = list;
-        this.dataSource_prodplans.data = this.salesOrdersPlanned;
-        // console.log(this.salesOrdersPlanned);
-        this.showLoader = false;
-      })
-  }
+  // onViewProductionPlans() {
+  //   this.salesOrdersPlanned = [];
+  //   this.subscription = this.serverService.getSalesOrdersPlanned().
+  //     subscribe(list => {
+  //       this.salesOrdersPlanned = list;
+  //       this.dataSource_prodplans.data = this.salesOrdersPlanned;
+  //       // console.log(this.salesOrdersPlanned);
+  //       this.showLoader = false;
+  //     })
+  // }
 
   convertReel(weight, size) {
     return ((weight * 1000) / (size * 10)).toFixed(3);

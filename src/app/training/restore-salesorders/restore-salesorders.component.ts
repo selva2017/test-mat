@@ -69,6 +69,5 @@ export class RestoreSalesordersComponent implements OnInit {
       },
       (error) => console.log(error)
       );
-      this.dataSource.data = this.salesOrder;
   }
 }

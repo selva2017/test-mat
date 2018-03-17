@@ -9,7 +9,7 @@
           <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
       </div>
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>

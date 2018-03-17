@@ -1,12 +1,12 @@
-<div class="bounds">
+<!-- <div class="bounds">
   <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
     <div fxFlex="100" class="sec1" fxFlex.xs="100">
       <mat-tab-group color="primary" #tabGroup (selectedIndexChange)="_setDataSource($event)" (selectedTabChange)="onLinkClick($event)">
-        <mat-tab label="Sales Orders">
+        <mat-tab label="Sales Orders"> -->
           <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
             <div fxFlex="75" class="sec1" fxFlex.xs="75">
               <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
-                <!-- <mat-progress-spinner mode="indeterminate"></mat-progress-spinner> -->
+                <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
               </div>
               <!-- <div *ngIf="!showLoader"> -->
                 <div *ngIf="showAll">
@@ -303,7 +303,7 @@
             </div>
             
           </div>
-        </mat-tab>
+        <!-- </mat-tab>
         <mat-tab label="Delete Sales Orders">
           <div fxFlex="100" class="sec1" fxFlex.xs="100">
             <app-delete-salesorders></app-delete-salesorders>
@@ -316,12 +316,12 @@
         </mat-tab>
         <mat-tab label="Planned Orders">
           <div fxFlex="100" class="sec1" fxFlex.xs="100">
-            <app-planned></app-planned>
-          </div>
-        </mat-tab>
+            <app-planned></app-planned> -->
+          <!-- </div> -->
+        <!-- </mat-tab>
       </mat-tab-group>
     </div>
 
 
   </div>
-</div>
+</div> -->
