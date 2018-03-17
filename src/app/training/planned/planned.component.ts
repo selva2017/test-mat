@@ -15,6 +15,7 @@ import { DispatchReport } from '../../shared/dispatch-report';
 export class PlannedComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('paginator5') paginator5: MatPaginator;
   subscription: Subscription;
   dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
   dataSource_dispatch = new MatTableDataSource<DispatchReport>();
@@ -22,6 +23,12 @@ export class PlannedComponent implements OnInit {
   displayedColumns_avail_sales_order = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
   displayedColumns_modifyplandetails = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'update', 'delete'];
   displayedColumns_prod_plan_details = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock'];
+  displayedColumns_bf = ['bf', 'weight'];
+  displayedColumns_bfgsm = ['bf', 'weight'];
+  displayedColumns_bfgsmsize = ['bf', 'weight', 'reel', 'reelInStock'];
+  displayedColumns_bfgsmsize_prod_plan = ['bf', 'weight', 'reel', 'reelInStock'];
+  salesOrder_modified: ProdPlan[] = [];
+  salesOrder_selected: ProdPlan[] = [];
   showLoader: boolean;
   dataSource = new MatTableDataSource<ProdPlan>();
 
@@ -40,7 +47,7 @@ export class PlannedComponent implements OnInit {
   dataSource_avail_so_pp = new MatTableDataSource<ProdPlan>();
   salesOrder: ProdPlan[];
   salesOrderSource: ProdPlan[] = [];
-
+  salesOrdersPlanned_row1: SalesOrdersPlanned[] = [];
   prodution_plan_details_selected_main: boolean = true;
   prodution_plan_details_selected_details: boolean = false;
   prodution_plan_details_selected_right: boolean = false;
@@ -62,6 +69,7 @@ export class PlannedComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
 
   doFilter(filterValue: string) {
@@ -133,6 +141,10 @@ export class PlannedComponent implements OnInit {
     this.showAllSalesOrders = false;
     this.showSelectedOrders = false;
 
+    this.salesOrdersPlanned_row1 = [];
+    this.salesOrdersPlanned_row1 = record1;
+    this.dataSource_prodplans.data = [];
+    this.dataSource_prodplans.data = this.salesOrdersPlanned_row1;
     this.salesOrder_BF = [];
     this.salesOrder_BF = record2;
     this.dataSource_BF.data = [];
@@ -182,13 +194,51 @@ export class PlannedComponent implements OnInit {
 
   }
 
+  // onModifyPlannedReports(record1, record2, record3, record4, createdDate, batch_number) {
+  //   this.prodution_plan_details_selected_main = false;
+  //   this.modifyProductionPlan_details = true;
+  //   this.modifyProductionPlan_right = true;
+  //   this.batch_number = batch_number;
+  //   this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
+
+  //   this.salesOrdersPlanned_row1 = [];
+  //   this.salesOrdersPlanned_row1 = record1;
+  //   this.dataSource_prodplans.data = [];
+  //   this.dataSource_prodplans.data = this.salesOrdersPlanned_row1;
+
+  //   this.salesOrder_BF = [];
+  //   this.salesOrder_BF = record2;
+  //   this.dataSource_BF.data = [];
+  //   this.dataSource_BF.data = this.salesOrder_BF;
+  //   // console.log(this.salesOrder_BF);
+  //   this.salesOrder_BFGSM = [];
+  //   this.salesOrder_BFGSM = record3;
+  //   this.dataSource_BFGSM.data = [];
+  //   this.dataSource_BFGSM.data = this.salesOrder_BFGSM;
+  //   // console.log(this.salesOrder_BFGSM);
+  //   this.salesOrder_BFGSMSize = [];
+  //   this.salesOrder_BFGSMSize = record4;
+  //   this.dataSource_BFGSMSize.data = [];
+  //   this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
+  // }
   onModifyPlannedReports(record1, record2, record3, record4, createdDate, batch_number) {
+   this.refreshActiveList();
+    // console.log(record1);
+    // console.log(record2);
+    // console.log(record3);
+    // console.log(record4);
     this.prodution_plan_details_selected_main = false;
     this.modifyProductionPlan_details = true;
     this.modifyProductionPlan_right = true;
     this.batch_number = batch_number;
     this.dispatchHeader = "Production Planned Date : " + createdDate + "     Batch No : " + batch_number;
 
+    // this.modifyProductionPlan = false;
+    this.salesOrdersPlanned_row1 = [];
+    this.salesOrdersPlanned_row1 = record1;
+    this.dataSource_prodplans.data = [];
+    this.dataSource_prodplans.data = this.salesOrdersPlanned_row1;
+    // console.log(this.salesOrdersPlanned_row1);
     this.salesOrder_BF = [];
     this.salesOrder_BF = record2;
     this.dataSource_BF.data = [];
@@ -204,7 +254,6 @@ export class PlannedComponent implements OnInit {
     this.dataSource_BFGSMSize.data = [];
     this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
-
   onDeleteProductionPlanItem(row) {
     this.showLoader = true;
     this.modifyProductionPlan_main = true;
@@ -251,5 +300,57 @@ export class PlannedComponent implements OnInit {
       })
     // this.showLoader = false;
   }
+  onAddItemToExistingProductionPlan(key, voucherKey) {
+    this.showLoader = true;
+    this.modifyProductionPlan_main = true;
+    this.modifyProductionPlan_details = false;
+    this.modifyProductionPlan_right = false;
+    // console.log("inside");
+    var newWeight = key.newWeight;
+    // console.log(key, voucherKey, key.newWeight);
+    // console.log(this.batch_number);
+    // this.showConsolidatedReports = false;
+    key["altered"] = 0;
+    if (newWeight > 0) {
+      var wt = Number(key["weight"]) - Number(newWeight);
+      key.weight = Number(newWeight);
+      key["altered"] = 1;
+      key["newWeight"] = wt;
+      key['reel'] = this.reel(newWeight, key['size']);
+      this.salesOrder_modified.push(key);
+    }
+    this.salesOrder_selected.push(key);
+    for (var i = 0; i < this.salesOrder.length; i++) {
+      if (this.salesOrder[i].id === voucherKey) {
+        this.salesOrder.splice(i, 1);
+        break;
+      }
+    }
+    // this.generateItemBFGSM();
+    // this.generateItemBFGMSSize();
+    // this.generateItemBF();
+    this.serverService.addItemToExistingProductionPlan(this.salesOrder_selected, this.batch_number)
+      .subscribe(
+      (success) => {
+        console.log("success");
+        this.refreshActiveList();
+        this.onEditProductionPlans();
+        this.showLoader = false;
+      },
+      (error) => console.log(error)
+      );
+    // this.clearAll();
+  }
+  reel(weight, size) {
+    var reel: any;
+    reel = ((weight * 1000) / (size * 10));
 
+    if (reel > Math.round(reel)) {
+      return Math.round(reel);
+    }
+    else {
+      return Math.ceil(reel);
+    }
+
+  }
 }

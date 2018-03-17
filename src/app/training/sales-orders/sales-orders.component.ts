@@ -216,11 +216,11 @@ export class SalesOrdersComponent implements OnInit {
       this.modifyProductionPlan_right = false;
       this.showSelectedOrders = false;
       this.showAllSalesOrders = false;
-      this.dataSource_BF.data = [];
+      // this.dataSource_BF.data = [];
       // this.salesOrder_BFGSM = [];
-      this.dataSource_BFGSM.data = [];
+      // this.dataSource_BFGSM.data = [];
       // this.salesOrder_BFGSMSize = [];
-      this.dataSource_BFGSMSize.data = [];
+      // this.dataSource_BFGSMSize.data = [];
       }
     
   }
@@ -234,25 +234,25 @@ export class SalesOrdersComponent implements OnInit {
           this.modifyProductionPlan_right = false;
           this.prodution_plan_details_selected_right = false;
           break;
+        // case 1:
+        //   console.log("1");
+        //   !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
+        //   this.showAllSalesOrders = false;
+        //   this.showSelectedOrders = true;
+        //   this.modifyProductionPlan_right = false;
+        //   this.prodution_plan_details_selected_right = false;
+        //   break;
         case 1:
-          console.log("1");
-          !this.dataSource2.paginator ? this.dataSource2.paginator = this.paginator2 : null;
-          this.showAllSalesOrders = false;
-          this.showSelectedOrders = true;
-          this.modifyProductionPlan_right = false;
-          this.prodution_plan_details_selected_right = false;
-          break;
-        case 2:
           !this.dataSource_delete.paginator ? this.dataSource_delete.paginator = this.paginator3 : null;
           this.showAllSalesOrders = false;
           this.showSelectedOrders = false;
           break;
-          case 3:
+          case 2:
           !this.dataSource_restore.paginator ? this.dataSource_restore.paginator = this.paginator4 : null;
           this.showAllSalesOrders = false;
           this.showSelectedOrders = false;
           break;
-          case 4:
+          case 3:
           console.log("index 4");
           this.salesOrdersPlanned = [];
           this.onEditProductionPlans();
@@ -294,12 +294,6 @@ export class SalesOrdersComponent implements OnInit {
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }
-  showSelected() {
-    this.showAll = !this.showAll;
-    // console.log(this.showAll);
-    // this.dataSource2.data=this.salesOrder_selected;
-    // this.message=this.salesOrder_selected;
-  }
   updatePlannedSalesOrder(row, id, reel) {
     // console.log(row);
     // console.log(id);
@@ -319,6 +313,16 @@ export class SalesOrdersComponent implements OnInit {
       );
 
   }
+  showSalesOrders(){
+    this.showAll = !this.showAll;
+  }
+  showSelected() {
+    this.showAll = !this.showAll;
+    // console.log(this.showAll);
+    // this.dataSource2.data=this.salesOrder_selected;
+    // this.message=this.salesOrder_selected;
+  }
+  
   confirmProduction() {
     // console.log(this.salesOrder_selected);
     this.serverService.createProductionPlan(this.salesOrder_selected)
@@ -519,8 +523,13 @@ export class SalesOrdersComponent implements OnInit {
     this.generateItemBF();
   }
   selectFromSelected(key, voucherKey) {
-    // console.log("in selected");
-    // console.log(this.salesOrderSource);
+    this.showAll=false;
+    // this.showLoader=false;
+    console.log("key" + key);
+    console.log("voucher key " + voucherKey);
+    console.log("sso "+this.salesOrder_selected.length);
+    console.log("so "+this.salesOrder.length);
+    console.log("so source "+this.salesOrderSource.length);
     for (var i = 0; i < this.salesOrderSource.length; i++) {
       // alert(i);
       if (this.salesOrderSource[i].id === voucherKey) {
@@ -528,11 +537,12 @@ export class SalesOrdersComponent implements OnInit {
         key = this.salesOrderSource[i];
         break;
       }
-      // console.log(key);
+      console.log("key selected = "+key);
     }
-    // console.log("in selected push");
-    // console.log(this.salesOrder);
     this.salesOrder.push(key);
+    console.log("after push");
+    console.log(this.salesOrder.length);
+    console.log(this.salesOrder_selected.length);
     // console.log(this.salesOrder);
     for (var i = 0; i < this.salesOrder_selected.length; i++) {
       if (this.salesOrder_selected[i].id === voucherKey) {
@@ -540,6 +550,7 @@ export class SalesOrdersComponent implements OnInit {
         break;
       }
     }
+    // this.dataSource2.data = [];
     // console.log("in selected push done");
     this.dataSource2.data = this.salesOrder_selected;
     this.dataSource.data = this.salesOrder;
