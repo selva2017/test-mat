@@ -2,12 +2,13 @@
   <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
     <!-- <mat-tab label="Plans In Production"> -->
     <div fxFlex="100" class="sec1" fxFlex.xs="100">
-      <div *ngIf="prodution_plan_details_selected_main">
-        <!-- <div *ngIf="showAll"> -->
         <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
-          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        </div>
-        <div *ngIf="!showLoader">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+          </div>
+      <div *ngIf="prodution_plan_details_selected_main && !showLoader">
+        <!-- <div *ngIf="showAll"> -->
+
+        <div>
           <div fxLayoutAlign="center center">
             <mat-form-field fxFlex="40%">
               <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -55,7 +56,7 @@
           </mat-paginator>
         </div>
       </div>
-      <div *ngIf="prodution_plan_details_selected_details">
+      <div *ngIf="prodution_plan_details_selected_details && !showLoader">
         
         <!-- <div *ngIf="showAll"> -->
         <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
@@ -137,7 +138,7 @@
         <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
         </mat-paginator>
       </div>
-      <div *ngIf="modifyProductionPlan_details">
+      <div *ngIf="modifyProductionPlan_details && !showLoader">
         <!-- <div *ngIf="showAll"> -->
         <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
           <mat-form-field fxFlex="40%">

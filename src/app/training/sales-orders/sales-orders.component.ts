@@ -44,7 +44,6 @@ export class SalesOrdersComponent implements OnInit {
   // dataSource_restore = new MatTableDataSource<ProdPlan>();
   // dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
   // dataSource_dispatch = new MatTableDataSource<DispatchReport>();
-
   @ViewChild(MatSort) sort: MatSort;
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('table1') table1: MatSort;
@@ -90,15 +89,12 @@ export class SalesOrdersComponent implements OnInit {
   // @ViewChild(SelectedOrdersComponent) child;
   // message:string;
 
-
   // Working 2
   // @Input() childMessage: string;
   // message: string = "Hola Mundo!";
-
   // @Input() childMessage: string;
   //  message: ProdPlan[];
   // message: string = "SAles Order Component";
-
   constructor(private serverService: ServerService, private dialog: MatDialog) {
     this.showLoader = true;
   }
@@ -345,7 +341,6 @@ export class SalesOrdersComponent implements OnInit {
   //   // this.generateItemBFGSM();
   //   // this.generateItemBFGMSSize();
   //   // this.generateItemBF();
-
   //   this.serverService.addItemToExistingProductionPlan(this.salesOrder_selected, this.batch_number)
   //     .subscribe(
   //     (success) => {
@@ -489,7 +484,6 @@ export class SalesOrdersComponent implements OnInit {
     }
     this.salesOrder_selected.push(row);
     // this.stockReel(row["reelInStock"], row["reel"], id);
-
     for (var i = 0; i < this.salesOrder.length; i++) {
       if (this.salesOrder[i].id === id) {
         this.salesOrder.splice(i, 1);
@@ -595,7 +589,6 @@ export class SalesOrdersComponent implements OnInit {
   //     },
   //     (error) => console.log(error)
   //     );
-
   // }
   // refreshInActiveList() {
   //   this.salesOrderRestore = [];
@@ -609,7 +602,6 @@ export class SalesOrdersComponent implements OnInit {
   //     })
   //   // this.showLoader = false;
   // }
-
   // onViewProductionPlans() {
   //   this.salesOrdersPlanned = [];
   //   this.subscription = this.serverService.getSalesOrdersPlanned().
@@ -620,7 +612,6 @@ export class SalesOrdersComponent implements OnInit {
   //       this.showLoader = false;
   //     })
   // }
-
   convertReel(weight, size) {
     return ((weight * 1000) / (size * 10)).toFixed(3);
   }
@@ -646,17 +637,14 @@ export class SalesOrdersComponent implements OnInit {
 
 // import { Component, OnInit } from '@angular/core';
 // import { Subscription } from 'rxjs/Subscription';
-
 // import { ServerService } from './../../shared/server.service';
 // import { ProdPlan } from './../../shared/prod_plan';
-
 // @Component({
 //   selector: 'app-sales-orders',
 //   templateUrl: './sales-orders.component.html',
 //   styleUrls: ['./sales-orders.component.css']
 // })
 // export class SalesOrdersComponent implements OnInit {
-
 //   subscription: Subscription;
 //   salesOrder: ProdPlan[];
 //   salesOrder_selected: ProdPlan[] = [];
@@ -672,14 +660,12 @@ export class SalesOrdersComponent implements OnInit {
 //   constructor(private serverService: ServerService) {
 //     this.showLoader = true;
 //   }
-
 //   ngOnInit() {
 //     this.refreshActiveList();
 //   }
 //   displayINR(amount: number) {
 //     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
 //   }
-
 //   onClickView(record) {
 //     this.salesOrder_row = record;
 //   }
@@ -741,7 +727,6 @@ export class SalesOrdersComponent implements OnInit {
 //         if (!match) {
 //           this.salesOrder_BFGSM.push(this.salesOrder_selected1[i]);
 //         }
-
 //       }
 //     }
 //   }
@@ -787,7 +772,6 @@ export class SalesOrdersComponent implements OnInit {
 //       }
 //     }
 //   }
-
 //   selectFromAll(key, voucherKey, newQuantity) {
 //     if (newQuantity > 0) {
 //       key.weight = Number(newQuantity);
@@ -834,14 +818,11 @@ export class SalesOrdersComponent implements OnInit {
 //   reel(weight, size) {
 //     var reel: any;
 //     reel = ((weight * 1000) / (size * 10));
-
 //     if (reel > Math.round(reel)) {
 //       return Math.round(reel);
 //     }
 //     else {
 //       return Math.ceil(reel);
 //     }
-
 //   }
 // }
-

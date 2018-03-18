@@ -29,6 +29,7 @@ export class DaybookComponent implements OnInit {
     this.refreshList();
   }
   ngAfterViewInit() {
+    this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

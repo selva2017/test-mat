@@ -30,7 +30,9 @@ export class TrialBalComponent implements OnInit {
         // console.log(products);
         this.dataSource.data = products;
         this.products = products;
+        this.showLoader = false;
       });
+      this.showLoader = false;
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -40,6 +42,7 @@ export class TrialBalComponent implements OnInit {
     this.refreshList();
   }
   ngAfterViewInit() {
+    this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

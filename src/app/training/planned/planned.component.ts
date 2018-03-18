@@ -63,10 +63,13 @@ export class PlannedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onViewProductionPlans();
+    // this.onViewProductionPlans();
+    this.showLoader = true;
   }
 
   ngAfterViewInit() {
+    this.showLoader = true;
+    this.onViewProductionPlans();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.dataSource_avail_so_pp.paginator = this.paginator5;
@@ -129,8 +132,9 @@ export class PlannedComponent implements OnInit {
         this.salesOrdersPlanned = list;
         this.dataSource_prodplans.data = this.salesOrdersPlanned;
         // console.log(this.salesOrdersPlanned);
-        this.showLoader = false;
+        // this.showLoader = false;
       })
+    this.showLoader = false;
   }
   onViewProductionReport(record1, record2, record3, record4) {
     this.prodution_plan_details_selected_main = false;
@@ -222,7 +226,7 @@ export class PlannedComponent implements OnInit {
   //   this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   // }
   onModifyPlannedReports(record1, record2, record3, record4, createdDate, batch_number) {
-   this.refreshActiveList();
+    this.refreshActiveList();
     // console.log(record1);
     // console.log(record2);
     // console.log(record3);
@@ -255,7 +259,7 @@ export class PlannedComponent implements OnInit {
     this.dataSource_BFGSMSize.data = this.salesOrder_BFGSMSize;
   }
   onDeleteProductionPlanItem(row) {
-    // this.showLoader = true;
+    this.showLoader = true;
     // this.modifyProductionPlan_main = true;
     this.modifyProductionPlan_details = false;
     this.modifyProductionPlan_right = false;
@@ -271,7 +275,7 @@ export class PlannedComponent implements OnInit {
       },
       (error) => console.log(error)
       );
-
+    this.showLoader = false;
   }
   onEditProductionPlans() {
     this.salesOrdersPlanned = [];
@@ -283,6 +287,7 @@ export class PlannedComponent implements OnInit {
         // console.log(this.salesOrdersPlanned);
         this.showLoader = false;
       })
+    this.showLoader = false;
   }
   refreshActiveList() {
 
@@ -301,10 +306,10 @@ export class PlannedComponent implements OnInit {
         this.dataSource_avail_so_pp.data = this.salesOrder;
         this.showLoader = false;
       })
-    // this.showLoader = false;
+    this.showLoader = false;
   }
   onAddItemToExistingProductionPlan(key, voucherKey) {
-    // this.showLoader = true;
+    this.showLoader = true;
     // this.modifyProductionPlan_main = true;
     this.modifyProductionPlan_details = false;
     // this.modifyProductionPlan_right = false;
@@ -342,6 +347,7 @@ export class PlannedComponent implements OnInit {
       },
       (error) => console.log(error)
       );
+    this.showLoader = false;
     // this.clearAll();
     this.prodution_plan_details_selected_main = true;
     this.modifyProductionPlan_right = false;
@@ -361,6 +367,7 @@ export class PlannedComponent implements OnInit {
 
   }
   updatePlannedSalesOrder(row, id, reel) {
+    this.showLoader = true;
     // console.log(row);
     // console.log(id);
     // console.log(reel);
@@ -372,11 +379,12 @@ export class PlannedComponent implements OnInit {
         this.onViewProductionPlans();
         // this.refreshActiveList();
         this.prodution_plan_details_selected_main = true;
+        this.modifyProductionPlan_details = false;
         this.prodution_plan_details_selected_details = false;
         this.prodution_plan_details_selected_right = false;
       },
       (error) => console.log(error)
       );
-
+      this.showLoader = false;
   }
 }

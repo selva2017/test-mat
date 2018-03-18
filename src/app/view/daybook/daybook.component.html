@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+<div *ngIf="!showLoader">
     <!-- <div *ngIf="showAll"> -->
     <div fxLayoutAlign="center center">
       <mat-form-field fxFlex="40%">

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatTabChangeEvent } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
@@ -15,7 +15,7 @@ export class RestoreSalesordersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
   name = '';
-    displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
+  displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   salesOrder: ProdPlan[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<ProdPlan[]>();
@@ -27,10 +27,11 @@ export class RestoreSalesordersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshInActiveList();
+    // this.refreshInActiveList();
   }
 
   ngAfterViewInit() {
+    this.refreshInActiveList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

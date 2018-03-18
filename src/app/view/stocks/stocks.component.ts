@@ -13,7 +13,7 @@ export class StocksComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
-  name = '';
+  // name = '';
   // displayedColumns = ['custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
   displayedColumns = ['amount', 'batchName', 'bfAct', 'bfTgt', 'gsmAct', 'gsmTgt', 'stockItemName', 'units', 'voucherEffectiveDate', 'voucherKey', 'voucherNumber'];
   stock_list: StockList[];
@@ -30,6 +30,7 @@ export class StocksComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

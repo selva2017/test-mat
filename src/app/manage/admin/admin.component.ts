@@ -65,4 +65,7 @@ export class AdminComponent implements OnInit {
       }
       );
   }
+  ngAfterViewInit() {
+    this.showLoader = true;
+  }
 }
