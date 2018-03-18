@@ -25,6 +25,10 @@
     <mat-icon>view_list</mat-icon>
     <span class="nav-caption">Reports</span>
   </a>
+  <a mat-list-item routerLink="/manage" (click)="onClose()" *ngIf="isAuth">
+    <mat-icon>supervisor_account</mat-icon>
+    <span class="nav-caption">Admin</span>
+  </a>
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="isAuth">
       <mat-icon>eject</mat-icon>

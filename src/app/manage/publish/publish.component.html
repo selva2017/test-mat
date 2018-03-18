@@ -1,0 +1,66 @@
+<div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div>
+  <h2>Create Announcements</h2>
+  <div class="col-md-12 push-md-12">
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+      <div class="form-group">
+        <!-- <label for="message">Message Title</label> -->
+        <!-- <input type="text" class="form-control" name="title" id="title" rows="5" class="form-control" ngModel required/> -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Message Title" name="title" id="title" ngModel required>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <!-- <label for="message">Message details</label> -->
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Message details" name="message" id="message" rows="5" class="form-control" ngModel required></textarea>
+        </mat-form-field>
+        <!-- <textarea class="form-control" name="message" id="message" rows="5" class="form-control" ngModel required></textarea> -->
+      </div>
+      <div class="form-group">
+        <!-- <label for="url">Path for the Image</label> -->
+        <!-- <input type="text" class="form-control" name="url" id="url" placeholder="url" class="form-control" ngModel> -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Path for the Image" name="url" id="url" ngModel>
+        </mat-form-field>
+      </div>
+
+      <!-- <div *ngIf="invalidLogin" class="alert alert-danger">
+          Please enter the required details...
+        </div> -->
+      <div class="row" align="center">
+        <div class="col-md-12">
+          <button mat-raised-button color="primary" data-toggle="modal" data-target="#exampleModalLong" [disabled]="!loginForm.valid">Publish</button>
+          <button mat-raised-button color="warn">Cancel</button>
+          <!-- <button type="button" class="btn-group btn btn-warning" style="width:160px">Cancel</button> -->
+          <!-- <button mat-raised-button color="accent" disabled>Edit</button> -->
+          <!-- <button type="button" class="btn-group btn btn-primary" style="width:160px" routerLink="modify">Modify</button> -->
+          <!-- <button mat-raised-button color="warn" disabled>Delete</button> -->
+        </div>
+      </div>
+      <!-- <button class="btn btn-primary btn-md" type="submit" [disabled]="!loginForm.valid">Sign In</button> -->
+    </form>
+  </div>
+</div>
+
+<!-- Modal window -->
+<!-- <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Confirmation Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Message has been published successfully.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div> -->

@@ -39,6 +39,9 @@ import { CustomerDialog } from './view/customers/customer-dialog.component';
 import { DeleteSalesordersComponent } from './training/delete-salesorders/delete-salesorders.component';
 import { RestoreSalesordersComponent } from './training/restore-salesorders/restore-salesorders.component';
 import { PlannedComponent } from './training/planned/planned.component';
+import { AdminComponent } from './manage/admin/admin.component';
+import { PublishComponent } from './manage/publish/publish.component';
+import { ManageComponent } from './manage/manage.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { PlannedComponent } from './training/planned/planned.component';
     CustomerDialog,
     DeleteSalesordersComponent,
     RestoreSalesordersComponent,
-    PlannedComponent
+    PlannedComponent,
+    AdminComponent,
+    PublishComponent,
+    ManageComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { CustomerDialog } from './customer-dialog.component';
 import { Customer } from '../../shared/customer';
 import { Receipts } from '../../shared/receipts';
 import { SalesDetails } from '../../shared/sales-details';
+import { CustomerDetails } from '../../shared/customer-details';
 
 @Component({
   selector: 'app-customers',
@@ -19,6 +20,7 @@ export class CustomersComponent implements OnInit {
   subscription: Subscription;
   displayedColumns = ['customerID', 'name', 'gstNo', 'companyId', 'createdDate', 'customerGroup', 'customerType', 'action'];
   customer: Customer[] = [];
+  customer_details: CustomerDetails[] = [];
   receipt: Receipts[] = [];
   sales: SalesDetails[] = [];
 
@@ -58,41 +60,43 @@ export class CustomersComponent implements OnInit {
     this.showLoader = false;
   }
   onViewDetails(record) {
-    console.log(record);
+    // console.log(record);
     this.subscription = this.serverService.getCustomerDetails(record).
       subscribe(list => {
-        this.receipt = list;
-        console.log(list);
+        // this.customer_details = list;
+        this.onClickView(list)
+        // console.log(list);
       })
-
-    // this.receipt = [];
-    // this.subscription = this.serverService.getReceiptList(record).
-    //   subscribe(list => {
-    //     this.receipt = list;
-    //     console.log(list);
-    //   })
-    // // this.sales = [];
-    // this.subscription = this.serverService.getSalesList(record).
-    //   subscribe(list => {
-    //     this.sales = list;
-    //     console.log(list);
-    //   })
-
-    // const dialogRef = this.dialog.open(CustomerDialog, {
-    //   // height: '90%',
-    //   // width: '60%',
-    //   height: "640px",
-    //   width: '"640px"',
-    //   data: {
-    //     sales_data: this.sales.slice(), receipt_data: this.receipt.slice()
-    //   }
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     console.log("true");
-    //   } else {
-    //     console.log("false");
-    //   }
-    // });
+  }
+  // this.receipt = [];
+  // this.subscription = this.serverService.getReceiptList(record).
+  //   subscribe(list => {
+  //     this.receipt = list;
+  //     console.log(list);
+  //   })
+  // // this.sales = [];
+  // this.subscription = this.serverService.getSalesList(record).
+  //   subscribe(list => {
+  //     this.sales = list;
+  //     console.log(list);
+  //   })
+  onClickView(record: CustomerDetails[]) {
+    const dialogRef = this.dialog.open(CustomerDialog, {
+      // height: '90%',
+      // width: '60%',
+      height: "640px",
+      width: '"640px"',
+      data: {
+        progress: record
+        // sales_data: this.sales.slice(), receipt_data: this.receipt.slice()
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("true");
+      } else {
+        console.log("false");
+      }
+    });
   }
 }

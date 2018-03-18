@@ -1,3 +1,4 @@
+import { ManageComponent } from './manage/manage.component';
 import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
 import { SalesOrdersComponent } from './training/sales-orders/sales-orders.component';
 import { NgModule } from '@angular/core';
@@ -19,14 +20,15 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'training', component: TrainingComponent, canActivate: [AuthGuard] },
-  { path: 'plan', component: SalesOrdersComponent },
-  // { path: 'plan', component: SalesOrdersComponent, canActivate: [AuthGuard] },
+  // { path: 'plan', component: SalesOrdersComponent },
+  { path: 'plan', component: SalesOrdersComponent, canActivate: [AuthGuard] },
   { path: 'trial-bal', component: TrialBalComponent, canActivate: [AuthGuard] },
   { path: 'daybook', component: DaybookComponent, canActivate: [AuthGuard] },
   { path: 'view', component: ViewComponent, canActivate: [AuthGuard] },
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard] },
   { path: 'receipts', component: ReceiptsComponent, canActivate: [AuthGuard] },
-  { path: 'customers', component: CustomersComponent }
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

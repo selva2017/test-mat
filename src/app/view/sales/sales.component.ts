@@ -27,7 +27,7 @@ export class SalesComponent implements OnInit {
 
   ngOnInit() {
     this.refreshList();
-    this.refreshCustomersList();
+    // this.refreshCustomersList();
   }
 
   ngAfterViewInit() {
@@ -55,18 +55,18 @@ export class SalesComponent implements OnInit {
       })
     this.showLoader = false;
   }
-  refreshCustomersList() {
-    this.subscription = this.serverService.getCustomersList().
-      subscribe(list => {
-        // this.dataSource.data = list;
-        // this.products = list;
-        // this.showLoader = false;
-        // this.dataSource.data = list;
-        // this.dataSource.data = this.salesOrder.slice();
-        // console.log(list);
-      })
-    // this.showLoader = false;
-  }
+  // refreshCustomersList() {
+  //   this.subscription = this.serverService.getCustomersList().
+  //     subscribe(list => {
+  //       // this.dataSource.data = list;
+  //       // this.products = list;
+  //       // this.showLoader = false;
+  //       // this.dataSource.data = list;
+  //       // this.dataSource.data = this.salesOrder.slice();
+  //       console.log(list);
+  //     })
+  //   // this.showLoader = false;
+  // }
 
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
