@@ -54,6 +54,7 @@ export class AdminComponent implements OnInit {
       );
     }
     ngOnInit() {
+      // this.showLoader = true;
       this.subscription = this.serverService.getUserRoles().
       subscribe(list => {
         this.userList = list;
@@ -63,9 +64,10 @@ export class AdminComponent implements OnInit {
       },
       error => {
       }
-      );
+    );
+    this.showLoader = false;
   }
   ngAfterViewInit() {
-    this.showLoader = true;
+    // this.showLoader = true;
   }
 }

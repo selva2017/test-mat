@@ -27,10 +27,11 @@ export class StocksComponent implements OnInit {
 
   ngOnInit() {
     this.refreshList();
+    this.showLoader = true;
   }
 
   ngAfterViewInit() {
-    this.showLoader = true;
+    // this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -59,7 +60,6 @@ export class StocksComponent implements OnInit {
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }
-
 
 }
 

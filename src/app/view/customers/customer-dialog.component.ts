@@ -42,7 +42,7 @@ import { Daybook } from '../../shared/daybook';
             <tbody>
               <tr *ngFor="let receipt of passedData.progress.receipts">
               <td>{{receipt.partyLedgerName}} </td>
-              <td>{{receipt.amount}} </td>
+              <td>{{displayINR(receipt.amount)}} </td>
               <td>{{receipt.custId}} </td>
               <td>{{receipt.receiptId}} </td>
               <td>{{receipt.voucherNumber}} </td>
@@ -76,7 +76,7 @@ import { Daybook } from '../../shared/daybook';
             <tbody>
               <tr *ngFor="let sales of passedData.progress.sales">
               <td>{{sales.partyLedgerName}} </td>
-              <td>{{sales.amount}} </td>
+              <td>{{displayINR(sales.amount)}} </td>
               <td>{{sales.custId}} </td>
               <td>{{sales.salesId}} </td>
               <td>{{sales.voucherNumber}} </td>
@@ -100,7 +100,11 @@ import { Daybook } from '../../shared/daybook';
 })
 export class CustomerDialog {
   constructor( @Inject(MAT_DIALOG_DATA) public passedData: any) {
-    console.log("passedData");
+    // console.log("passedData");
     // console.log(passedData);
   }
+  displayINR(amount: number) {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+  }
+
 }

@@ -16,7 +16,7 @@
                     </mat-form-field>
                     <button mat-raised-button color="accent" (click)="showSelected()">Selected List</button>
                   </div>
-
+                  <p>Sales Orders</p>
                   <mat-table #table1="matSort" [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="id">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
@@ -25,7 +25,7 @@
 
                     <ng-container matColumnDef="orderDate">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-                      <mat-cell *matCellDef="let element">{{ element.orderDate }}</mat-cell>
+                      <mat-cell *matCellDef="let element">{{ element.orderDate | date: 'dd-MM-yyyy' }}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="orderNumber">
@@ -133,7 +133,7 @@
 
                     <ng-container matColumnDef="orderDate">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-                      <mat-cell *matCellDef="let element">{{ element.orderDate }}</mat-cell>
+                      <mat-cell *matCellDef="let element">{{ element.orderDate | date: 'dd-MM-yyyy'}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="orderNumber">
@@ -211,8 +211,8 @@
             <div fxFlex="23" class="sec3" fxFlex.xs="23">
               <div *ngIf="showAllSalesOrders || showSelectedOrders">
                 <div>
-                  <!-- <h5>Items Selected for Planning</h5> -->
-                  <h5>Items - Sales Order</h5>
+                  <!-- <p>Items Selected for Planning</p> -->
+                  <p>Items - Sales Order</p>
                   <mat-table #table [dataSource]="dataSource_BF" matSort style="background:rgb(233, 233, 139)">
                     <ng-container matColumnDef="bf">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Item (BF)</mat-header-cell>

@@ -40,9 +40,10 @@ export class TrialBalComponent implements OnInit {
 
   ngOnInit() {
     this.refreshList();
+    this.showLoader = true;
   }
   ngAfterViewInit() {
-    this.showLoader = true;
+    // this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -54,5 +55,7 @@ export class TrialBalComponent implements OnInit {
       !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
     });
   }
-
+  displayINR(amount: number) {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+  }
 }

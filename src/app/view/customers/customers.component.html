@@ -7,6 +7,8 @@
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
   </div>
+
+  <p>Customers Details</p>
   <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
     <ng-container matColumnDef="companyId">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Company ID</mat-header-cell>
@@ -15,7 +17,7 @@
 
     <ng-container matColumnDef="createdDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.createdDate }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element.createdDate | date: 'dd-MM-yyyy' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="customerGroup">

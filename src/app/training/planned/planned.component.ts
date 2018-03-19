@@ -30,7 +30,7 @@ export class PlannedComponent implements OnInit {
   salesOrder_modified: ProdPlan[] = [];
   salesOrder_selected: ProdPlan[] = [];
   showLoader: boolean;
-  dataSource = new MatTableDataSource<ProdPlan>();
+  // dataSource = new MatTableDataSource<ProdPlan>();
 
   salesOrder_BFGSM: ProdPlan[] = [];
   salesOrder_BFGSMSize: ProdPlan[] = [];
@@ -63,25 +63,27 @@ export class PlannedComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.onViewProductionPlans();
-    this.showLoader = true;
-  }
-
-  ngAfterViewInit() {
     this.showLoader = true;
     this.onViewProductionPlans();
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  }
+  // ngAfterViewChecked(){
+  //   console.log("ngAfterViewChecked");
+  // this.showLoader = true;
+  // }
+  ngAfterViewInit() {
+    // this.onViewProductionPlans();
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
     this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
 
   doFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   setDataSource(indexNumber) {
     setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+      // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
     });
   }
 
@@ -300,8 +302,8 @@ export class PlannedComponent implements OnInit {
         this.salesOrderSource = this.salesOrder.map(x => Object.assign({}, x));
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
-        this.dataSource.data = this.salesOrder;
-        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        // this.dataSource.data = this.salesOrder;
+        // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         this.dataSource_delete.data = this.salesOrder;
         this.dataSource_avail_so_pp.data = this.salesOrder;
         this.showLoader = false;
@@ -385,6 +387,6 @@ export class PlannedComponent implements OnInit {
       },
       (error) => console.log(error)
       );
-      this.showLoader = false;
+    this.showLoader = false;
   }
 }

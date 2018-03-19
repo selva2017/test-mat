@@ -99,12 +99,13 @@ export class SalesOrdersComponent implements OnInit {
     this.showLoader = true;
   }
   ngOnInit() {
+    this.showLoader = true;
     this.refreshActiveList();
     // this.refreshInActiveList();
     // this.onViewProductionPlans();
   }
   ngAfterViewInit() {
-    this.showLoader = true;
+    // this.showLoader = true;
     // working 1
     // this.message = this.child.message;
     // this.dataSource.sort = this.sort;

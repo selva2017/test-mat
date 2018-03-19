@@ -18,20 +18,21 @@ export class RestoreSalesordersComponent implements OnInit {
   displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   salesOrder: ProdPlan[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-  dataSource = new MatTableDataSource<ProdPlan[]>();
+  dataSource = new MatTableDataSource<ProdPlan>();
   // dataSource = new MatTableDataSource<Receipts[]>();
   showLoader: boolean;
 
   constructor(private serverService: ServerService) {
     this.showLoader = true;
   }
-
+  
   ngOnInit() {
-    // this.refreshInActiveList();
+    this.showLoader = true;
+    this.refreshInActiveList();
   }
 
   ngAfterViewInit() {
-    this.refreshInActiveList();
+    // this.refreshInActiveList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -54,9 +55,9 @@ export class RestoreSalesordersComponent implements OnInit {
         this.salesOrder = list;
         // console.log(this.salesOrder);
         this.showLoader = false;
-        this.dataSource.data = list;
+        this.dataSource.data = this.salesOrder;
       })
-    // this.showLoader = false;
+    this.showLoader = false;
   }
 
   restoreSalesOrder(id) {

@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Daybook } from '../../shared/daybook';
-
+import { CommonDetails } from './../../shared/common-details';
 
 @Component({
-    selector: 'daybook-dialog',
-    template: `
+  selector: 'daybook-dialog',
+  template: `
     <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -49,7 +49,7 @@ import { Daybook } from '../../shared/daybook';
             <tbody>
               <tr *ngFor="let ledger of passedData.progress.ledgerEntryVOs">
                 <td>{{ledger.ledgerName}} </td>
-                <td>{{ledger.amount }} </td>
+                <td>{{displayINR(ledger.amount) }} </td>
               </tr>
             </tbody>
 
@@ -71,7 +71,7 @@ import { Daybook } from '../../shared/daybook';
               <tr *ngFor="let inventory of passedData.progress.inventoryEntryVOs">
                 <td>{{inventory.stockItemName}} </td>
                 <td>{{inventory.rate}} </td>
-                <td>{{inventory.amount }} </td>
+                <td>{{displayINR(inventory.amount) }} </td>
                 <td>{{inventory.billedQuantity}} </td>
               </tr>
             </tbody>
@@ -85,14 +85,17 @@ import { Daybook } from '../../shared/daybook';
     </div>
   </div>
 `
-  })
-  export class DaybookDialogComponent {
-    constructor(@Inject(MAT_DIALOG_DATA) public passedData: any) {
-        // console.log("passedData");
-        // console.log(passedData);
-    }
-    onClickPrint() {
-      window.print();
-    }
+})
+export class DaybookDialogComponent {
+  constructor( @Inject(MAT_DIALOG_DATA) public passedData: any) {
+    // console.log("passedData");
+    // console.log(passedData);
   }
-  
+  onClickPrint() {
+    window.print();
+  }
+  displayINR(amount: number) {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+  }
+
+}

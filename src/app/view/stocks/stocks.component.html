@@ -8,7 +8,7 @@
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
   </div>
-
+  <p>Stock Details</p>
   <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
     <ng-container matColumnDef="stockItemName">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Stock ItemName</mat-header-cell>
@@ -20,7 +20,7 @@
     </ng-container>
     <ng-container matColumnDef="amount">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.amount }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ displayINR(element.amount) }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="batchName">

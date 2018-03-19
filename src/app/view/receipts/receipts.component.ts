@@ -14,8 +14,7 @@ export class ReceiptsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
-  name = '';
-  displayedColumns = ['custId', 'receiptId', 'voucherNumber', 'partyLedgerName', 'date', 'effectiveDate', 'voucherType', 'voucherKey', 'ledgerName', 'amount', 'companyId'];
+  name = '';displayedColumns = ['custId', 'receiptId', 'voucherNumber', 'partyLedgerName', 'date', 'effectiveDate', 'voucherType', 'voucherKey', 'ledgerName', 'amount', 'companyId'];
   receipts: Receipts[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<Receipts[]>();
@@ -24,12 +23,14 @@ export class ReceiptsComponent implements OnInit {
   constructor(private serverService: ServerService) {
     this.showLoader = true;
   }
-
+  
   ngOnInit() {
     this.refreshList();
+    this.showLoader = true;
   }
-
+  
   ngAfterViewInit() {
+    // this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

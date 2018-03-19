@@ -17,7 +17,7 @@ export class DeleteSalesordersComponent implements OnInit {
   displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   salesOrder: ProdPlan[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-  dataSource = new MatTableDataSource<ProdPlan[]>();
+  dataSource = new MatTableDataSource<ProdPlan>();
   // dataSource = new MatTableDataSource<Receipts[]>();
   showLoader: boolean;
 
@@ -28,10 +28,11 @@ export class DeleteSalesordersComponent implements OnInit {
 
   ngOnInit() {
     // this.refreshActiveList();
-  }
-  
-  ngAfterViewInit() {
+    this.showLoader = true;
     this.refreshActiveList();
+  }
+
+  ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -45,26 +46,30 @@ export class DeleteSalesordersComponent implements OnInit {
   }
 
   refreshActiveList() {
+    this.salesOrder = [];
     this.subscription = this.serverService.getActiveSalesOrders().
       subscribe(list => {
         this.salesOrder = list;
         // !this.dataSource_delete.paginator ? this.dataSource_delete.paginator = this.paginator1 : null;
-        this.dataSource.data = list;
+        this.dataSource.data = this.salesOrder;
         this.showLoader = false;
       })
-    // this.showLoader = false;
+    this.showLoader = false;
   }
   deleteSalesOrder(id) {
+    this.salesOrder = [];
     this.showLoader = true;
     this.serverService.removeSalesOrderStatus(id)
       .subscribe(
       (success) => {
         this.refreshActiveList();
-        this.showLoader = false;
         // this.dataSource_delete.data = this.salesOrder;
+        this.dataSource.data = this.salesOrder;
+        this.showLoader = false;
       },
       (error) => console.log(error)
       );
+    // this.showLoader = false;
   }
 
 
