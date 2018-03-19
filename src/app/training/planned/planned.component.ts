@@ -63,15 +63,16 @@ export class PlannedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showLoader = true;
-    this.onViewProductionPlans();
+    // this.showLoader = true;
+    // this.onViewProductionPlans();
   }
   // ngAfterViewChecked(){
   //   console.log("ngAfterViewChecked");
   // this.showLoader = true;
   // }
   ngAfterViewInit() {
-    // this.onViewProductionPlans();
+    this.showLoader = true;
+    this.onViewProductionPlans();
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     this.dataSource_avail_so_pp.paginator = this.paginator5;

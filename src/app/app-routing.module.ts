@@ -1,3 +1,4 @@
+import { DeleteSalesordersComponent } from './training/delete-salesorders/delete-salesorders.component';
 import { ManageComponent } from './manage/manage.component';
 import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
 import { SalesOrdersComponent } from './training/sales-orders/sales-orders.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard] },
   { path: 'receipts', component: ReceiptsComponent, canActivate: [AuthGuard] },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
+  { path: 'deleteso', component: DeleteSalesordersComponent, canActivate: [AuthGuard] },
   { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] }
 ];
 

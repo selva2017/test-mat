@@ -27,11 +27,13 @@ export class RestoreSalesordersComponent implements OnInit {
   }
   
   ngOnInit() {
+    // this.showLoader = true;
+    // this.refreshInActiveList();
+  }
+  
+  ngAfterViewInit() {
     this.showLoader = true;
     this.refreshInActiveList();
-  }
-
-  ngAfterViewInit() {
     // this.refreshInActiveList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

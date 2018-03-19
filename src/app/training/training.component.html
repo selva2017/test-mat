@@ -19,17 +19,19 @@
   </mat-tab> -->
 <!-- </mat-tab-group> -->
 <!-- <app-current-training *ngIf="ongoingTraining"></app-current-training> -->
-<mat-tab-group>
+<!-- <mat-tab-group> -->
+<!-- <mat-tab-group color="primary" #tabGroup (selectedIndexChange)="_setDataSource($event)" (selectedTabChange)="onLinkClick($event)"> -->
+<mat-tab-group color="primary" #tabGroup (selectedTabChange)="onLinkClick($event)">
   <mat-tab label="Sales Orders">
     <app-sales-orders></app-sales-orders>
   </mat-tab>
   <mat-tab label="Delete Sales Orders">
-    <app-delete-salesorders></app-delete-salesorders>
+    <app-delete-salesorders *ngIf="showDeleteSO"></app-delete-salesorders>
   </mat-tab>
   <mat-tab label="Restore Sales Orders">
-    <app-restore-salesorders></app-restore-salesorders>
+    <app-restore-salesorders *ngIf="showRestoreSO"></app-restore-salesorders>
   </mat-tab>
   <mat-tab label="Planned">
-    <app-planned></app-planned>
+    <app-planned *ngIf="showPlanned"></app-planned>
   </mat-tab>
 </mat-tab-group>
