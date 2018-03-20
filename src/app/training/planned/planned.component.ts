@@ -315,13 +315,14 @@ export class PlannedComponent implements OnInit {
   }
   onAddItemToExistingProductionPlan(key, voucherKey) {
     this.showLoader = true;
+    this.salesOrder_selected = [];
     // this.modifyProductionPlan_main = true;
     this.modifyProductionPlan_details = false;
     // this.modifyProductionPlan_right = false;
     // console.log("inside");
     var newWeight = key.newWeight;
-    // console.log(key, voucherKey, key.newWeight);
-    // console.log(this.batch_number);
+    console.log(key, voucherKey);
+    console.log(this.batch_number);
     // this.showConsolidatedReports = false;
     key["altered"] = 0;
     if (newWeight > 0) {
@@ -339,6 +340,7 @@ export class PlannedComponent implements OnInit {
         break;
       }
     }
+    console.log(this.salesOrder_selected)
     // this.generateItemBFGSM();
     // this.generateItemBFGMSSize();
     // this.generateItemBF();

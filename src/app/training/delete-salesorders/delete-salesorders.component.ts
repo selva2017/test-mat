@@ -33,8 +33,8 @@ export class DeleteSalesordersComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.showLoader = true;
-    this.refreshActiveList();
+    // this.showLoader = true;
+    // this.refreshActiveList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
