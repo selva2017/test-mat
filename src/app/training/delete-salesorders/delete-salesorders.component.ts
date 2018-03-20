@@ -28,8 +28,8 @@ export class DeleteSalesordersComponent implements OnInit {
 
   ngOnInit() {
     // this.refreshActiveList();
-    // this.showLoader = true;
-    // this.refreshActiveList();
+    this.showLoader = true;
+    this.refreshActiveList();
   }
 
   ngAfterViewInit() {
@@ -41,20 +41,20 @@ export class DeleteSalesordersComponent implements OnInit {
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  _setDataSource(indexNumber) {
-    setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
-  }
+  // _setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
 
   refreshActiveList() {
     this.salesOrder = [];
     this.subscription = this.serverService.getActiveSalesOrders().
       subscribe(list => {
         this.salesOrder = list;
-        // !this.dataSource_delete.paginator ? this.dataSource_delete.paginator = this.paginator1 : null;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator: null;
         this.dataSource.data = this.salesOrder;
-        this.showLoader = false;
+        // this.showLoader = false;
       })
     this.showLoader = false;
   }

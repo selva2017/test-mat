@@ -16,7 +16,7 @@ export class StocksComponent implements OnInit {
   // name = '';
   // displayedColumns = ['custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
   displayedColumns = ['amount', 'batchName', 'bfAct', 'bfTgt', 'gsmAct', 'gsmTgt', 'stockItemName', 'units', 'voucherEffectiveDate', 'voucherKey', 'voucherNumber'];
-  stock_list: StockList[];
+  // stock_list: StockList[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<StockList>();
   showLoader: boolean;
@@ -26,11 +26,13 @@ export class StocksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshList();
     this.showLoader = true;
+    this.refreshList();
   }
 
   ngAfterViewInit() {
+    this.showLoader = true;
+    this.refreshList();
     // this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -38,19 +40,20 @@ export class StocksComponent implements OnInit {
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  _setDataSource(indexNumber) {
-    setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
-  }
+  // _setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
 
   refreshList() {
     this.subscription = this.serverService.getTallyStockData().
       subscribe(list => {
         // this.dataSource.data = list;
-        this.stock_list = list;
-        this.showLoader = false;
+        // this.stock_list = list;
         this.dataSource.data = list;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        // this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })

@@ -63,8 +63,8 @@ export class PlannedComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.showLoader = true;
-    // this.onViewProductionPlans();
+    this.showLoader = true;
+    this.onViewProductionPlans();
   }
   // ngAfterViewChecked(){
   //   console.log("ngAfterViewChecked");
@@ -75,6 +75,7 @@ export class PlannedComponent implements OnInit {
     this.onViewProductionPlans();
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
+    this.dataSource_avail_so_pp.sort = this.sort;
     this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
 
@@ -82,11 +83,11 @@ export class PlannedComponent implements OnInit {
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  setDataSource(indexNumber) {
-    setTimeout(() => {
-      // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
-  }
+  // setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
 
   showPlansInProduction(show_tables: boolean) {
     // console.log("Restore Sales Orders");
@@ -133,6 +134,7 @@ export class PlannedComponent implements OnInit {
     this.subscription = this.serverService.getSalesOrdersPlanned().
       subscribe(list => {
         this.salesOrdersPlanned = list;
+        !this.dataSource_prodplans.paginator ? this.dataSource_prodplans.paginator = this.paginator : null;
         this.dataSource_prodplans.data = this.salesOrdersPlanned;
         // console.log(this.salesOrdersPlanned);
         // this.showLoader = false;
@@ -304,7 +306,7 @@ export class PlannedComponent implements OnInit {
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
         // this.dataSource.data = this.salesOrder;
-        // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        !this.dataSource_avail_so_pp.paginator ? this.dataSource_avail_so_pp.paginator = this.paginator5 : null;
         this.dataSource_delete.data = this.salesOrder;
         this.dataSource_avail_so_pp.data = this.salesOrder;
         this.showLoader = false;

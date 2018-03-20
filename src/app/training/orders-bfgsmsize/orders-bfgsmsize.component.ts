@@ -38,6 +38,7 @@ export class OrdersBfgsmsizeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showLoader = true;
     this.refreshList();
   }
   ngAfterViewInit() {
@@ -198,10 +199,10 @@ export class OrdersBfgsmsizeComponent implements OnInit {
         // this.dataSource.data = list;
         // console.log(this.dataSource.data);
         this.salesOrder = list;
-        this.showLoader = false;
         this.dataSource.data = this.salesOrder.slice();
+        this.showLoader = false;
       })
-    this.showLoader = false;
+    // this.showLoader = false;
   }
   convertReel(weight, size) {
     return ((weight * 1000) / (size * 10)).toFixed(3);

@@ -25,31 +25,33 @@ export class ReceiptsComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.refreshList();
     this.showLoader = true;
+    this.refreshList();
   }
   
   ngAfterViewInit() {
-    // this.showLoader = true;
+    this.showLoader = true;
+    this.refreshList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  _setDataSource(indexNumber) {
-    setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
-  }
+  // _setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
 
   refreshList() {
     this.subscription = this.serverService.getSalesList('all').
       subscribe(list => {
         // this.dataSource.data = list;
         this.receipts = list;
-        this.showLoader = false;
         this.dataSource.data = list;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        // this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })

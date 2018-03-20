@@ -5,6 +5,7 @@ a {
 
 a:hover,
 a:active {
+  background-color: transparent;
   color: lightgray;
 }
 

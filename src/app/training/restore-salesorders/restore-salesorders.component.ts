@@ -27,8 +27,8 @@ export class RestoreSalesordersComponent implements OnInit {
   }
   
   ngOnInit() {
-    // this.showLoader = true;
-    // this.refreshInActiveList();
+    this.showLoader = true;
+    this.refreshInActiveList();
   }
   
   ngAfterViewInit() {
@@ -43,11 +43,11 @@ export class RestoreSalesordersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  setDataSource(indexNumber) {
-    setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
-  }
+  // setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
 
   refreshInActiveList() {
     this.salesOrder = [];
@@ -56,8 +56,9 @@ export class RestoreSalesordersComponent implements OnInit {
       subscribe(list => {
         this.salesOrder = list;
         // console.log(this.salesOrder);
-        this.showLoader = false;
         this.dataSource.data = this.salesOrder;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        // this.showLoader = false;
       })
     this.showLoader = false;
   }

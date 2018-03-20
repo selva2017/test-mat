@@ -294,6 +294,8 @@ export class SalesOrdersComponent implements OnInit {
  
   showSalesOrders(){
     this.showAll = !this.showAll;
+    // this.dataSource.data = this.salesOrder;
+    // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
   }
   showSelected() {
     this.showAll = !this.showAll;
@@ -572,9 +574,9 @@ export class SalesOrdersComponent implements OnInit {
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
         // this.dataSource_delete.data = this.salesOrder;
         // this.dataSource_avail_so_pp.data = this.salesOrder;
-        this.showLoader = false;
+        // this.showLoader = false;
       })
-    // this.showLoader = false;
+    this.showLoader = false;
   }
   // onDeleteSalesOrders() {
   //   this.refreshActiveList();

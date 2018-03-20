@@ -24,37 +24,39 @@ export class TrialBalComponent implements OnInit {
     this.showLoader = true;
   }
 
-  refreshList() {
-    this.subscription = this.productService.getTallyData()
-      .subscribe(products => {
-        // console.log(products);
-        this.dataSource.data = products;
-        this.products = products;
-        this.showLoader = false;
-      });
-      this.showLoader = false;
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
   ngOnInit() {
-    this.refreshList();
     this.showLoader = true;
+    this.refreshList();
   }
   ngAfterViewInit() {
-    // this.showLoader = true;
+    this.showLoader = true;
+    this.refreshList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  _setDataSource(indexNumber) {
-    setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
+  refreshList() {
+    this.subscription = this.productService.getTallyData()
+      .subscribe(products => {
+        // console.log(products);
+        this.dataSource.data = products;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        // this.products = products;
+        // this.showLoader = false;
+      });
+    this.showLoader = false;
   }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+  // _setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
   }

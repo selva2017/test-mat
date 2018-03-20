@@ -29,35 +29,39 @@ export class CustomersComponent implements OnInit {
   constructor(private serverService: ServerService, private dialog: MatDialog) {
     this.showLoader = true;
   }
-
+  
   ngOnInit() {
+    this.showLoader = true;
     this.refreshList();
   }
 
   ngAfterViewInit() {
+    this.showLoader = true;
+    this.refreshList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  _setDataSource(indexNumber) {
-    setTimeout(() => {
-      !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-    });
-  }
+  // _setDataSource(indexNumber) {
+  //   setTimeout(() => {
+  //     !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+  //   });
+  // }
 
   refreshList() {
     this.subscription = this.serverService.getCustomersList().
       subscribe(list => {
         // this.dataSource.data = list;
-        this.customer = list;
-        this.showLoader = false;
+        // this.customer = list;
         this.dataSource.data = list;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+        this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })
-    this.showLoader = false;
+    // this.showLoader = false;
   }
   onViewDetails(record) {
     // console.log(record);

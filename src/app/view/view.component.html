@@ -1,22 +1,23 @@
 <!-- <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)"> -->
-<mat-tab-group #tabGroup>
+<!-- <mat-tab-group #tabGroup> -->
+<mat-tab-group color="primary" #tabGroup (selectedTabChange)="onLinkClick($event)">
   <mat-tab label="Stock Details">
     <app-stocks></app-stocks>
   </mat-tab>
   <mat-tab label="Sales Details">
-    <app-sales></app-sales>
+    <app-sales *ngIf="showSalesDetails"></app-sales>
   </mat-tab>
   <mat-tab label="Receipt Details">
-    <app-receipts></app-receipts>
+    <app-receipts *ngIf="showReceiptDetails"></app-receipts>
   </mat-tab>
   <mat-tab label="Orders BF GSM">
-    <app-orders-bfgsm></app-orders-bfgsm>
+    <app-orders-bfgsm *ngIf="showBFGSM"></app-orders-bfgsm>
   </mat-tab>
   <mat-tab label="Orders BF GSM Size">
-    <app-orders-bfgsmsize></app-orders-bfgsmsize>
+    <app-orders-bfgsmsize *ngIf="showBFGSMSize"></app-orders-bfgsmsize>
   </mat-tab>
   <mat-tab label="Customers">
-    <app-customers></app-customers>
+    <app-customers *ngIf="showCustomers"></app-customers>
   </mat-tab>
 </mat-tab-group>
 <!-- <app-selected-orders [salesOrderChild]="childMessage"></app-selected-orders> -->
