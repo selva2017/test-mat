@@ -71,8 +71,8 @@ export class PlannedComponent implements OnInit {
   // this.showLoader = true;
   // }
   ngAfterViewInit() {
-    this.showLoader = true;
-    this.onViewProductionPlans();
+    // this.showLoader = true;
+    // this.onViewProductionPlans();
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     this.dataSource_avail_so_pp.sort = this.sort;
@@ -137,7 +137,7 @@ export class PlannedComponent implements OnInit {
         !this.dataSource_prodplans.paginator ? this.dataSource_prodplans.paginator = this.paginator : null;
         this.dataSource_prodplans.data = this.salesOrdersPlanned;
         // console.log(this.salesOrdersPlanned);
-        // this.showLoader = false;
+        this.showLoader = false;
       })
     this.showLoader = false;
   }

@@ -30,8 +30,8 @@ export class ReceiptsComponent implements OnInit {
   }
   
   ngAfterViewInit() {
-    this.showLoader = true;
-    this.refreshList();
+    // this.showLoader = true;
+    // this.refreshList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -51,7 +51,7 @@ export class ReceiptsComponent implements OnInit {
         this.receipts = list;
         this.dataSource.data = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-        // this.showLoader = false;
+        this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })

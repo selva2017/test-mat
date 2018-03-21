@@ -13,10 +13,6 @@
     <span class="nav-caption">Daybook</span>
     <!-- <span class="nav-caption">Training</span> -->
   </a>
-  <a mat-list-item routerLink="/trial-bal" (click)="onClose()" *ngIf="isAuth">
-    <mat-icon>account_balance</mat-icon>
-    <span class="nav-caption">Trial Balance</span>
-  </a>
   <a mat-list-item routerLink="/training" (click)="onClose()" *ngIf="isAuth">
     <mat-icon>assignment</mat-icon>
     <span class="nav-caption">Planning</span>
@@ -28,6 +24,10 @@
   <a mat-list-item routerLink="/manage" (click)="onClose()" *ngIf="isAuth">
     <mat-icon>supervisor_account</mat-icon>
     <span class="nav-caption">Admin</span>
+  </a>
+  <a mat-list-item routerLink="/trial-bal" (click)="onClose()" *ngIf="isAuth">
+    <mat-icon>account_balance</mat-icon>
+    <span class="nav-caption">Trial Balance</span>
   </a>
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="isAuth">

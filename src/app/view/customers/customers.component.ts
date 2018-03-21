@@ -36,8 +36,8 @@ export class CustomersComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.showLoader = true;
-    this.refreshList();
+    // this.showLoader = true;
+    // this.refreshList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
@@ -61,7 +61,7 @@ export class CustomersComponent implements OnInit {
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })
-    // this.showLoader = false;
+    this.showLoader = false;
   }
   onViewDetails(record) {
     // console.log(record);

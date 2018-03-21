@@ -49,7 +49,7 @@ export class SalesOrdersComponent implements OnInit {
   @ViewChild('table1') table1: MatSort;
   @ViewChild('table2') table2: MatSort;
   @ViewChild('paginator1') paginator1: MatPaginator;
-  @ViewChild('paginator2') paginator2: MatPaginator;
+  // @ViewChild('paginator2') paginator2: MatPaginator;
   // @ViewChild('paginator3') paginator3: MatPaginator;
   // @ViewChild('paginator4') paginator4: MatPaginator;
   // @ViewChild('paginator5') paginator5: MatPaginator;
@@ -114,7 +114,7 @@ export class SalesOrdersComponent implements OnInit {
     
     // this.dataSource2.sort = this.sort;
     this.dataSource2.sort = this.table2;
-    this.dataSource2.paginator = this.paginator2;
+    // this.dataSource2.paginator = this.paginator2;
     // this.dataSource_restore.paginator = this.paginator4;
     // this.dataSource_avail_so_pp.paginator = this.paginator5;
   }
@@ -294,8 +294,8 @@ export class SalesOrdersComponent implements OnInit {
  
   showSalesOrders(){
     this.showAll = !this.showAll;
-    // this.dataSource.data = this.salesOrder;
-    // !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
+    this.dataSource.data = this.salesOrder;
+    !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
   }
   showSelected() {
     this.showAll = !this.showAll;
@@ -574,7 +574,7 @@ export class SalesOrdersComponent implements OnInit {
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
         // this.dataSource_delete.data = this.salesOrder;
         // this.dataSource_avail_so_pp.data = this.salesOrder;
-        // this.showLoader = false;
+        this.showLoader = false;
       })
     this.showLoader = false;
   }

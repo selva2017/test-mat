@@ -203,24 +203,24 @@
                     <mat-row *matRowDef="let row; columns: displayedColumns_selected;"></mat-row>
                   </mat-table>
 
-                  <mat-paginator #paginator2 [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
-                  </mat-paginator>
+                  <!-- <mat-paginator #paginator2 [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+                  </mat-paginator> -->
                 </div>
               <!-- </div> -->
             </div>
-            <div fxFlex="23" class="sec3" fxFlex.xs="23">
+            <div fxFlex="25" class="sec3" fxFlex.xs="25">
               <div *ngIf="showAllSalesOrders || showSelectedOrders">
                 <div>
                   <!-- <p>Items Selected for Planning</p> -->
                   <p>Items - Sales Order</p>
-                  <mat-table #table [dataSource]="dataSource_BF" matSort style="background:rgb(233, 233, 139)">
+                  <mat-table #table [dataSource]="dataSource_BF" style="background:rgb(233, 233, 139)">
                     <ng-container matColumnDef="bf">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Item (BF)</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef >Item (BF)</mat-header-cell>
                       <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="weight">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Weight (Tons)</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef >Weight (Tons)</mat-header-cell>
                       <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
                     </ng-container>
 
@@ -230,9 +230,9 @@
                 </div>
                 <br>
                 <div>
-                  <mat-table #table [dataSource]="dataSource_BFGSM" matSort style="background:rgb(166, 233, 139)">
+                  <mat-table #table [dataSource]="dataSource_BFGSM" style="background:rgb(166, 233, 139)">
                     <ng-container matColumnDef="bf">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Item (BF GSM)</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef >Item (BF GSM)</mat-header-cell>
                       <mat-cell *matCellDef="let element">{{ element.bf }} BF {{element.gsm}} GSM </mat-cell>
                     </ng-container>
                     <!-- <ng-container matColumnDef="gsm">
@@ -241,7 +241,7 @@
                       </ng-container> -->
 
                     <ng-container matColumnDef="weight">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef >Weight</mat-header-cell>
                       <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
                     </ng-container>
 
@@ -252,9 +252,9 @@
                 <br>
                 <div>
 
-                  <mat-table #table [dataSource]="dataSource_BFGSMSize" matSort style="background:rgb(224, 200, 121)">
+                  <mat-table #table [dataSource]="dataSource_BFGSMSize" style="background:rgb(224, 200, 121)">
                     <ng-container matColumnDef="bf">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
                       <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
                     </ng-container>
                     <!-- <ng-container matColumnDef="gsm">
@@ -268,17 +268,17 @@
                       </ng-container> -->
 
                     <ng-container matColumnDef="weight">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthCell'">Weight</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthCell'">Weight</mat-header-cell>
                       <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'">{{ element.weight }}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="reel">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthCell'">Reel</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthCell'">Reel</mat-header-cell>
                       <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'">{{ ((element.reel) - (element.reelInStock)) | number: '1.0-0' }}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="reelInStock">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'customWidthCell'">Prod Reel</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthCell'">Prod Reel</mat-header-cell>
                       <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'">{{ (element.reelInStock) | number: '1.0-0'}}</mat-cell>
                     </ng-container>
 

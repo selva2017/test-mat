@@ -52,10 +52,10 @@ export class AdminComponent implements OnInit {
       },
       (error) => console.log(error.status)
       );
-    }
-    ngOnInit() {
-      // this.showLoader = true;
-      this.subscription = this.serverService.getUserRoles().
+  }
+  ngOnInit() {
+    this.showLoader = true;
+    this.subscription = this.serverService.getUserRoles().
       subscribe(list => {
         this.userList = list;
         // console.log("this.userlist");
@@ -64,7 +64,7 @@ export class AdminComponent implements OnInit {
       },
       error => {
       }
-    );
+      );
     this.showLoader = false;
   }
   ngAfterViewInit() {

@@ -32,8 +32,8 @@ export class RestoreSalesordersComponent implements OnInit {
   }
   
   ngAfterViewInit() {
-    this.showLoader = true;
-    this.refreshInActiveList();
+    // this.showLoader = true;
+    // this.refreshInActiveList();
     // this.refreshInActiveList();
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -58,7 +58,7 @@ export class RestoreSalesordersComponent implements OnInit {
         // console.log(this.salesOrder);
         this.dataSource.data = this.salesOrder;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-        // this.showLoader = false;
+        this.showLoader = false;
       })
     this.showLoader = false;
   }

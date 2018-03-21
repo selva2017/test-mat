@@ -54,7 +54,7 @@ export class DeleteSalesordersComponent implements OnInit {
         this.salesOrder = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator: null;
         this.dataSource.data = this.salesOrder;
-        // this.showLoader = false;
+        this.showLoader = false;
       })
     this.showLoader = false;
   }

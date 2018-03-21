@@ -31,8 +31,8 @@ export class StocksComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.showLoader = true;
-    this.refreshList();
+    // this.showLoader = true;
+    // this.refreshList();
     // this.showLoader = true;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -53,7 +53,7 @@ export class StocksComponent implements OnInit {
         // this.stock_list = list;
         this.dataSource.data = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-        // this.showLoader = false;
+        this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })
