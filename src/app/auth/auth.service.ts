@@ -35,6 +35,8 @@ export class AuthService {
   logout() {
     this.user = null;
     this.authChange.next(false);
+    this.token = null;
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 
@@ -66,11 +68,11 @@ export class AuthService {
           this.token_name = success.token;
           localStorage.setItem('token', this.token_name);
           localStorage.setItem('role', success.role);
-          localStorage.setItem('companyName', success.companyName);
+          // localStorage.setItem('companyName', success.companyName);
           localStorage.setItem('companyId', success.companyId);
           console.log('Company Id -' + success.companyId);
           console.log('Role -' + success.role);
-          // this.authSuccessfully();
+          this.authSuccessfully();
         }
         else {
           this.token = false;

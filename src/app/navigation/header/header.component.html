@@ -16,7 +16,7 @@
       <li *ngIf="!isAuth">
         <a routerLink="/login">Login</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth && role == '1'">
         <!-- <a routerLink="/training">Training</a> -->
         <a routerLinkActive="active" routerLink="/daybook">Daybook</a>
       </li>
@@ -28,12 +28,11 @@
         <!-- <a routerLink="/training">Training</a> -->
         <a routerLinkActive="active" routerLink="/view">Reports</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth && role === '1'">
         <!-- <a routerLink="/training">Training</a> -->
         <a routerLinkActive="active" routerLink="/manage">Admin</a>
       </li>
-      <li *ngIf="isAuth">
-        <!-- <a routerLink="/training">Training</a> -->
+            <li *ngIf="isAuth && (role === '1' || role === '2')">
         <a routerLinkActive="active" routerLink="/trial-bal">Trial Balance</a>
       </li>
       <li *ngIf="isAuth">

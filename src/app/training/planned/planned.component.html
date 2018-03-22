@@ -49,7 +49,7 @@
               </mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_planned"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_planned" style="background:orange"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_planned;"></mat-row>
           </mat-table>
 
@@ -132,7 +132,7 @@
           </mat-cell>
         </ng-container> -->
 
-          <mat-header-row *matHeaderRowDef="displayedColumns_prod_plan_details"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="displayedColumns_prod_plan_details" style="background:orange"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns_prod_plan_details;"></mat-row>
         </mat-table>
 
@@ -147,8 +147,8 @@
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="showPlansInProduction(true)">Back</button>
         </div>
-        <p>Selected Production Plan Details</p>
         <p>{{dispatchHeader}}</p>
+        <p>Selected Production Plan Details</p>
         <mat-table #table2="matSort" [dataSource]="dataSource_prodplans" matSort>
 
           <ng-container matColumnDef="id">
@@ -255,7 +255,7 @@
             </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns_modifyplandetails"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="displayedColumns_modifyplandetails" style="background:orange"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns_modifyplandetails;"></mat-row>
         </mat-table>
         <p>Available Sales Order Items List</p>
@@ -370,7 +370,7 @@
             </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns_avail_sales_order"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="displayedColumns_avail_sales_order" style="background:orange"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns_avail_sales_order;"></mat-row>
         </mat-table>
 
@@ -385,7 +385,7 @@
         <div>
           <!-- <p>Items Selected for Planning</p> -->
           <p>Items - Prod Plan</p>
-          <mat-table #table [dataSource]="dataSource_BF" style="background:rgb(233, 233, 139)">
+          <mat-table #table [dataSource]="dataSource_BF">
             <ng-container matColumnDef="bf">
               <mat-header-cell *matHeaderCellDef >Item (BF)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
@@ -396,13 +396,13 @@
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_bf"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_bf" style="background:#FBC02D"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_bf;"></mat-row>
           </mat-table>
         </div>
         <br>
         <div>
-          <mat-table #table [dataSource]="dataSource_BFGSM"  style="background:rgb(166, 233, 139)">
+          <mat-table #table [dataSource]="dataSource_BFGSM">
             <ng-container matColumnDef="bf">
               <mat-header-cell *matHeaderCellDef >Item (BF GSM)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }} BF {{element.gsm}} GSM </mat-cell>
@@ -417,14 +417,14 @@
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsm"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsm" style="background:#FBC02D"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_bfgsm;"></mat-row>
           </mat-table>
         </div>
         <br>
         <div>
 
-          <mat-table #table [dataSource]="dataSource_BFGSMSize"  style="background:rgb(224, 200, 121)">
+          <mat-table #table [dataSource]="dataSource_BFGSMSize">
             <ng-container matColumnDef="bf">
               <mat-header-cell *matHeaderCellDef  [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
@@ -458,7 +458,7 @@
             <!-- <mat-row *matRowDef="let row; columns: displayedColumns_bfgsmsize_prod_plan;"></mat-row> -->
 
             <!-- <ng-template *ngIf="!showReelInStock_prod_plan"> -->
-            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize_prod_plan"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize_prod_plan" style="background:#FBC02D"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_bfgsmsize_prod_plan;"></mat-row>
             <!-- </ng-template> -->
             <!-- <ng-template *ngIf="showReelInStock_prod_plan">
@@ -476,7 +476,7 @@
         <div>
           <!-- <p>Items Selected for Planning</p> -->
           <p>Items - Modify</p>
-          <mat-table #table [dataSource]="dataSource_BF"  style="background:rgb(233, 233, 139)">
+          <mat-table #table [dataSource]="dataSource_BF">
             <ng-container matColumnDef="bf">
               <mat-header-cell *matHeaderCellDef >Item (BF)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
@@ -487,13 +487,13 @@
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_bf"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_bf" style="background:#FBC02D"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_bf;"></mat-row>
           </mat-table>
         </div>
         <br>
         <div>
-          <mat-table #table [dataSource]="dataSource_BFGSM"  style="background:rgb(166, 233, 139)">
+          <mat-table #table [dataSource]="dataSource_BFGSM">
             <ng-container matColumnDef="bf">
               <mat-header-cell *matHeaderCellDef >Item (BF GSM)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }} BF {{element.gsm}} GSM </mat-cell>
@@ -508,13 +508,13 @@
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsm"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsm" style="background:#FBC02D"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_bfgsm;"></mat-row>
           </mat-table>
         </div>
         <br>
         <div>
-          <mat-table #table [dataSource]="dataSource_BFGSMSize"  style="background:rgb(224, 200, 121)">
+          <mat-table #table [dataSource]="dataSource_BFGSMSize">
             <ng-container matColumnDef="bf">
               <mat-header-cell *matHeaderCellDef  [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
@@ -534,7 +534,7 @@
               <mat-cell *matCellDef="let element">{{ (element.reelInStock) | number: '1.0-0'}}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize_prod_plan"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns_bfgsmsize_prod_plan" style="background:#FBC02D"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns_bfgsmsize_prod_plan;"></mat-row>
           </mat-table>
         </div>

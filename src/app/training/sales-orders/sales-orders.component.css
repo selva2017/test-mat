@@ -15,7 +15,13 @@
   /* max-height: 500px; */
   /* min-width: 300px; */
 }
+/* mat-row:nth-child(even){
+  background-color:grey;
+  }
 
+mat-row:nth-child(odd){
+  background-color:lightgrey;
+  } */
 /* .mat-table { */
   /* overflow: auto; */
   /* max-height: 500px; */

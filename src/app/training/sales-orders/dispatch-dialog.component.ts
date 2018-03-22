@@ -19,7 +19,7 @@ import { DispatchReport } from '../../shared/dispatch-report';
           <div *ngFor="let row5 of passedData.progress; let i = index" class="w-100 p-3 table-striped table-bordered ">
             <table class="ngx-table" style="border:2px">
               <!-- <table *ngIf="passedData.progress?.length > 0" class="w-100 p-3 table-striped table-bordered"> -->
-              <thead style="background:rgb(233, 233, 139)">
+              <thead style="background:#rgb(40, 255, 183)">
                 <tr class="bg-success">
                   <th colspan="7">Order# {{row5.orderNumber}} - {{row5.company}}</th>
                 </tr>
