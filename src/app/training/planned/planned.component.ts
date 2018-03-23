@@ -21,7 +21,7 @@ export class PlannedComponent implements OnInit {
   dataSource_dispatch = new MatTableDataSource<DispatchReport>();
   displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports', 'action'];
   displayedColumns_avail_sales_order = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
-  displayedColumns_modifyplandetails = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'update', 'delete'];
+  displayedColumns_modifyplandetails = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'update', 'delete'];
   displayedColumns_prod_plan_details = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
@@ -373,12 +373,16 @@ export class PlannedComponent implements OnInit {
     }
 
   }
-  updatePlannedSalesOrder(row, id, reel) {
+  updatePlannedSalesOrder(row, id, reel, reel_in_stock, weight) {
     this.showLoader = true;
-    // console.log(row);
-    // console.log(id);
-    // console.log(reel);
-    this.serverService.updateProductionPlanItemReel(id, reel)
+    (reel == "" || reel == null) ? reel = 0 : reel = reel;
+    (reel_in_stock == "" || reel_in_stock == null) ? reel_in_stock = 0 : reel_in_stock = reel_in_stock;
+    (weight == "" || weight == null) ? weight = 0 : weight = weight;
+
+    console.log(reel);
+    console.log(reel_in_stock);
+    console.log(weight);
+    this.serverService.updateProductionPlanItem_Weight_Reel_RIS(id, reel, reel_in_stock, weight)
       .subscribe(
       // (res: Daybook) => console.log(res),
       (success) => {

@@ -19,8 +19,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.companyId = localStorage.getItem('companyId');
-    this.role = localStorage.getItem('role');
-
+    // this.role = localStorage.getItem('role');
+    this.authService.role.subscribe(
+      (status: string) => {
+        // console.log("role: "+ status);
+        this.role=status;
+      }
+      // (status: string) => this.role=status
+    );
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../auth.service';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +11,17 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  showLoader: boolean;
+  isLoading = false;
+  private loadingSubs: Subscription;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private uiService: UIService) {
+  }
 
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
     this.loginForm = new FormGroup({
       email: new FormControl('', {
         // validators: [Validators.required, Validators.email]
@@ -29,6 +37,7 @@ export class LoginComponent implements OnInit {
   //   });
   // }
   onSubmit(form: NgForm) {
+    this.showLoader = true;
     // this.user.email = form.value.email;
     // this.user.password = form.value.password;
     // console.log(this.loginForm.value.email, this.loginForm.value.password);
@@ -40,5 +49,9 @@ export class LoginComponent implements OnInit {
     //   this.error_msg = "Invalid username or password.";
     // else
     // this.error_msg = "";
+    this.showLoader = false;
+  }
+  ngOnDestroy(){
+    this.loadingSubs.unsubscribe();
   }
 }

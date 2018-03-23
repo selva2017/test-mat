@@ -12,6 +12,9 @@ import { UserList } from '../../shared/user-list';
 export class AdminComponent implements OnInit {
   subscription: Subscription;
   userList: UserList[] = [];
+  dataSource = new MatTableDataSource<UserList>();
+  displayedColumns = ['role', 'authenticate', 'userName', 'userStatus', 'roleName'];
+
   status: string;
   role: string;
   disableUpdate: boolean = true;
@@ -20,10 +23,15 @@ export class AdminComponent implements OnInit {
   constructor(private serverService: ServerService) {
     this.showLoader = true;
   }
-  setStatus(row, value: string) {
-    this.status = value;
+  setStatus(row) {
     this.disableUpdate = false;
     row.authenticate = 1;
+    if (row.userStatus == 'active') {
+      row.userStatus = 'inactive';
+    } else if (row.userStatus == 'inactive') {
+      row.userStatus = 'active';
+    };
+    this.status = row.userStatus;
   }
   setRole(row, value: string) {
     // console.log(value);
@@ -60,6 +68,7 @@ export class AdminComponent implements OnInit {
         this.userList = list;
         // console.log("this.userlist");
         // console.log(this.userList);
+        this.dataSource.data = list;
         this.showLoader = false;
       },
       error => {
@@ -70,4 +79,6 @@ export class AdminComponent implements OnInit {
   ngAfterViewInit() {
     // this.showLoader = true;
   }
+
+
 }

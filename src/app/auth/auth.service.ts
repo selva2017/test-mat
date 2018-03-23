@@ -1,10 +1,11 @@
 import { ServerService } from './../shared/server.service';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -12,16 +13,20 @@ export class AuthService {
   private user: User;
   token: boolean = false;
   token_name: string;
+  role = new EventEmitter<string>();
 
-  constructor(private router: Router, private serviceAuth: ServerService) { }
+  constructor(private router: Router, private serviceAuth: ServerService,
+  private uiService: UIService) { }
 
   registerUser(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     this.user = {
       email: authData.email,
       // userId: Math.round(Math.random() * 10000).toString()
       password: authData.password
     };
     this.authSuccessfully();
+    this.uiService.loadingStateChanged.next(false);
   }
 
   // login(authData: AuthData) {
@@ -54,6 +59,7 @@ export class AuthService {
   }
 
   signinUser(user) {
+    this.uiService.loadingStateChanged.next(true);
     this.user=user;
     this.serviceAuth.authenticateUser(user)
       .subscribe(
@@ -64,7 +70,7 @@ export class AuthService {
           this.token = true;
           this.authChange.next(true);
           this.router.navigate(['/training']);
-          // this.isAdmin(success.role);
+          this.isAdmin(success.role);
           this.token_name = success.token;
           localStorage.setItem('token', this.token_name);
           localStorage.setItem('role', success.role);
@@ -73,9 +79,11 @@ export class AuthService {
           console.log('Company Id -' + success.companyId);
           console.log('Role -' + success.role);
           this.authSuccessfully();
+          this.uiService.loadingStateChanged.next(false);
         }
         else {
           this.token = false;
+          this.uiService.loadingStateChanged.next(false);
           // this.invalidLogin.emit(true);
         }
       },
@@ -83,5 +91,7 @@ export class AuthService {
       () => console.log('finished')
       );
   }
-
+  isAdmin(role) {
+    this.role.emit(role);
+}
 }

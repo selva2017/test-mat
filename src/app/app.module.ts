@@ -42,6 +42,7 @@ import { PlannedComponent } from './training/planned/planned.component';
 import { AdminComponent } from './manage/admin/admin.component';
 import { PublishComponent } from './manage/publish/publish.component';
 import { ManageComponent } from './manage/manage.component';
+import { UIService } from './shared/ui.service';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { ManageComponent } from './manage/manage.component';
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [InventoryService,AuthService, TrainingService,ServerService],
+  providers: [InventoryService,AuthService, TrainingService,ServerService,UIService],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent,DaybookDialogComponent,DispatchDialogComponent,CustomerDialog]
 })

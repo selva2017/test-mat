@@ -201,7 +201,10 @@
 
           <ng-container matColumnDef="weight">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Weight (Tons)</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
+            <!-- <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell> -->
+            <mat-cell *matCellDef="let element">
+                <input id="text" #weight [ngModel]="element.weight" (ngModelChange)="element.weight=$event" />
+              </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="newWeight">
@@ -239,7 +242,7 @@
           <ng-container matColumnDef="update">
             <mat-header-cell *matHeaderCellDef>Modify</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button mat-raised-button color="accent" (click)="updatePlannedSalesOrder(row,row.salesOrderPlannedId,row.reel)">Update</button>
+              <button mat-raised-button color="accent" (click)="updatePlannedSalesOrder(row,row.salesOrderPlannedId,row.reel,row.reelInStock,row.weight)">Update</button>
             </mat-cell>
           </ng-container>
 

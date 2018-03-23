@@ -1,8 +1,8 @@
-<!-- <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div> -->
+</div>
 <!-- <div *ngIf="!showLoader"> -->
-  <section>
+  <section *ngIf="!isLoading">
     <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="loginForm" #f (ngSubmit)="onSubmit(f)">
       <!-- <mat-form-field>
       <input
@@ -23,7 +23,7 @@
         <mat-hint>Please enter your password.</mat-hint>
         <mat-error>Missing password.</mat-error>
       </mat-form-field>
-      <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+      <button  type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
     </form>
   </section>
 <!-- </div> -->
