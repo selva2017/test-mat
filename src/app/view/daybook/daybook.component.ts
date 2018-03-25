@@ -68,9 +68,9 @@ export class DaybookComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("true");
+        // console.log("true");
       } else {
-        console.log("false");
+        // console.log("false");
       }
     });
 

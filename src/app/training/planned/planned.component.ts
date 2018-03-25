@@ -195,9 +195,9 @@ export class PlannedComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("true");
+        // console.log("true");
       } else {
-        console.log("false");
+        // console.log("false");
       }
     });
 
@@ -321,8 +321,8 @@ export class PlannedComponent implements OnInit {
     // this.modifyProductionPlan_right = false;
     // console.log("inside");
     var newWeight = key.newWeight;
-    console.log(key, voucherKey);
-    console.log(this.batch_number);
+    // console.log(key, voucherKey);
+    // console.log(this.batch_number);
     // this.showConsolidatedReports = false;
     key["altered"] = 0;
     if (newWeight > 0) {
@@ -340,14 +340,14 @@ export class PlannedComponent implements OnInit {
         break;
       }
     }
-    console.log(this.salesOrder_selected)
+    // console.log(this.salesOrder_selected)
     // this.generateItemBFGSM();
     // this.generateItemBFGMSSize();
     // this.generateItemBF();
     this.serverService.addItemToExistingProductionPlan(this.salesOrder_selected, this.batch_number)
       .subscribe(
       (success) => {
-        console.log("success");
+        // console.log("success");
         this.refreshActiveList();
         this.onEditProductionPlans();
         this.showLoader = false;
@@ -379,9 +379,9 @@ export class PlannedComponent implements OnInit {
     (reel_in_stock == "" || reel_in_stock == null) ? reel_in_stock = 0 : reel_in_stock = reel_in_stock;
     (weight == "" || weight == null) ? weight = 0 : weight = weight;
 
-    console.log(reel);
-    console.log(reel_in_stock);
-    console.log(weight);
+    // console.log(reel);
+    // console.log(reel_in_stock);
+    // console.log(weight);
     this.serverService.updateProductionPlanItem_Weight_Reel_RIS(id, reel, reel_in_stock, weight)
       .subscribe(
       // (res: Daybook) => console.log(res),

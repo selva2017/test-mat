@@ -34,7 +34,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   onLogout() {
     this.onClose();
     this.authService.logout();
-    localStorage.setItem('role', "");
+    // localStorage.setItem('role', "");
   }
 
   ngOnDestroy() {

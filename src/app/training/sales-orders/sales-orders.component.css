@@ -45,7 +45,7 @@ input.custom {
 }
 
 .customWidthCell{
-  flex: 0 0 40px;
+  flex: 0 0 150px;
 }
 .loader-padding {
   padding: 50px;

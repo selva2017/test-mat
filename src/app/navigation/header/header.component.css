@@ -23,3 +23,13 @@ a:active {
   /* text-align: bold; */
   /* background: yellow; */
 /* } */
+.mat-button-toggle {
+  background-color: #1976d2;
+  color:lightgrey;
+  /* border: #fff; */
+}
+
+.mat-button-toggle-checked {
+  background-color: #1976d2;
+  color: white;
+}

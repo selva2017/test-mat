@@ -78,8 +78,8 @@ import { DispatchReport } from '../../shared/dispatch-report';
 })
 export class DispatchDialogComponent {
   constructor( @Inject(MAT_DIALOG_DATA) public passedData: any) {
-    console.log("passedData");
-    console.log(passedData);
+    // console.log("passedData");
+    // console.log(passedData);
   }
   sumReels(reel, reelInstock) {
     return (Number(reel) + Number(reelInstock));

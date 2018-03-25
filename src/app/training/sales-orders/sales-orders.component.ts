@@ -309,7 +309,7 @@ export class SalesOrdersComponent implements OnInit {
     this.serverService.createProductionPlan(this.salesOrder_selected)
       .subscribe(
       (success) => {
-        console.log("success");
+        // console.log("success");
         this.clearAll();
       },
       (error) => console.log(error)
@@ -503,11 +503,11 @@ export class SalesOrdersComponent implements OnInit {
   }
   selectFromSelected(key, voucherKey) {
     this.showAll=false;
-    console.log("key" + key);
-    console.log("voucher key " + voucherKey);
-    console.log("sso "+this.salesOrder_selected.length);
-    console.log("so "+this.salesOrder.length);
-    console.log("so source "+this.salesOrderSource.length);
+    // console.log("key" + key);
+    // console.log("voucher key " + voucherKey);
+    // console.log("sso "+this.salesOrder_selected.length);
+    // console.log("so "+this.salesOrder.length);
+    // console.log("so source "+this.salesOrderSource.length);
     for (var i = 0; i < this.salesOrderSource.length; i++) {
       // alert(i);
       if (this.salesOrderSource[i].id === voucherKey) {
@@ -515,12 +515,12 @@ export class SalesOrdersComponent implements OnInit {
         key = this.salesOrderSource[i];
         break;
       }
-      console.log("key selected = "+key);
+      // console.log("key selected = "+key);
     }
     this.salesOrder.push(key);
-    console.log("after push");
-    console.log(this.salesOrder.length);
-    console.log(this.salesOrder_selected.length);
+    // console.log("after push");
+    // console.log(this.salesOrder.length);
+    // console.log(this.salesOrder_selected.length);
     // console.log(this.salesOrder);
     for (var i = 0; i < this.salesOrder_selected.length; i++) {
       if (this.salesOrder_selected[i].id === voucherKey) {

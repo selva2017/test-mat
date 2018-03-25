@@ -2,9 +2,9 @@
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 <!-- <div *ngIf="!showLoader"> -->
-  <section *ngIf="!isLoading">
-    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="loginForm" #f (ngSubmit)="onSubmit(f)">
-      <!-- <mat-form-field>
+<section *ngIf="!isLoading">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="loginForm" #f (ngSubmit)="onSubmit(f)">
+    <!-- <mat-form-field>
       <input
         type="email"
         matInput
@@ -13,19 +13,24 @@
       <mat-hint>Please enter a valid email.</mat-hint>
       <mat-error>Invalid or missing email.</mat-error>
     </mat-form-field> -->
-      <mat-form-field>
-        <input type="text" matInput placeholder="Your email" formControlName="email">
-        <mat-hint>Please enter a valid email.</mat-hint>
-        <mat-error>Invalid or missing email.</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input type="password" matInput placeholder="Your password" formControlName="password">
-        <mat-hint>Please enter your password.</mat-hint>
-        <mat-error>Missing password.</mat-error>
-      </mat-form-field>
-      <button  type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
-    </form>
-  </section>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Your email" formControlName="email" required>
+      <mat-hint>Please enter a valid email.</mat-hint>
+      <mat-error>Invalid or missing email.</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Should be atleast 6 characters long.">
+      <input type="password" matInput minlength="6" placeholder="Your password" formControlName="password" #pwInput>
+      <mat-hint align="end">{{pwInput.value?.length}} / 6</mat-hint>
+      <!-- <mat-hint>Please enter your password.</mat-hint> -->
+      <mat-error>Has to be 6 characters long</mat-error>
+    </mat-form-field>
+    <!-- <div *ngIf="invalidLogin" class="alert alert-danger">
+      Please enter the required details...
+    </div> -->
+
+    <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+  </form>
+</section>
 <!-- </div> -->
 <!-- <ol>
   <li>Add an email and password field (with Material Components of course)</li>
