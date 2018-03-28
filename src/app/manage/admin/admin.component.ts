@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ServerService } from './../../shared/server.service';
 import { UserList } from '../../shared/user-list';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-admin',
@@ -20,7 +21,11 @@ export class AdminComponent implements OnInit {
   disableUpdate: boolean = true;
   check = false;
   showLoader: boolean;
-  constructor(private serverService: ServerService) {
+
+
+  isLoading = false;
+  private loadingSubs: Subscription;
+    constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
   setStatus(row) {
@@ -62,7 +67,11 @@ export class AdminComponent implements OnInit {
       );
   }
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
     this.showLoader = true;
+    this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getUserRoles().
       subscribe(list => {
         this.userList = list;
@@ -70,6 +79,7 @@ export class AdminComponent implements OnInit {
         // console.log(this.userList);
         this.dataSource.data = list;
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       },
       error => {
       }

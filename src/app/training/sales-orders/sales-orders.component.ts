@@ -8,6 +8,7 @@ import { SelectedOrdersComponent } from './../selected-orders/selected-orders.co
 import { SalesOrdersPlanned } from '../../shared/sales-order-planned';
 import { DispatchReport } from '../../shared/dispatch-report';
 import { DispatchDialogComponent } from './dispatch-dialog.component';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-sales-orders',
@@ -95,11 +96,17 @@ export class SalesOrdersComponent implements OnInit {
   // @Input() childMessage: string;
   //  message: ProdPlan[];
   // message: string = "SAles Order Component";
-  constructor(private serverService: ServerService, private dialog: MatDialog) {
+  isLoading = false;
+  private loadingSubs: Subscription;
+  constructor(private serverService: ServerService, private dialog: MatDialog, private uiService: UIService) {
     this.showLoader = true;
   }
   ngOnInit() {
-    this.showLoader = true;
+
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
+    // this.showLoader = true;
     this.refreshActiveList();
     // this.refreshInActiveList();
     // this.onViewProductionPlans();
@@ -560,7 +567,7 @@ export class SalesOrdersComponent implements OnInit {
   }
   
   refreshActiveList() {
-
+    this.uiService.loadingStateChanged.next(true);
     this.salesOrder = [];
     this.salesOrderSource = [];
     this.subscription = this.serverService.getActiveSalesOrders().
@@ -575,6 +582,7 @@ export class SalesOrdersComponent implements OnInit {
         // this.dataSource_delete.data = this.salesOrder;
         // this.dataSource_avail_so_pp.data = this.salesOrder;
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

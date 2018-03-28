@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-sm-12" align="center">
-    <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
-    <div *ngIf="!showLoader">
+    <div *ngIf="!isLoading">
       <br>
       <h3>User List and Roles</h3>
       <table>

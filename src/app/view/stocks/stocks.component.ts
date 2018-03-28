@@ -3,6 +3,7 @@ import { ServerService } from './../../shared/server.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-stocks',
@@ -21,7 +22,10 @@ export class StocksComponent implements OnInit {
   dataSource = new MatTableDataSource<StockList>();
   showLoader: boolean;
 
-  constructor(private serverService: ServerService) {
+  isLoading = false;
+  private loadingSubs: Subscription;
+
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
 
@@ -31,6 +35,9 @@ export class StocksComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
     // this.showLoader = true;
     // this.refreshList();
     // this.showLoader = true;
@@ -47,6 +54,7 @@ export class StocksComponent implements OnInit {
   // }
 
   refreshList() {
+    this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getTallyStockData().
       subscribe(list => {
         // this.dataSource.data = list;
@@ -56,6 +64,7 @@ export class StocksComponent implements OnInit {
         this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

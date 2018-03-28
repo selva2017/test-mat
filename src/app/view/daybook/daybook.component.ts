@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ServerService } from './../../shared/server.service';
 import { Daybook } from '../../shared/daybook';
 import { DaybookDialogComponent } from './daybook-dialog.component';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-daybook',
@@ -21,11 +22,17 @@ export class DaybookComponent implements OnInit {
   dayBook_row: Daybook[] = [];
   showLoader: boolean;
 
-  constructor(private serverService: ServerService, private dialog: MatDialog) {
+  isLoading = false;
+  private loadingSubs: Subscription;
+
+  constructor(private serverService: ServerService, private dialog: MatDialog, private uiService: UIService) {
     this.showLoader = true;
   }
 
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
     this.showLoader = true;
     this.refreshList();
   }
@@ -44,6 +51,7 @@ export class DaybookComponent implements OnInit {
   //   });
   // }
   refreshList() {
+    this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getTallyDaybook().
       subscribe(list => {
         // console.log(list);
@@ -51,6 +59,7 @@ export class DaybookComponent implements OnInit {
         this.dataSource.data = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         // this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

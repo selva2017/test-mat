@@ -4,6 +4,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { ServerService } from './../../shared/server.service';
 import { TrialBal } from '../../shared/trialbal';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-trial-bal',
@@ -19,13 +20,18 @@ export class TrialBalComponent implements OnInit {
   subscription: Subscription;
   items: TrialBal[] = [];
   showLoader: boolean;
+  isLoading = false;
+  private loadingSubs: Subscription;
 
-  constructor(private productService: ServerService) {
+  constructor(private productService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
 
 
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
     this.showLoader = true;
     this.refreshList();
   }
@@ -39,6 +45,7 @@ export class TrialBalComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   refreshList() {
+    this.uiService.loadingStateChanged.next(true);
     this.subscription = this.productService.getTallyData()
       .subscribe(products => {
         // console.log(products);
@@ -46,6 +53,7 @@ export class TrialBalComponent implements OnInit {
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         // this.products = products;
         // this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       });
     this.showLoader = false;
   }
