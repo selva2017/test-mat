@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-orders-bfgsm',
@@ -13,7 +14,7 @@ import { ProdPlan } from './../../shared/prod_plan';
 export class OrdersBfgsmComponent implements OnInit {
 
 
-  displayedColumns = ['bf', 'gsm', 'weight'];
+  displayedColumns = ['index','bf', 'gsm', 'weight'];
   // displayedColumns = ['id', 'orderDate', 'orderNumber','company','bf', 'gsm',  'reel', 'size', 'voucherKey', 'weight','select'];
   // dataSource = new MatTableDataSource<ProdPlan>();
   dataSource = new MatTableDataSource<ProdPlan>();
@@ -33,11 +34,17 @@ export class OrdersBfgsmComponent implements OnInit {
   salesOrder_BFGSM: ProdPlan[] = [];
   salesOrder_BFGSMSize: ProdPlan[] = [];
   salesOrder_BF: ProdPlan[] = [];
-  constructor(private serverService: ServerService) {
+  isLoading = false;
+  private loadingSubs: Subscription;
+
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
 
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
     this.showLoader = true;
     this.refreshList();
   }
@@ -50,6 +57,7 @@ export class OrdersBfgsmComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   refreshList() {
+    this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getTotalBFGSM().
       subscribe(list => {
         // this.dataSource.data = list;
@@ -58,6 +66,7 @@ export class OrdersBfgsmComponent implements OnInit {
         this.dataSource.data = this.salesOrder.slice();
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

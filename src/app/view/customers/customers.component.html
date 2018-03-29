@@ -1,7 +1,7 @@
-<div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-  </div>
-<div *ngIf="!showLoader">
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading">
   <div fxLayoutAlign="center center">
     <mat-form-field fxFlex="40%">
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -10,6 +10,14 @@
 
   <p>Customers Details</p>
   <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
+
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef>No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index;">
+        {{i+1}}
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="companyId">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Company ID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.companyId }}</mat-cell>
@@ -21,8 +29,8 @@
     </ng-container>
 
     <ng-container matColumnDef="customerGroup">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Group</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.customerGroup }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Group</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.customerGroup }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="customerID">
@@ -42,13 +50,13 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.name}}</mat-cell>
     </ng-container>
-    
+
     <ng-container matColumnDef="action">
-        <mat-header-cell *matHeaderCellDef>Modify Reports</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <button mat-raised-button color="accent" (click)="onViewDetails(row.customerID)">View Sales/Receipts</button>
-        </mat-cell>
-      </ng-container>
+      <mat-header-cell *matHeaderCellDef>Modify Reports</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-raised-button color="accent" (click)="onViewDetails(row.customerID)">View Sales/Receipts</button>
+      </mat-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns" style="background:orange"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

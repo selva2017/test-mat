@@ -11,6 +11,14 @@
       </div>
       <p>Deleted Sales Orders</p>
       <mat-table #table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="index">
+              <mat-header-cell *matHeaderCellDef>No
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row; let i = index;">
+                {{i+1}}
+              </mat-cell>
+            </ng-container>
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>

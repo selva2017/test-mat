@@ -1,18 +1,29 @@
-<div fxLayoutAlign="center center">
-  <mat-form-field fxFlex="40%">
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
+<div *ngIf="!isLoading">
+  <div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
 
-<!-- <ng-container matColumnDef="company">
+  <!-- <ng-container matColumnDef="company">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
     <mat-cell *matCellDef="let element">{{ element.company}}</mat-cell>
   </ng-container> -->
-<p>Order Details by BF GSM</p>
-<mat-table [dataSource]="dataSource" matSort>
+  <p>Order Details by BF GSM</p>
+  <mat-table [dataSource]="dataSource" matSort>
 
 
-  <!-- <ng-container matColumnDef="id">
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef>No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index;">
+        {{i+1}}
+      </mat-cell>
+    </ng-container>
+    <!-- <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
     </ng-container>
@@ -32,50 +43,51 @@
       <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
     </ng-container> -->
 
-  <ng-container matColumnDef="bf">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>BF</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="bf">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>BF</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="gsm">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>GSM</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.gsm }}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="gsm">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>GSM</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.gsm }}</mat-cell>
+    </ng-container>
 
-  <!-- <ng-container matColumnDef="reel">
+    <!-- <ng-container matColumnDef="reel">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell>
     </ng-container> -->
 
-  <!-- <ng-container matColumnDef="size">
+    <!-- <ng-container matColumnDef="size">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Size</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
     </ng-container> -->
 
-  <!-- <ng-container matColumnDef="voucherKey">
+    <!-- <ng-container matColumnDef="voucherKey">
       <mat-header-cell *matHeaderCellDef mat-sort-header>VoucherKey</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.voucherKey }}</mat-cell>
     </ng-container> -->
 
-  <ng-container matColumnDef="weight">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
-  </ng-container>
-  <!-- <ng-container matColumnDef="select"> -->
-  <!-- <mat-header-cell *matHeaderCellDef>Select -->
-  <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
-  <!-- </mat-checkbox> -->
-  <!-- </mat-header-cell> -->
-  <!-- <mat-cell *matCellDef="let row"> -->
-  <!-- <button mat-raised-button color="primary" (click)="selectFromAll(row,row.id)">Select</button> -->
-  <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
-  <!-- </mat-checkbox> -->
-  <!-- </mat-cell> -->
-  <!-- </ng-container> -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
+    </ng-container>
+    <!-- <ng-container matColumnDef="select"> -->
+    <!-- <mat-header-cell *matHeaderCellDef>Select -->
+    <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
+    <!-- </mat-checkbox> -->
+    <!-- </mat-header-cell> -->
+    <!-- <mat-cell *matCellDef="let row"> -->
+    <!-- <button mat-raised-button color="primary" (click)="selectFromAll(row,row.id)">Select</button> -->
+    <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
+    <!-- </mat-checkbox> -->
+    <!-- </mat-cell> -->
+    <!-- </ng-container> -->
 
-  <mat-header-row *matHeaderRowDef="displayedColumns" style="background:orange"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+    <mat-header-row *matHeaderRowDef="displayedColumns" style="background:orange"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
-<mat-paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
-</mat-paginator>
+  <mat-paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+  </mat-paginator>
+</div>

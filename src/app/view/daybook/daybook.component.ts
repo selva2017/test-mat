@@ -13,7 +13,7 @@ import { UIService } from '../../shared/ui.service';
   styleUrls: ['./daybook.component.css']
 })
 export class DaybookComponent implements OnInit {
-  displayedColumns = ['voucherKey', 'partyLedgerName', 'voucherNumber', 'voucherType', 'select', 'action'];
+  displayedColumns = ['index','voucherDate', 'partyLedgerName', 'voucherType', 'voucherNumber','amount', 'select', 'action'];
   dataSource = new MatTableDataSource<Daybook>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,7 +30,7 @@ export class DaybookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
     this.showLoader = true;
@@ -63,7 +63,7 @@ export class DaybookComponent implements OnInit {
       })
     this.showLoader = false;
   }
-  onClickView(record) {
+  onClickView(record,key) {
     this.dayBook_row = record;
     // console.log(this.dayBook_row);
     const dialogRef = this.dialog.open(DaybookDialogComponent, {
@@ -77,13 +77,25 @@ export class DaybookComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // console.log("true");
+        console.log("true");
+        this.onClickReviewed(key);
       } else {
-        // console.log("false");
+        console.log("false");
       }
     });
-
-
   }
 
+  onClickReviewed(key) {
+    console.log(key);
+    this.serverService.setFlagTallyDaybook(key)
+      .subscribe(
+      (success) => {
+        this.refreshList();
+      },
+      (error) => console.log(error)
+      );
+  }
+  displayINR(amount: number) {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+  }
 }

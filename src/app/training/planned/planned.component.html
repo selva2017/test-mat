@@ -2,9 +2,9 @@
   <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
     <!-- <mat-tab label="Plans In Production"> -->
     <div fxFlex="100" class="sec1" fxFlex.xs="100">
-        <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
-            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-          </div>
+      <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      </div>
       <div *ngIf="prodution_plan_details_selected_main && !showLoader">
         <!-- <div *ngIf="showAll"> -->
 
@@ -17,6 +17,14 @@
           </div>
           <p>Plans in Production</p>
           <mat-table #table [dataSource]="dataSource_prodplans" matSort>
+
+            <ng-container matColumnDef="index">
+              <mat-header-cell *matHeaderCellDef>No
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row; let i = index;">
+                {{i+1}}
+              </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="createdDate">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Planned Date</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.createdDate | date: 'dd-MM-yyyy'}}</mat-cell>
@@ -58,7 +66,7 @@
         </div>
       </div>
       <div *ngIf="prodution_plan_details_selected_details && !showLoader">
-        
+
         <!-- <div *ngIf="showAll"> -->
         <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
           <mat-form-field fxFlex="40%">
@@ -69,6 +77,13 @@
         <p>Production plan Details</p>
         <mat-table #table_prod_plans [dataSource]="dataSource_prodplans" matSort>
 
+          <ng-container matColumnDef="index">
+            <mat-header-cell *matHeaderCellDef>No
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index;">
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -151,6 +166,13 @@
         <p>Selected Production Plan Details</p>
         <mat-table #table2="matSort" [dataSource]="dataSource_prodplans" matSort>
 
+          <ng-container matColumnDef="index">
+            <mat-header-cell *matHeaderCellDef>No
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index;">
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -203,8 +225,8 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Weight (Tons)</mat-header-cell>
             <!-- <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell> -->
             <mat-cell *matCellDef="let element">
-                <input id="text" #weight [ngModel]="element.weight" (ngModelChange)="element.weight=$event" />
-              </mat-cell>
+              <input id="text" #weight [ngModel]="element.weight" (ngModelChange)="element.weight=$event" />
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="newWeight">
@@ -263,6 +285,14 @@
         </mat-table>
         <p>Available Sales Order Items List</p>
         <mat-table #table11 [dataSource]="dataSource_avail_so_pp" matSort>
+
+          <ng-container matColumnDef="index">
+            <mat-header-cell *matHeaderCellDef>No
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index;">
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -390,12 +420,12 @@
           <p>Items - Prod Plan</p>
           <mat-table #table [dataSource]="dataSource_BF">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef >Item (BF)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Item (BF)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="weight">
-              <mat-header-cell *matHeaderCellDef >Weight (Tons)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Weight (Tons)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
@@ -407,7 +437,7 @@
         <div>
           <mat-table #table [dataSource]="dataSource_BFGSM">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef >Item (BF GSM)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Item (BF GSM)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }} BF {{element.gsm}} GSM </mat-cell>
             </ng-container>
             <!-- <ng-container matColumnDef="gsm">
@@ -416,7 +446,7 @@
               </ng-container> -->
 
             <ng-container matColumnDef="weight">
-              <mat-header-cell *matHeaderCellDef >Weight</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
@@ -429,7 +459,7 @@
 
           <mat-table #table [dataSource]="dataSource_BFGSMSize">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef  [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
             </ng-container>
             <!-- <ng-container matColumnDef="gsm">
@@ -443,17 +473,17 @@
               </ng-container> -->
 
             <ng-container matColumnDef="weight">
-              <mat-header-cell *matHeaderCellDef >Weight</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="reel">
-              <mat-header-cell *matHeaderCellDef >Reel</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Reel</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.reel | number: '1.0-0' }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="reelInStock">
-              <mat-header-cell *matHeaderCellDef >Prod Reel</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Prod Reel</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ (element.reelInStock) | number: '1.0-0'}}</mat-cell>
             </ng-container>
 
@@ -481,12 +511,12 @@
           <p>Items - Modify</p>
           <mat-table #table [dataSource]="dataSource_BF">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef >Item (BF)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Item (BF)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="weight">
-              <mat-header-cell *matHeaderCellDef >Weight (Tons)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Weight (Tons)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
@@ -498,7 +528,7 @@
         <div>
           <mat-table #table [dataSource]="dataSource_BFGSM">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef >Item (BF GSM)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Item (BF GSM)</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.bf }} BF {{element.gsm}} GSM </mat-cell>
             </ng-container>
             <!-- <ng-container matColumnDef="gsm">
@@ -507,7 +537,7 @@
             </ng-container> -->
 
             <ng-container matColumnDef="weight">
-              <mat-header-cell *matHeaderCellDef >Weight</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
@@ -519,21 +549,21 @@
         <div>
           <mat-table #table [dataSource]="dataSource_BFGSMSize">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef  [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="weight">
-              <mat-header-cell *matHeaderCellDef >Weight</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="reel">
-              <mat-header-cell *matHeaderCellDef >Reel</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Reel</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ element.reel | number: '1.0-0' }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="reelInStock">
-              <mat-header-cell *matHeaderCellDef >Prod Reel</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Prod Reel</mat-header-cell>
               <mat-cell *matCellDef="let element">{{ (element.reelInStock) | number: '1.0-0'}}</mat-cell>
             </ng-container>
 

@@ -12,40 +12,47 @@
   <p>Trial Balance Details</p>
   <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
 
+      <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef>No
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index;">
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
     <ng-container matColumnDef="reportId">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Report Id</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.reportId }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="createdTime">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Created Time</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Report Date</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.createdTime }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="reportKey">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Report Key</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.reportKey }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="reportValue1">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Report Value1</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Debit</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ displayINR(element.reportValue1) }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="reportValue2">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Report Value2</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Credit</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ displayINR(element.reportValue2) }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="tallySummaryIid">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Tally Summary Id</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.tallySummaryIid}}</mat-cell>
     </ng-container>
-    <!-- <ng-container matColumnDef="select">
-    <mat-header-cell *matHeaderCellDef>Select
+    <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef>Action
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <button mat-raised-button color="primary" (click)="onClickView(row)">Select</button>
+      <button mat-raised-button color="warn" (click)="onClick(row.tallySummaryIid)">Hide</button>
     </mat-cell>
-  </ng-container> -->
+  </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns" style="background:orange"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

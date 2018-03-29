@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { SalesDetails } from '../../shared/sales-details';
 import { Subscription } from 'rxjs/Subscription';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-sales',
@@ -14,17 +15,23 @@ export class SalesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
-  displayedColumns = ['custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
+  displayedColumns = ['index','custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
   products: SalesDetails[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<SalesDetails>();
   showLoader: boolean;
 
-  constructor(private serverService: ServerService) {
+  // isLoading = false;
+  // private loadingSubs: Subscription;
+
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
 
   ngOnInit() {
+    // this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+    //   this.isLoading = isLoading;
+    // });
     this.showLoader = true;
     this.refreshList();
     // this.refreshCustomersList();
@@ -46,12 +53,14 @@ export class SalesComponent implements OnInit {
   // }
 
   refreshList() {
+    // this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getSalesList('all').
       subscribe(list => {
         // this.dataSource.data = list;
         this.products = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         this.dataSource.data = list;
+        // this.uiService.loadingStateChanged.next(false);
         // this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);

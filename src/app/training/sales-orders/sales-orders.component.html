@@ -18,6 +18,15 @@
       </div>
       <p>Sales Orders</p>
       <mat-table #table1="matSort" [dataSource]="dataSource" matSort>
+      
+          <ng-container matColumnDef="index">
+              <mat-header-cell *matHeaderCellDef>No
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row; let i = index;">
+                {{i+1}}
+              </mat-cell>
+            </ng-container>
+
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -127,6 +136,13 @@
       <p>Selected Sales Orders</p>
       <mat-table #table2="matSort" [dataSource]="dataSource2" matSort>
 
+      <ng-container matColumnDef="index">
+        <mat-header-cell *matHeaderCellDef>No
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index;">
+          {{i+1}}
+        </mat-cell>
+      </ng-container>
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>

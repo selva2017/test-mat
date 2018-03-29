@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatTabChangeEvent } from '@a
 import { Subscription } from 'rxjs/Subscription';
 import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-restore-salesorders',
@@ -15,18 +16,24 @@ export class RestoreSalesordersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
   name = '';
-  displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
+  displayedColumns = ['index','orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   salesOrder: ProdPlan[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<ProdPlan>();
   // dataSource = new MatTableDataSource<Receipts[]>();
   showLoader: boolean;
 
-  constructor(private serverService: ServerService) {
+  isLoading = false;
+  private loadingSubs: Subscription;
+
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
   
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
     this.showLoader = true;
     this.refreshInActiveList();
   }
@@ -50,6 +57,7 @@ export class RestoreSalesordersComponent implements OnInit {
   // }
 
   refreshInActiveList() {
+    this.uiService.loadingStateChanged.next(true);
     this.salesOrder = [];
     // this.showLoader = true;
     this.subscription = this.serverService.getInActiveSalesOrders().
@@ -59,6 +67,7 @@ export class RestoreSalesordersComponent implements OnInit {
         this.dataSource.data = this.salesOrder;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

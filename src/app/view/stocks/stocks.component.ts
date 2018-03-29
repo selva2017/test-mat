@@ -16,28 +16,28 @@ export class StocksComponent implements OnInit {
   subscription: Subscription;
   // name = '';
   // displayedColumns = ['custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
-  displayedColumns = ['amount', 'batchName', 'bfAct', 'bfTgt', 'gsmAct', 'gsmTgt', 'stockItemName', 'units', 'voucherEffectiveDate', 'voucherKey', 'voucherNumber'];
+  displayedColumns = ['index', 'amount', 'batchName', 'bfAct', 'bfTgt', 'gsmAct', 'gsmTgt', 'stockItemName', 'units', 'voucherEffectiveDate', 'voucherKey', 'voucherNumber'];
   // stock_list: StockList[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<StockList>();
   showLoader: boolean;
 
-  isLoading = false;
-  private loadingSubs: Subscription;
+  // isLoading = false;
+  // private loadingSubs: Subscription;
 
   constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
 
   ngOnInit() {
+    // this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+    //   this.isLoading = isLoading;
+    // });
     this.showLoader = true;
     this.refreshList();
   }
 
   ngAfterViewInit() {
-    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
-      this.isLoading = isLoading;
-    });
     // this.showLoader = true;
     // this.refreshList();
     // this.showLoader = true;
@@ -54,7 +54,7 @@ export class StocksComponent implements OnInit {
   // }
 
   refreshList() {
-    this.uiService.loadingStateChanged.next(true);
+    // this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getTallyStockData().
       subscribe(list => {
         // this.dataSource.data = list;
@@ -64,7 +64,7 @@ export class StocksComponent implements OnInit {
         this.showLoader = false;
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
-        this.uiService.loadingStateChanged.next(false);
+        // this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

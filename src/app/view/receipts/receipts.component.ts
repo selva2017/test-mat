@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { Receipts } from '../../shared/receipts';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-receipts',
@@ -15,13 +16,15 @@ export class ReceiptsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
   name = '';
-  displayedColumns = ['custId', 'receiptId', 'voucherNumber', 'partyLedgerName', 'date', 'effectiveDate', 'voucherType', 'voucherKey', 'ledgerName', 'amount', 'companyId'];
+  displayedColumns = ['index','custId', 'receiptId', 'voucherNumber', 'partyLedgerName', 'date', 'effectiveDate', 'voucherType', 'voucherKey', 'ledgerName', 'amount', 'companyId'];
   receipts: Receipts[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<Receipts[]>();
   showLoader: boolean;
+  isLoading = false;
+  private loadingSubs: Subscription;
 
-  constructor(private serverService: ServerService) {
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
   
@@ -31,6 +34,9 @@ export class ReceiptsComponent implements OnInit {
   }
   
   ngAfterViewInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
     // this.showLoader = true;
     // this.refreshList();
     this.dataSource.sort = this.sort;
@@ -46,6 +52,7 @@ export class ReceiptsComponent implements OnInit {
   // }
 
   refreshList() {
+    this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getSalesList('all').
       subscribe(list => {
         // this.dataSource.data = list;
@@ -53,6 +60,7 @@ export class ReceiptsComponent implements OnInit {
         this.dataSource.data = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
       })

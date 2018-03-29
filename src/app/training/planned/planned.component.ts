@@ -6,6 +6,7 @@ import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
 import { SalesOrdersPlanned } from '../../shared/sales-order-planned';
 import { DispatchReport } from '../../shared/dispatch-report';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-planned',
@@ -19,10 +20,10 @@ export class PlannedComponent implements OnInit {
   subscription: Subscription;
   dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
   dataSource_dispatch = new MatTableDataSource<DispatchReport>();
-  displayedColumns_planned = ['createdDate', 'batchNumber', 'details', 'reports', 'action'];
-  displayedColumns_avail_sales_order = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
-  displayedColumns_modifyplandetails = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'update', 'delete'];
-  displayedColumns_prod_plan_details = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock'];
+  displayedColumns_planned = ['index','createdDate', 'batchNumber', 'details', 'reports', 'action'];
+  displayedColumns_avail_sales_order = ['index','orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'newWeight', 'reel', 'reelInStock', 'action'];
+  displayedColumns_modifyplandetails = ['index','orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock', 'update', 'delete'];
+  displayedColumns_prod_plan_details = ['index','orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'reelInStock'];
   displayedColumns_bf = ['bf', 'weight'];
   displayedColumns_bfgsm = ['bf', 'weight'];
   displayedColumns_bfgsmsize = ['bf', 'weight', 'reel', 'reelInStock'];
@@ -57,12 +58,17 @@ export class PlannedComponent implements OnInit {
   showSelectedOrders: boolean = false;
   modifyProductionPlan_right: boolean = false;
   modifyProductionPlan_details: boolean = false;
+  isLoading = false;
+  private loadingSubs: Subscription;
 
-  constructor(private serverService: ServerService, private dialog: MatDialog) {
+  constructor(private serverService: ServerService, private uiService: UIService, private dialog: MatDialog) {
     this.showLoader = true;
   }
 
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
     this.showLoader = true;
     this.onViewProductionPlans();
   }
@@ -130,6 +136,7 @@ export class PlannedComponent implements OnInit {
 
   }
   onViewProductionPlans() {
+    this.uiService.loadingStateChanged.next(true);
     this.salesOrdersPlanned = [];
     this.subscription = this.serverService.getSalesOrdersPlanned().
       subscribe(list => {
@@ -138,6 +145,7 @@ export class PlannedComponent implements OnInit {
         this.dataSource_prodplans.data = this.salesOrdersPlanned;
         // console.log(this.salesOrdersPlanned);
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

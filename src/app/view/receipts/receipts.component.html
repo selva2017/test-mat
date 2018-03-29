@@ -1,7 +1,7 @@
-<div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
-<div *ngIf="!showLoader">
+<div *ngIf="!isLoading">
 
     <!-- <div *ngIf="showAll"> -->
     <div fxLayoutAlign="center center">
@@ -15,6 +15,13 @@
     <mat-table #table [dataSource]="dataSource" matSort  (selectedIndexChange)="_setDataSource($event)">
     <!-- <mat-table #table [dataSource]="dataSource" matSort> -->
   
+        <ng-container matColumnDef="index">
+            <mat-header-cell *matHeaderCellDef>No
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index;">
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
       <ng-container matColumnDef="custId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Cust ID</mat-header-cell>
         <mat-cell *matCellDef="let element">{{ element.custId }}</mat-cell>

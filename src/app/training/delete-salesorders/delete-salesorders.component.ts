@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { ServerService } from './../../shared/server.service';
 import { ProdPlan } from './../../shared/prod_plan';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-delete-salesorders',
@@ -14,19 +15,24 @@ export class DeleteSalesordersComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
-  displayedColumns = ['orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
+  displayedColumns = ['index','orderDate', 'orderNumber', 'company', 'bf', 'size', 'voucherKey', 'weight', 'reel', 'select'];
   salesOrder: ProdPlan[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<ProdPlan>();
   // dataSource = new MatTableDataSource<Receipts[]>();
   showLoader: boolean;
 
+  isLoading = false;
+  private loadingSubs: Subscription;
 
-  constructor(private serverService: ServerService) {
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
 
   ngOnInit() {
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
     // this.refreshActiveList();
     this.showLoader = true;
     this.refreshActiveList();
@@ -48,6 +54,7 @@ export class DeleteSalesordersComponent implements OnInit {
   // }
 
   refreshActiveList() {
+    this.uiService.loadingStateChanged.next(true);
     this.salesOrder = [];
     this.subscription = this.serverService.getActiveSalesOrders().
       subscribe(list => {
@@ -55,6 +62,7 @@ export class DeleteSalesordersComponent implements OnInit {
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator: null;
         this.dataSource.data = this.salesOrder;
         this.showLoader = false;
+        this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }

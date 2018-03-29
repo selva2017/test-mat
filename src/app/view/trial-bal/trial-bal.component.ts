@@ -12,7 +12,7 @@ import { UIService } from '../../shared/ui.service';
   styleUrls: ['./trial-bal.component.css']
 })
 export class TrialBalComponent implements OnInit {
-  displayedColumns = ['reportId', 'createdTime', 'reportKey', 'reportValue1', 'reportValue2', 'tallySummaryIid'];
+  displayedColumns = ['index','reportKey', 'reportValue2', 'reportValue1', 'createdTime','action'];
   dataSource = new MatTableDataSource<TrialBal>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,7 +29,7 @@ export class TrialBalComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
     this.showLoader = true;
@@ -67,5 +67,15 @@ export class TrialBalComponent implements OnInit {
   // }
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+  }
+  onClick(key: string) {
+    this.productService.putTallyData(key)
+      .subscribe(
+      (success) => {
+        this.refreshList();
+      },
+      (error) => console.log(error)
+      );
+   
   }
 }

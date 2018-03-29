@@ -78,8 +78,8 @@ import { CommonDetails } from './../../shared/common-details';
           </table>
           <br>
             <div align="center">
-            <button mat-raised-button color="accent" (click)="onClickPrint()">Hide</button>
-            <button mat-raised-button color="primary" [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+            <button mat-raised-button color="accent" [mat-dialog-close]="true">Hide</button>
+            <button mat-raised-button color="primary" [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
             </div>
       </div>
     </div>
