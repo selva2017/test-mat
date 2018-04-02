@@ -1,7 +1,7 @@
-<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:50%;left:50%">
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:50%;left:50%;">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
-  <div *ngIf="!isLoading">
+  <div *ngIf="!isLoading" style="padding:20px;">
     <!-- <div *ngIf="showAll"> -->
     <div fxLayoutAlign="center center">
       <mat-form-field fxFlex="40%">
@@ -22,8 +22,8 @@
       </ng-container>
   
       <ng-container matColumnDef="partyLedgerName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Particulars</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.partyLedgerName }}</mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%">Particulars</mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.partyLedgerName }}</mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="voucherNumber">
@@ -37,30 +37,31 @@
       </ng-container>
   
       <ng-container matColumnDef="amount">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Credit/Debit</mat-header-cell>
   
         <mat-cell *matCellDef="let element">
           <div *ngIf="element.voucherType ==='Stock Journal Fg' || element.voucherType ==='Delivery Note GST' || element.voucherType === 'Consumption Entry'">
             {{ element.inventoryEntryVOs[0]?.billedQuantity }}
           </div>
           <div *ngIf="element.voucherType ==='Sales GST' || element.voucherType ==='Sales Order' || element.voucherType ==='Bank Payment' || element.voucherType ==='Contra' || element.voucherType ==='Receipt'|| element.voucherType ==='Purchase Order' || element.voucherType ==='Journal'
-          || element.voucherType ==='GRN-Raw Material'|| element.voucherType ==='Purchase-Raw Material' || element.voucherType ==='Petty Cash' || element.voucherType ==='GRN-General' || element.voucherType ==='GRN-Firewood'">
+          || element.voucherType ==='GRN-Raw Material'|| element.voucherType ==='Purchase-Raw Material' || element.voucherType ==='Petty Cash' || element.voucherType ==='GRN-General' || element.voucherType ==='GRN-Firewood'
+          || element.voucherType ==='Credit Note'">
             {{ displayINR(element.ledgerEntryVOs[0]?.amount) }}
           </div>
         </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>Select
+        <mat-header-cell *matHeaderCellDef>Details
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <button mat-raised-button color="primary" (click)="onClickView(row,row.voucherKey)">Select</button>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="index">
-        <mat-header-cell *matHeaderCellDef>No
+        <mat-header-cell *matHeaderCellDef fxFlex="5%">No
         </mat-header-cell>
-        <mat-cell *matCellDef="let row; let i = index;">
+        <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
           {{i+1}}
         </mat-cell>
       </ng-container>

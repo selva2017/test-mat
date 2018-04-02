@@ -1,7 +1,7 @@
 <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
-<div>
+<div style="padding:30px">
   <h2>Create Announcements</h2>
   <div class="col-md-12 push-md-12">
     <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">

@@ -12,8 +12,7 @@ import { Daybook } from '../../shared/daybook';
       <div class="col-md-12">
         <div class="card">
           <div class="card-header" data-background-color="red">
-            <h2 class="title">Transaction Details</h2>
-            <h4 class="title">Customer Details</h4>
+            <h2 class="title">Customer Transaction Details</h2>
           </div>
           <table class="table">
             <tr>
@@ -104,7 +103,7 @@ export class CustomerDialog {
     // console.log(passedData);
   }
   displayINR(amount: number) {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
   }
 
 }

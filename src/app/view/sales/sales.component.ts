@@ -15,7 +15,8 @@ export class SalesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
-  displayedColumns = ['index','custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
+  displayedColumns = ['index', 'custId', 'voucherNumber', 'date', 'partyLedgerName', 'voucherKey', 'amount', 'companyId'];
+  // displayedColumns = ['index','custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
   products: SalesDetails[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<SalesDetails>();
@@ -36,7 +37,7 @@ export class SalesComponent implements OnInit {
     this.refreshList();
     // this.refreshCustomersList();
   }
-  
+
   ngAfterViewInit() {
     // this.showLoader = true;
     // this.refreshList();
@@ -81,7 +82,7 @@ export class SalesComponent implements OnInit {
   // }
 
   displayINR(amount: number) {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
   }
 
 }

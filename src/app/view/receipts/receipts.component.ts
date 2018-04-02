@@ -16,7 +16,8 @@ export class ReceiptsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
   name = '';
-  displayedColumns = ['index','custId', 'receiptId', 'voucherNumber', 'partyLedgerName', 'date', 'effectiveDate', 'voucherType', 'voucherKey', 'ledgerName', 'amount', 'companyId'];
+  displayedColumns = ['index', 'custId', 'voucherNumber', 'date', 'partyLedgerName', 'voucherKey', 'amount', 'companyId'];
+  // displayedColumns = ['index','custId', 'receiptId', 'voucherNumber', 'partyLedgerName', 'date', 'effectiveDate', 'voucherType', 'voucherKey', 'ledgerName', 'amount', 'companyId'];
   receipts: Receipts[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<Receipts[]>();
@@ -53,7 +54,7 @@ export class ReceiptsComponent implements OnInit {
 
   refreshList() {
     this.uiService.loadingStateChanged.next(true);
-    this.subscription = this.serverService.getSalesList('all').
+    this.subscription = this.serverService.getReceiptList('all').
       subscribe(list => {
         // this.dataSource.data = list;
         this.receipts = list;

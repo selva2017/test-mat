@@ -77,16 +77,16 @@ export class DaybookComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("true");
+        // console.log("true");
         this.onClickReviewed(key);
       } else {
-        console.log("false");
+        // console.log("false");
       }
     });
   }
 
   onClickReviewed(key) {
-    console.log(key);
+    // console.log(key);
     this.serverService.setFlagTallyDaybook(key)
       .subscribe(
       (success) => {
@@ -96,6 +96,6 @@ export class DaybookComponent implements OnInit {
       );
   }
   displayINR(amount: number) {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
   }
 }

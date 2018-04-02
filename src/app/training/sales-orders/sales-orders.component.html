@@ -9,23 +9,24 @@
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
     <!-- <div *ngIf="!showLoader"> -->
-    <div *ngIf="showAll">
-      <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="40px">
+    <div *ngIf="showAll" style="padding:10px;">
+      <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="25px">
         <mat-form-field fxFlex="40%">
           <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="showSelected()">Selected List</button>
+        <button mat-raised-button color="warn" (click)="clearAll()">Clear All</button>
       </div>
       <p>Sales Orders</p>
-      <mat-table #table1="matSort" [dataSource]="dataSource" matSort>
-      
-          <ng-container matColumnDef="index">
-              <mat-header-cell *matHeaderCellDef>No
-              </mat-header-cell>
-              <mat-cell *matCellDef="let row; let i = index;">
-                {{i+1}}
-              </mat-cell>
-            </ng-container>
+      <mat-table #table1="matSort" [dataSource]="dataSource" matSort style="width: 100%">
+
+        <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef fxFlex="5%">No
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
 
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
@@ -33,23 +34,23 @@
         </ng-container>
 
         <ng-container matColumnDef="orderDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.orderDate | date: 'dd-MM-yyyy' }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%">Date</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="10%">{{ element.orderDate | date: 'dd-MM-yyyy' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%">Order #</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="10%">{{ element.orderNumber }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="company">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%">Company</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.company }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="bf">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Item</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.bf }} BF {{ element.gsm }} GSM</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="12%">Item</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="12%">{{ element.bf }} BF {{ element.gsm }} GSM</mat-cell>
         </ng-container>
 
         <!-- <ng-container matColumnDef="gsm">
@@ -59,25 +60,25 @@
 
 
         <ng-container matColumnDef="size">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Inch)</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="8%">Size (Inch)</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="8%">{{ element.size }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="voucherKey">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Cm)</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5%">Size (Cm)</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="5%">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="weight">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Weight (Tons)</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5%">Weight (Tons)</mat-header-cell>
           <!-- <mat-cell *matCellDef="let element"> -->
-          <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
+          <mat-cell *matCellDef="let element" fxFlex="5%">{{ element.weight }}</mat-cell>
           <!-- </mat-cell> -->
         </ng-container>
 
         <ng-container matColumnDef="newWeight">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Weight Plan</mat-header-cell>
-          <mat-cell *matCellDef="let element">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5%">Weight</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="5%">
             <!-- <input matInput id="textInput" class="custom" [ngModel]="element.weight" (ngModelChange)="element.weight=$event"/> -->
             <input id="text" #newWeight [ngModel]="element.newWeight" pattern="[0-9]" maxlength="3" (ngModelChange)="element.newWeight=$event"
               (change)="showReel()" />
@@ -85,8 +86,8 @@
         </ng-container>
 
         <ng-container matColumnDef="reel">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
-          <mat-cell *matCellDef="let element">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5%">Reel</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="5%">
             <!-- <input matInput id="textInput" class="custom" [ngModel]="element.reel" (ngModelChange)="element.reel=$event"/> -->
             <input type="text" [ngModel]="element.reel | number: '1.0-0'" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reel=$event"
               (change)="showReel()" />
@@ -94,8 +95,8 @@
         </ng-container>
 
         <ng-container matColumnDef="reelInStock">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Reels In Stock</mat-header-cell>
-          <mat-cell *matCellDef="let element">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5%">Stock Reel</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="5%">
             <input type="text" [ngModel]="element.reelInStock | number: '1.0-0'" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reelInStock=$event"
             />
             <!-- (change)="stockReel(element.reelInStock,element.reel,element.id)" /> -->
@@ -103,11 +104,11 @@
         </ng-container>
 
         <ng-container matColumnDef="select">
-          <mat-header-cell *matHeaderCellDef>Select
+          <mat-header-cell *matHeaderCellDef fxFlex="10%" class="align-center">Select
             <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
             <!-- </mat-checkbox> -->
           </mat-header-cell>
-          <mat-cell *matCellDef="let row">
+          <mat-cell *matCellDef="let row" fxFlex="10%" class="align-center">
             <button mat-raised-button color="primary" (click)="selectFromAll(row,row.id)">Select</button>
             <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
             <!-- </mat-checkbox> -->
@@ -124,7 +125,7 @@
     <!-- </div> -->
     <!-- <div *ngIf="!showLoader"> -->
     <div *ngIf="!showAll">
-      <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
+      <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="25px">
         <mat-form-field fxFlex="40%">
           <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
@@ -134,99 +135,100 @@
       </div>
       <!-- <mat-table [dataSource]="dataSource1" matSort> -->
       <p>Selected Sales Orders</p>
-      <mat-table #table2="matSort" [dataSource]="dataSource2" matSort>
+      <div style="padding:10px;">
+        <mat-table #table2="matSort" [dataSource]="dataSource2" matSort>
 
-      <ng-container matColumnDef="index">
-        <mat-header-cell *matHeaderCellDef>No
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row; let i = index;">
-          {{i+1}}
-        </mat-cell>
-      </ng-container>
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="index">
+            <mat-header-cell *matHeaderCellDef fxFlex="5%">No
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="orderDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.orderDate | date: 'dd-MM-yyyy'}}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="orderDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.orderDate | date: 'dd-MM-yyyy'}}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="orderNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="orderNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="company">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="company">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="bf">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Item</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.bf }} BF {{ element.gsm }} GSM</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="bf">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Item</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.bf }} BF {{ element.gsm }} GSM</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="size">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Inch)</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.size }}</mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="align-center">Size (Inch)</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="align-center">{{ element.size }}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="voucherKey">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Cm)</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
-        </ng-container>
-        <!-- <ng-container matColumnDef="size">
+          <ng-container matColumnDef="voucherKey">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="align-center">Size (Cm)</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="align-center">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="size">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Size (Cm)</mat-header-cell>
                         <mat-cell *matCellDef="let element">{{ (element.size)*2.54 | number: '1.0-0' }}</mat-cell>
                       </ng-container>-->
 
-        <ng-container matColumnDef="weight">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Weight (Tons)</mat-header-cell>
-          <!-- <mat-cell *matCellDef="let element"> -->
-          <mat-cell *matCellDef="let element">{{ element.weight }}</mat-cell>
-          <!-- </mat-cell> -->
-        </ng-container>
+          <ng-container matColumnDef="weight">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="align-center">Weight (Tons)</mat-header-cell>
+            <!-- <mat-cell *matCellDef="let element"> -->
+            <mat-cell *matCellDef="let element" class="align-center">{{ element.weight }}</mat-cell>
+            <!-- </mat-cell> -->
+          </ng-container>
 
-        <ng-container matColumnDef="reel">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ (element.reel)| number: '1.0-0' }}</mat-cell>
-          <!-- <mat-cell *matCellDef="let element">
+          <ng-container matColumnDef="reel">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reel</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ (element.reel)| number: '1.0-0' }}</mat-cell>
+            <!-- <mat-cell *matCellDef="let element">
                           <input type="text" [ngModel]="element.reel" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reel=$event" (change)="showReel()"
                           />
                         </mat-cell> -->
 
-        </ng-container>
+          </ng-container>
 
-        <ng-container matColumnDef="reelInStock">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Reels In Stock</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ (element.reelInStock)| number: '1.0-0' }}</mat-cell>
-          <!-- <mat-cell *matCellDef="let element">
+          <ng-container matColumnDef="reelInStock">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reel In Stock</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ (element.reelInStock)| number: '1.0-0' }}</mat-cell>
+            <!-- <mat-cell *matCellDef="let element">
                     <input type="text" [ngModel]="element.reelInStock" pattern="[0-9]" maxlength="3" (ngModelChange)="element.reelInStock=$event"
                       (change)="showReel()" />
                   </mat-cell> -->
-        </ng-container>
+          </ng-container>
 
-        <ng-container matColumnDef="select">
-          <mat-header-cell *matHeaderCellDef>Action
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="warn" (click)="selectFromSelected(row,row.id)">Remove</button>
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>Action
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-raised-button color="warn" (click)="selectFromSelected(row,row.id)">Remove</button>
+            </mat-cell>
+          </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns_selected" style="background:orange"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns_selected;"></mat-row>
-      </mat-table>
-
+          <mat-header-row *matHeaderRowDef="displayedColumns_selected" style="background:orange"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns_selected;"></mat-row>
+        </mat-table>
+      </div>
       <!-- <mat-paginator #paginator2 [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
                   </mat-paginator> -->
     </div>
     <!-- </div> -->
   </div>
   <div fxFlex="25" class="sec3" fxFlex.xs="25">
-    <div *ngIf="showAllSalesOrders || showSelectedOrders">
+    <div *ngIf="showAllSalesOrders || showSelectedOrders" style="padding:5px;">
       <div>
         <!-- <p>Items Selected for Planning</p> -->
         <p>Items - Sales Order</p>
@@ -271,8 +273,8 @@
 
         <mat-table #table [dataSource]="dataSource_BFGSMSize">
           <ng-container matColumnDef="bf">
-            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthCell'">Item (BF GSM Size)</mat-header-cell>
-            <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthCell'" fxFlex="40%">Item (BF GSM Size)</mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'" fxFlex="40%" >{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
           </ng-container>
           <!-- <ng-container matColumnDef="gsm">
                         <mat-header-cell *matHeaderCellDef mat-sort-hea`der>GSM</mat-header-cell>

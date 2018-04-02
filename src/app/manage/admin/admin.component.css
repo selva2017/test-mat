@@ -10,14 +10,17 @@
   .example-selected-value {
     margin: 15px 0;
   }
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
+  /* .example-form { */
+  .table {
+    /* min-width: 150px; */
+    /* max-width: 500px; */
     width: 100%;
   }
   
   .example-full-width {
     width: 100%;
+    padding: 30px;
+    /* padding-left: 6px; */
   }
   table, td, th {
     border: .5px solid #ddd !important;

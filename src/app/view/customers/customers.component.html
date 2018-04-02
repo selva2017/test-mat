@@ -1,7 +1,7 @@
 <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
-<div *ngIf="!isLoading">
+<div *ngIf="!isLoading" style="padding:20px;">
   <div fxLayoutAlign="center center">
     <mat-form-field fxFlex="40%">
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -12,9 +12,9 @@
   <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
 
     <ng-container matColumnDef="index">
-      <mat-header-cell *matHeaderCellDef>No
+      <mat-header-cell *matHeaderCellDef fxFlex="5%">No
       </mat-header-cell>
-      <mat-cell *matCellDef="let row; let i = index;">
+      <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
         {{i+1}}
       </mat-cell>
     </ng-container>

@@ -66,13 +66,14 @@ export class TrialBalComponent implements OnInit {
   //   });
   // }
   displayINR(amount: number) {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
   }
-  onClick(key: string) {
-    this.productService.putTallyData(key)
+  onClick(row: TrialBal[]) {
+    this.productService.putTallyData(row)
       .subscribe(
       (success) => {
         this.refreshList();
+        console.log("success");
       },
       (error) => console.log(error)
       );

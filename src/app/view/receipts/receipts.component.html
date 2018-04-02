@@ -1,7 +1,7 @@
 <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
-<div *ngIf="!isLoading">
+<div *ngIf="!isLoading" style="padding:20px;">
 
     <!-- <div *ngIf="showAll"> -->
     <div fxLayoutAlign="center center">
@@ -16,9 +16,9 @@
     <!-- <mat-table #table [dataSource]="dataSource" matSort> -->
   
         <ng-container matColumnDef="index">
-            <mat-header-cell *matHeaderCellDef>No
+            <mat-header-cell *matHeaderCellDef fxFlex="5%">No
             </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index;">
+            <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
               {{i+1}}
             </mat-cell>
           </ng-container>

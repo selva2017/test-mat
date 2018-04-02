@@ -16,7 +16,7 @@ export class StocksComponent implements OnInit {
   subscription: Subscription;
   // name = '';
   // displayedColumns = ['custId','salesId','voucherNumber', 'partyLedgerName', 'date','effectiveDate','voucherType','voucherKey','ledgerName','amount','companyId'];
-  displayedColumns = ['index', 'amount', 'batchName', 'bfAct', 'bfTgt', 'gsmAct', 'gsmTgt', 'stockItemName', 'units', 'voucherEffectiveDate', 'voucherKey', 'voucherNumber'];
+  displayedColumns = ['index', 'voucherEffectiveDate', 'voucherNumber', 'batchName', 'stockItemName', 'billedQty', 'rate', 'amount', 'bfTgt', 'bfAct', 'gsmTgt', 'gsmAct'];
   // stock_list: StockList[];
   // dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<StockList>();
@@ -70,7 +70,7 @@ export class StocksComponent implements OnInit {
   }
 
   displayINR(amount: number) {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
   }
 
 }

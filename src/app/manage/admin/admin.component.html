@@ -6,8 +6,8 @@
     <div *ngIf="!isLoading">
       <br>
       <h3>User List and Roles</h3>
-      <table>
-        <thead>
+      <table class="example-full-width">
+        <thead color="#FB8C00">
           <tr>
             <th>No</th>
             <th>User Name</th>
@@ -24,7 +24,7 @@
           <tr *ngFor="let row of userList.users; let i = index">
             <!-- <tr *ngFor="let row of userList.users | paginate: { itemsPerPage: 10, currentPage: p }; let i = index"> -->
             <td>{{i+1}}</td>
-            <td>{{row.userName}}</td>
+            <td style="padding-left:15px;">{{row.userName}}</td>
             <td>{{row.firstName}}</td>
             <td>{{row.lastName}}</td>
             <!-- <td>{{row.roleName}}</td> -->
@@ -85,7 +85,7 @@
               </label>
             </div> -->
             </td>
-            <td>
+            <td align="center">
               <!-- Button trigger update  -->
               <!-- <button type="button" class="btn btn-warning btn-sm" (click)="onClickReviewed(row)" [disabled]="disableUpdate">Update -->
               <!-- </button> -->

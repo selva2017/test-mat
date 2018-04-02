@@ -19,9 +19,9 @@
           <mat-table #table [dataSource]="dataSource_prodplans" matSort>
 
             <ng-container matColumnDef="index">
-              <mat-header-cell *matHeaderCellDef>No
+              <mat-header-cell *matHeaderCellDef fxFlex="5%">No
               </mat-header-cell>
-              <mat-cell *matCellDef="let row; let i = index;">
+              <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
                 {{i+1}}
               </mat-cell>
             </ng-container>
@@ -65,7 +65,7 @@
           </mat-paginator>
         </div>
       </div>
-      <div *ngIf="prodution_plan_details_selected_details && !showLoader">
+      <div *ngIf="prodution_plan_details_selected_details && !showLoader" style="padding:10px;">
 
         <!-- <div *ngIf="showAll"> -->
         <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
@@ -78,9 +78,9 @@
         <mat-table #table_prod_plans [dataSource]="dataSource_prodplans" matSort>
 
           <ng-container matColumnDef="index">
-            <mat-header-cell *matHeaderCellDef>No
+            <mat-header-cell *matHeaderCellDef fxFlex="5%">No
             </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index;">
+            <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
               {{i+1}}
             </mat-cell>
           </ng-container>
@@ -136,7 +136,7 @@
           </ng-container>
 
           <ng-container matColumnDef="reelInStock">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Reels In Stock</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reel In Stock</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ (element.reelInStock) | number: '1.0-0' }}</mat-cell>
           </ng-container>
 
@@ -154,7 +154,7 @@
         <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
         </mat-paginator>
       </div>
-      <div *ngIf="modifyProductionPlan_details && !showLoader">
+      <div *ngIf="modifyProductionPlan_details && !showLoader" style="padding:10px;">
         <!-- <div *ngIf="showAll"> -->
         <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="20px">
           <mat-form-field fxFlex="40%">
@@ -167,9 +167,9 @@
         <mat-table #table2="matSort" [dataSource]="dataSource_prodplans" matSort>
 
           <ng-container matColumnDef="index">
-            <mat-header-cell *matHeaderCellDef>No
+            <mat-header-cell *matHeaderCellDef fxFlex="5%">No
             </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index;">
+            <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
               {{i+1}}
             </mat-cell>
           </ng-container>
@@ -250,7 +250,7 @@
           </ng-container>
 
           <ng-container matColumnDef="reelInStock">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Reels In Stock</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reel In Stock</mat-header-cell>
             <!-- <mat-cell *matCellDef="let element">{{ element.reel }}</mat-cell> -->
             <!-- <mat-cell *matCellDef="let element">{{ (element.reelInStock) | number: '1.0-0' }}</mat-cell> -->
             <mat-cell *matCellDef="let element">
@@ -262,18 +262,18 @@
 
 
           <ng-container matColumnDef="update">
-            <mat-header-cell *matHeaderCellDef>Modify</mat-header-cell>
-            <mat-cell *matCellDef="let row">
+            <mat-header-cell *matHeaderCellDef fxFlex="10%">Update</mat-header-cell>
+            <mat-cell *matCellDef="let row" fxFlex="10%">
               <button mat-raised-button color="accent" (click)="updatePlannedSalesOrder(row,row.salesOrderPlannedId,row.reel,row.reelInStock,row.weight)">Update</button>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="delete">
-            <mat-header-cell *matHeaderCellDef>Delete
+            <mat-header-cell *matHeaderCellDef class="align-center" fxFlex="10%">Remove
               <!-- <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"> -->
               <!-- </mat-checkbox> -->
             </mat-header-cell>
-            <mat-cell *matCellDef="let row">
+            <mat-cell *matCellDef="let row" fxFlex="10%">
               <button mat-raised-button color="warn" (click)="onDeleteProductionPlanItem(row)">Remove</button>
               <!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> -->
               <!-- </mat-checkbox> -->
@@ -287,9 +287,9 @@
         <mat-table #table11 [dataSource]="dataSource_avail_so_pp" matSort>
 
           <ng-container matColumnDef="index">
-            <mat-header-cell *matHeaderCellDef>No
+            <mat-header-cell *matHeaderCellDef fxFlex="5%">No
             </mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index;">
+            <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
               {{i+1}}
             </mat-cell>
           </ng-container>
@@ -414,7 +414,7 @@
     <!-- </mat-tab> -->
 
     <div fxFlex="25" class="sec3" fxFlex.xs="25">
-      <div *ngIf="prodution_plan_details_selected_right">
+      <div *ngIf="prodution_plan_details_selected_right" style="padding:5px;">
         <div>
           <!-- <p>Items Selected for Planning</p> -->
           <p>Items - Prod Plan</p>
@@ -459,8 +459,8 @@
 
           <mat-table #table [dataSource]="dataSource_BFGSMSize">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
+              <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'" fxFlex="40%" >Item (BF GSM Size)</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'" fxFlex="40%" >{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
             </ng-container>
             <!-- <ng-container matColumnDef="gsm">
                 <mat-header-cell *matHeaderCellDef >GSM</mat-header-cell>
@@ -549,8 +549,8 @@
         <div>
           <mat-table #table [dataSource]="dataSource_BFGSMSize">
             <ng-container matColumnDef="bf">
-              <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'">Item (BF GSM Size)</mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
+              <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'" fxFlex="40%">Item (BF GSM Size)</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'" fxFlex="40%">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="weight">
               <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>

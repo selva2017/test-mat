@@ -19,7 +19,8 @@ export class CustomersComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   subscription: Subscription;
-  displayedColumns = ['index','customerID', 'name', 'gstNo', 'companyId', 'createdDate', 'customerGroup', 'customerType', 'action'];
+  displayedColumns = ['index','customerID', 'name', 'gstNo', 'companyId', 'createdDate', 'action'];
+  // displayedColumns = ['index','customerID', 'name', 'gstNo', 'companyId', 'createdDate', 'customerGroup', 'customerType', 'action'];
   customer: Customer[] = [];
   customer_details: CustomerDetails[] = [];
   receipt: Receipts[] = [];
