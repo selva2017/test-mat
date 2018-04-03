@@ -46,10 +46,10 @@ export class SalesOrdersComponent implements OnInit {
   // dataSource_prodplans = new MatTableDataSource<SalesOrdersPlanned>();
   // dataSource_dispatch = new MatTableDataSource<DispatchReport>();
   @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('table1') table1: MatSort;
   @ViewChild('table2') table2: MatSort;
-  @ViewChild('paginator1') paginator1: MatPaginator;
+  // @ViewChild('paginator1') paginator1: MatPaginator;
   // @ViewChild('paginator2') paginator2: MatPaginator;
   // @ViewChild('paginator3') paginator3: MatPaginator;
   // @ViewChild('paginator4') paginator4: MatPaginator;
@@ -117,7 +117,7 @@ export class SalesOrdersComponent implements OnInit {
     // this.message = this.child.message;
     // this.dataSource.sort = this.sort;
     this.dataSource.sort = this.table1;
-    this.dataSource.paginator = this.paginator1;
+    this.dataSource.paginator = this.paginator;
     
     // this.dataSource2.sort = this.sort;
     this.dataSource2.sort = this.table2;
@@ -302,7 +302,7 @@ export class SalesOrdersComponent implements OnInit {
   showSalesOrders(){
     this.showAll = !this.showAll;
     this.dataSource.data = this.salesOrder;
-    !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
+    !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
   }
   showSelected() {
     this.showAll = !this.showAll;
@@ -578,7 +578,7 @@ export class SalesOrdersComponent implements OnInit {
         // this.dataSource.data = this.salesOrder.slice();
         // console.log(this.dataSource.data);
         this.dataSource.data = this.salesOrder;
-        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator1 : null;
+        !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
         // this.dataSource_delete.data = this.salesOrder;
         // this.dataSource_avail_so_pp.data = this.salesOrder;
         this.showLoader = false;

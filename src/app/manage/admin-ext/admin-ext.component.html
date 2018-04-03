@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-sm-12" align="center">
+    <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div *ngIf="!isLoading">
+      <br>
+      <h3>External User List and Roles</h3>
+      <table class="example-full-width">
+        <thead color="#FB8C00">
+          <tr>
+            <th>No</th>
+            <th>User Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role Name</th>
+            <th>Role Id</th>
+            <th>Created Date</th>
+            <th>User Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of userList.users; let i = index">
+            <td>{{i+1}}</td>
+            <td style="padding-left:15px;">{{row.userName}}</td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <td>
+              <form action="">
+                <div *ngFor="let role of userList.roles;let i = index">
+                  <mat-radio-button class="example-radio-button" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId"
+                    (change)="setRole(row,role.roleId)">{{role.roleName}}
+                  </mat-radio-button>
+                  <br>
+                </div>
+              </form>
+            </td>
+            <td>{{row.role}}</td>
+            <td>{{row.createdDate | date: 'dd-MM-yyyy'}}</td>
+            <td>
+              <form action="">
+                <section class="example-section">
+                  <mat-checkbox class="example-margin" [checked]="row.userStatus === 'active'" [value]="row.userStatus" (change)="setStatus(row)">Activate</mat-checkbox>
+                </section>
+              </form>
+            </td>
+            <td align="center">
+              <button mat-raised-button color="primary" (click)="onUpdateExternalUser()" [disabled]="!row.authenticate">Update
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

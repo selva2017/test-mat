@@ -19,7 +19,7 @@ import { DispatchReport } from '../../shared/dispatch-report';
           <div *ngFor="let row5 of passedData.progress; let i = index" class="w-100 p-3 table-striped table-bordered ">
             <table class="ngx-table" style="border:2px">
               <!-- <table *ngIf="passedData.progress?.length > 0" class="w-100 p-3 table-striped table-bordered"> -->
-              <thead style="background:#FB8C00">
+              <thead style="background:#FFB300">
                 <tr class="bg-success">
                   <th colspan="7">Order# {{row5.orderNumber}} - {{row5.company}}</th>
                 </tr>
@@ -48,7 +48,7 @@ import { DispatchReport } from '../../shared/dispatch-report';
                   <td>{{row6.reelInStock | number: '1.0-0'}}</td>
                 </tr>
               </tbody>
-              <tfoot style="background:#FFE0B2">
+              <tfoot style="background:#FFE082">
                 <tr>
                   <th id="total" colspan="4">Total :</th>
                   <th>{{row5.totalWeight | number: '1.2-2'}}</th>

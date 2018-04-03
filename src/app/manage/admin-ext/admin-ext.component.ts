@@ -6,11 +6,11 @@ import { UserList } from '../../shared/user-list';
 import { UIService } from '../../shared/ui.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-admin-ext',
+  templateUrl: './admin-ext.component.html',
+  styleUrls: ['./admin-ext.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminExtComponent implements OnInit {
   subscription: Subscription;
   userList: UserList[] = [];
   dataSource = new MatTableDataSource<UserList>();
@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit {
 
   isLoading = false;
   private loadingSubs: Subscription;
-    constructor(private serverService: ServerService, private uiService: UIService) {
+  constructor(private serverService: ServerService, private uiService: UIService) {
     this.showLoader = true;
   }
   setStatus(row) {
@@ -44,7 +44,7 @@ export class AdminComponent implements OnInit {
     this.disableUpdate = false;
     row.authenticate = 1;
   }
-  onClickReviewed(key) {
+  onUpdateExternalUser(key) {
     // console.log("Modal clicked..." + key)
     // key.userStatus = this.status;
     this.status ? key.userStatus = this.status : '';
@@ -53,7 +53,7 @@ export class AdminComponent implements OnInit {
     // console.log("After ..." + key)
     // console.log(JSON.stringify(key));
 
-    this.serverService.updateUsers(key)
+    this.serverService.updateExternalUser(key)
       .subscribe(
       // (res: Daybook) => console.log(res),
       (success) => {
@@ -67,12 +67,12 @@ export class AdminComponent implements OnInit {
       );
   }
   ngOnInit() {
-    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading =>{
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
     this.showLoader = true;
     this.uiService.loadingStateChanged.next(true);
-    this.subscription = this.serverService.getExternalUsers().
+    this.subscription = this.serverService.getInternalUsers().
       subscribe(list => {
         this.userList = list;
         // console.log("this.userlist");
@@ -89,6 +89,4 @@ export class AdminComponent implements OnInit {
   ngAfterViewInit() {
     // this.showLoader = true;
   }
-
-
 }

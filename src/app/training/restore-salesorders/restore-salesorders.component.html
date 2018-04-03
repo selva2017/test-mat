@@ -1,5 +1,5 @@
 <!-- <mat-tab label="Restore Sales Orders"> -->
-    <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
     <div *ngIf="!showLoader" style="padding:20px;">
@@ -30,18 +30,18 @@
         </ng-container>
 
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Order #</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.orderNumber }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10%">Order #</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="10%">{{ element.orderNumber }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="company">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.company }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%">Company</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.company }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="bf">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Item</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.bf }} BF {{ element.gsm }} GSM</mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15%">Item</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex="15%">{{ element.bf }} BF {{ element.gsm }} GSM</mat-cell>
         </ng-container>
 
         <!-- <ng-container matColumnDef="gsm">

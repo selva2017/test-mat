@@ -43,6 +43,7 @@ import { AdminComponent } from './manage/admin/admin.component';
 import { PublishComponent } from './manage/publish/publish.component';
 import { ManageComponent } from './manage/manage.component';
 import { UIService } from './shared/ui.service';
+import { AdminExtComponent } from './manage/admin-ext/admin-ext.component';
 
 @NgModule({
   declarations: [
@@ -75,8 +76,10 @@ import { UIService } from './shared/ui.service';
     RestoreSalesordersComponent,
     PlannedComponent,
     AdminComponent,
+    AdminExtComponent,
     PublishComponent,
-    ManageComponent
+    ManageComponent,
+    AdminExtComponent
   ],
   imports: [
     BrowserModule,

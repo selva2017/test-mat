@@ -3,11 +3,12 @@
     <div fxFlex="100" class="sec1" fxFlex.xs="100">
       <mat-tab-group color="primary" #tabGroup (selectedIndexChange)="_setDataSource($event)" (selectedTabChange)="onLinkClick($event)">
         <mat-tab label="Sales Orders"> -->
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
 <div class="content" fxLayout="row" fxLayout.xs="row" fxFlexFill>
   <div fxFlex="75" class="sec1" fxFlex.xs="75">
-    <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-    </div>
     <!-- <div *ngIf="!showLoader"> -->
     <div *ngIf="showAll" style="padding:10px;">
       <div fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="25px">
@@ -119,7 +120,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
 
-      <mat-paginator #paginator1 [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+      <mat-paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
       </mat-paginator>
     </div>
     <!-- </div> -->
@@ -274,7 +275,7 @@
         <mat-table #table [dataSource]="dataSource_BFGSMSize">
           <ng-container matColumnDef="bf">
             <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthCell'" fxFlex="40%">Item (BF GSM Size)</mat-header-cell>
-            <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'" fxFlex="40%" >{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'customWidthCell'" fxFlex="40%">{{ element.bf }} BF {{element.gsm}} GSM - {{element.size}}</mat-cell>
           </ng-container>
           <!-- <ng-container matColumnDef="gsm">
                         <mat-header-cell *matHeaderCellDef mat-sort-hea`der>GSM</mat-header-cell>

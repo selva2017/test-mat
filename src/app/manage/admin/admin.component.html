@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-sm-12" align="center">
-    <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
     <div *ngIf="!isLoading">
       <br>
-      <h3>User List and Roles</h3>
+      <h3>Internal User List and Roles</h3>
       <table class="example-full-width">
         <thead color="#FB8C00">
           <tr>
