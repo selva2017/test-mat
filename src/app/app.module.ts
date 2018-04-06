@@ -44,6 +44,7 @@ import { PublishComponent } from './manage/publish/publish.component';
 import { ManageComponent } from './manage/manage.component';
 import { UIService } from './shared/ui.service';
 import { AdminExtComponent } from './manage/admin-ext/admin-ext.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { AdminExtComponent } from './manage/admin-ext/admin-ext.component';
     AdminExtComponent,
     PublishComponent,
     ManageComponent,
-    AdminExtComponent
+    AdminExtComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

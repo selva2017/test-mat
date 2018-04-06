@@ -49,7 +49,7 @@ export class AdminExtComponent implements OnInit {
     // key.userStatus = this.status;
     this.status ? key.userStatus = this.status : '';
     // key.role = this.role;
-    this.role ? key.role = this.role : '';
+    // this.role ? key.role = this.role : '';
     // console.log("After ..." + key)
     // console.log(JSON.stringify(key));
 
@@ -72,7 +72,7 @@ export class AdminExtComponent implements OnInit {
     });
     this.showLoader = true;
     this.uiService.loadingStateChanged.next(true);
-    this.subscription = this.serverService.getInternalUsers().
+    this.subscription = this.serverService.getExternalUsers().
       subscribe(list => {
         this.userList = list;
         // console.log("this.userlist");

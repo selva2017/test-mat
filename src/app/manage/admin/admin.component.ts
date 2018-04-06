@@ -53,7 +53,7 @@ export class AdminComponent implements OnInit {
     // console.log("After ..." + key)
     // console.log(JSON.stringify(key));
 
-    this.serverService.updateUsers(key)
+    this.serverService.updateInternalUsers(key)
       .subscribe(
       // (res: Daybook) => console.log(res),
       (success) => {
@@ -72,7 +72,7 @@ export class AdminComponent implements OnInit {
     });
     this.showLoader = true;
     this.uiService.loadingStateChanged.next(true);
-    this.subscription = this.serverService.getExternalUsers().
+    this.subscription = this.serverService.getInternalUsers().
       subscribe(list => {
         this.userList = list;
         // console.log("this.userlist");

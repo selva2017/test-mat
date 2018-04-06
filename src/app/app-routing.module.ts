@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeleteSalesordersComponent } from './training/delete-salesorders/delete-salesorders.component';
 import { ManageComponent } from './manage/manage.component';
 import { TrialBalComponent } from './view/trial-bal/trial-bal.component';
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'receipts', component: ReceiptsComponent, canActivate: [AuthGuard] },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
   { path: 'deleteso', component: DeleteSalesordersComponent, canActivate: [AuthGuard] },
-  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] }
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

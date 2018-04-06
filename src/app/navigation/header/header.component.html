@@ -16,6 +16,10 @@
       <li *ngIf="!isAuth">
         <a routerLink="/login">Login</a>
       </li>
+      <li *ngIf="isAuth">
+        <!-- <a routerLink="/training">Training</a> -->
+        <a routerLinkActive="active" routerLink="/dashboard">Dashboard</a>
+      </li>
       <li *ngIf="isAuth && role == '1'">
         <!-- <a routerLink="/training">Training</a> -->
         <a routerLinkActive="active" routerLink="/daybook">Daybook</a>
