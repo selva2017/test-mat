@@ -45,6 +45,7 @@ import { ManageComponent } from './manage/manage.component';
 import { UIService } from './shared/ui.service';
 import { AdminExtComponent } from './manage/admin-ext/admin-ext.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartModule } from 'angular2-chartjs';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    ChartModule
   ],
   providers: [InventoryService,AuthService, TrainingService,ServerService,UIService],
   bootstrap: [AppComponent],

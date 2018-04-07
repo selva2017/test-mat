@@ -1,82 +1,83 @@
-<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:50%;left:50%;" style="position:fixed;top:40%;left:45%;">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:50%;left:50%;"
+  style="position:fixed;top:40%;left:45%;">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading" style="padding:20px;">
+  <!-- <div *ngIf="showAll"> -->
+  <div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
   </div>
-  <div *ngIf="!isLoading" style="padding:20px;">
-    <!-- <div *ngIf="showAll"> -->
-    <div fxLayoutAlign="center center">
-      <mat-form-field fxFlex="40%">
-        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-  
-    </div>
-    <p>Daybook Details</p>
-    <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
-  
-      <ng-container matColumnDef="voucherDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.voucherDate }}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="voucherKey">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Key</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.voucherKey }}</mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="partyLedgerName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%">Particulars</mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.partyLedgerName }}</mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="voucherNumber">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Number</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.voucherNumber }}</mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="voucherType">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Type</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.voucherType }}</mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="amount">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Credit/Debit</mat-header-cell>
-  
-        <mat-cell *matCellDef="let element">
-          <div *ngIf="element.voucherType ==='Stock Journal Fg' || element.voucherType ==='Delivery Note GST' || element.voucherType === 'Consumption Entry'">
-            {{ element.inventoryEntryVOs[0]?.billedQuantity }}
-          </div>
-          <div *ngIf="element.voucherType ==='Sales GST' || element.voucherType ==='Sales Order' || element.voucherType ==='Bank Payment' || element.voucherType ==='Contra' || element.voucherType ==='Receipt'|| element.voucherType ==='Purchase Order' || element.voucherType ==='Journal'
-          || element.voucherType ==='GRN-Raw Material'|| element.voucherType ==='Purchase-Raw Material' || element.voucherType ==='Petty Cash' || element.voucherType ==='GRN-General' || element.voucherType ==='GRN-Firewood'
+  <p>Daybook Details</p>
+  <mat-table #table [dataSource]="dataSource" matSort (selectedIndexChange)="_setDataSource($event)">
+
+    <ng-container matColumnDef="voucherDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherDate }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="voucherKey">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Key</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherKey }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="partyLedgerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20%">Particulars</mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.partyLedgerName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="voucherNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Number</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherNumber }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="voucherType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.voucherType }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Credit/Debit</mat-header-cell>
+
+      <mat-cell *matCellDef="let element">
+        <div *ngIf="element.voucherType ==='Stock Journal Fg' || element.voucherType ==='Delivery Note GST' || element.voucherType === 'Consumption Entry'|| element.voucherType ==='GRN-Raw Material'">
+          {{ element.inventoryEntryVOs[0]?.billedQuantity }}
+        </div>
+        <div *ngIf="element.voucherType ==='Sales GST' || element.voucherType ==='Sales Order' || element.voucherType ==='Bank Payment' || element.voucherType ==='Contra' || element.voucherType ==='Receipt'|| element.voucherType ==='Purchase Order' || element.voucherType ==='Journal'
+          || element.voucherType ==='Purchase-Raw Material' || element.voucherType ==='Petty Cash' || element.voucherType ==='GRN-General' || element.voucherType ==='GRN-Firewood'
           || element.voucherType ==='Credit Note'">
-            {{ displayINR(element.ledgerEntryVOs[0]?.amount) }}
-          </div>
-        </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>Details
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <button mat-raised-button color="primary" (click)="onClickView(row,row.voucherKey)">Select</button>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="index">
-        <mat-header-cell *matHeaderCellDef fxFlex="5%">No
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
-          {{i+1}}
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef>Action
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row;">
-            <button mat-raised-button color="warn" (click)="onClickReviewed(row.voucherKey)">Hide</button>
-          </mat-cell>
-        </ng-container>
-        
-      <mat-header-row *matHeaderRowDef="displayedColumns" style="background:orange"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-  
-    <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
-    </mat-paginator>
-  </div>
+          {{ displayINR(element.ledgerEntryVOs[0]?.amount) }}
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>Details
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" (click)="onClickView(row,row.voucherKey)">Select</button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef fxFlex="5%">No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index;" fxFlex="5%">
+        {{i+1}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef>Action
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row;">
+        <button mat-raised-button color="warn" (click)="onClickReviewed(row.voucherKey)">Hide</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" style="background:orange"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+  </mat-paginator>
+</div>

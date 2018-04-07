@@ -1,21 +1,147 @@
-<div class="welcome" fxLayout="column" fxLayout.gt-md="row" fxLayoutGap.gt-md="20px" fxLayoutAlign="center center">
-  <mat-card>
-    <h2>CHALLENGES</h2>
-    <p>Never stop! Dive into new challenges every day</p>
-  </mat-card>
-  <mat-card>
-    <h2>ACTIVITY</h2>
-    <p>Stay active and enjoy better health and more fun!</p>
-  </mat-card>
-  <mat-card>
-    <h2>COMMUNITY</h2>
-    <p>Get to know other people who share your passion!</p>
-  </mat-card>
+<div class="bounds" style="padding: 15px;">
+  <div class="content" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutGap="10px">
+    <!-- <div fxFlex="25" class="sec1" fxFlex.xs="25"> -->
+    <div fxFlex="25" fxFlex.xs="25">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div class="card-header sec1" data-background-color="orange">
+            <i class="material-icons" style="font-size: 40px">content_copy</i>
+          </div>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-title>Weekly</mat-card-title>
+          <h3 class="title"> 90,989
+            <!--{{statistics_data.weeklySales}} -->
+            <small>Rs</small>
+          </h3>
+          <!-- <mat-card-subtitle>Rs 10,90,090.00</mat-card-subtitle> -->
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-actions fxFlex>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <!-- <div fxFlex="25" class="sec2" fxFlex.xs="25"> -->
+    <div fxFlex="25" fxFlex.xs="25">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div class="card-header sec2">
+            <i class="material-icons" style="font-size: 40px">store</i>
+          </div>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-title>Monthly</mat-card-title>
+          <h3 class="title">{{ displayIndianFormat(statistics_data.monthlySales)}}
+            <small>Rs</small>
+          </h3>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-actions fxFlex>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <div fxFlex="25" fxFlex.xs="25">
+      <!-- <div fxFlex="25" class="sec3" fxFlex.xs="25"> -->
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div class="card-header sec3">
+            <i class="material-icons" style="font-size: 40px">equalizer</i>
+          </div>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-title>Quarterly</mat-card-title>
+          <h3 class="title"> {{displayIndianFormat(statistics_data.quarterlySales)}}
+            <small>Rs</small>
+          </h3>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-actions fxFlex>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <!-- <div fxFlex="25" class="sec4" fxFlex.xs="25"> -->
+    <div fxFlex="25" fxFlex.xs="25">
+      <!-- <mat-card class="example-card" class="sec4"> -->
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div class="card-header sec4" data-background-color="orange">
+            <i class="material-icons" style="font-size: 40px">dashboard</i>
+          </div>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-title>Yearly</mat-card-title>
+          <h3 class="title">{{displayIndianFormat(statistics_data.yearlySales)}}
+            <small>Rs</small>
+          </h3>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-actions fxFlex>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <!-- <div fxFlex="25" fxFlex.xs="25">
+      <mat-card class="example-card" class="sec4">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">equalizer</i>
+          </div>
+          <p class="card-category">Website Visits</p>
+          <h3 class="card-title">75.521</h3>
+        </div>
+      </mat-card>
+    </div> -->
+  </div>
 </div>
-<!-- <br> -->
-<!-- <div class="welcome" fxLayout="column" fxLayout.gt-md="row" fxLayoutGap.gt-md="100px" fxLayoutAlign="center center">
-  <mat-card>
-    <h2>COMMUNITY</h2>
-    <p>Get to know other people who share your passion!</p>
-  </mat-card>
-</div> -->
+
+<div class="bounds" style="padding: 15px;">
+  <div class="content" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutGap="10px">
+    <div fxFlex="50" fxFlex.xs="20">
+      <mat-card class="chart-card">
+        <!-- <mat-card-header> -->
+        <!-- <div class="card-header sec1" data-background-color="orange">
+            <i class="material-icons" style="font-size: 40px">content_copy</i>
+          </div> -->
+        <!-- </mat-card-header> -->
+        <mat-card-content class="mat-chart-content" fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-title>Sales Chart</mat-card-title>
+          <!-- <ng-template > -->
+          <chart [type]="type_month_sales" [data]="data_month_sales" [options]="options_month_sales"></chart>
+          <!-- </ng-template> -->
+          <!-- <h3 class="title"> 9,77,090
+            <small>Rs</small>
+          </h3> -->
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-actions fxFlex>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <div fxFlex="50" fxFlex.xs="25">
+      <mat-card class="chart-card">
+        <!-- <mat-card-header> -->
+        <!-- <div class="card-header sec1" data-background-color="orange">
+            <i class="material-icons" style="font-size: 40px">content_copy</i>
+          </div> -->
+        <!-- </mat-card-header> -->
+        <mat-card-content class="mat-chart-content" fxLayout="column" fxLayoutAlign="space-between" fxFlex>
+          <mat-card-title>Production Chart</mat-card-title>
+          <!-- <ng-template > -->
+          <chart [type]="type_month_prod" [data]="data_month_prod" [options]="options_month_prod"></chart>
+          <!-- </ng-template> -->
+          <!-- <h3 class="title"> 9,77,090
+            <small>Rs</small>
+          </h3> -->
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-card-actions fxFlex>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>

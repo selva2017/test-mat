@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'deleteso', component: DeleteSalesordersComponent, canActivate: [AuthGuard] },
   { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  // { path: 'dashboard', component: DashboardComponent}
 ];
 
 @NgModule({
