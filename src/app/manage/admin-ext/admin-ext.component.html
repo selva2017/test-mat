@@ -29,7 +29,7 @@
             <td>
               <form action="">
                 <div *ngFor="let role of userList.roles;let i = index">
-                  <mat-radio-button color="primary" class="example-radio-button" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId"
+                  <mat-radio-button color="warn" class="example-radio-button" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId"
                     (change)="setRole(row,role.roleId)">{{role.roleName}}
                   </mat-radio-button>
                   <br>
@@ -41,12 +41,12 @@
             <td>
               <form action="">
                 <section class="example-section">
-                  <mat-checkbox color="primary" class="example-margin" [checked]="row.userStatus === 'active'" [value]="row.userStatus" (change)="setStatus(row)">Activate</mat-checkbox>
+                  <mat-checkbox color="warn" class="example-margin" [checked]="row.userStatus === 'active'" [value]="row.userStatus" (change)="setStatus(row)">Activate</mat-checkbox>
                 </section>
               </form>
             </td>
             <td align="center">
-              <button mat-raised-button color="primary" (click)="onUpdateExternalUser(row)" [disabled]="!row.authenticate">Update
+              <button mat-raised-button color="warn" (click)="onUpdateExternalUser(row)" [disabled]="!row.authenticate">Update
               </button>
             </td>
           </tr>

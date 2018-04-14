@@ -41,12 +41,13 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Credit/Debit</mat-header-cell>
 
       <mat-cell *matCellDef="let element">
-        <div *ngIf="element.voucherType ==='Stock Journal Fg' || element.voucherType ==='Delivery Note GST' || element.voucherType === 'Consumption Entry'|| element.voucherType ==='GRN-Raw Material'">
-          {{ element.inventoryEntryVOs[0]?.billedQuantity }}
+        <div *ngIf="element.voucherType ==='Stock Journal Fg' || element.voucherType ==='Delivery Note GST' || element.voucherType === 'Consumption Entry'|| element.voucherType ==='GRN-Raw Material' || element.voucherType ==='GRN-Firewood'
+        || element.voucherType ==='Diesel GRN'">
+          {{ replaceZeros(element.inventoryEntryVOs[0]?.billedQuantity) }}
         </div>
         <div *ngIf="element.voucherType ==='Sales GST' || element.voucherType ==='Sales Order' || element.voucherType ==='Bank Payment' || element.voucherType ==='Contra' || element.voucherType ==='Receipt'|| element.voucherType ==='Purchase Order' || element.voucherType ==='Journal'
-          || element.voucherType ==='Purchase-Raw Material' || element.voucherType ==='Petty Cash' || element.voucherType ==='GRN-General' || element.voucherType ==='GRN-Firewood'
-          || element.voucherType ==='Credit Note'">
+          || element.voucherType ==='Purchase-Raw Material' || element.voucherType ==='Petty Cash' || element.voucherType ==='GRN-General' 
+          || element.voucherType ==='Credit Note'|| element.voucherType ==='Purchase-General'">
           {{ displayINR(element.ledgerEntryVOs[0]?.amount) }}
         </div>
       </mat-cell>
@@ -78,6 +79,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+  <mat-paginator #paginator [pageSize]="25" [pageSizeOptions]="[10, 25, 50, 100]">
   </mat-paginator>
 </div>

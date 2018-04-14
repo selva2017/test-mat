@@ -35,15 +35,17 @@
               </select> -->
               <form action="">
                 <div *ngFor="let role of userList.roles;let i = index">
-                  <mat-radio-button color="primary" class="example-radio-button" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId"
-                    (change)="setRole(row,role.roleId)">{{role.roleName}}
-                  </mat-radio-button>
-                  <!-- <input type="radio" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId" (change)="setRole(row,role.roleId)">{{role.roleName}} -->
-                  <br>
-                  <!-- <input type="radio" [name]="row.userName" [value]="role.roleId"  [checked]="row.role === 'role.roleId'" (change)="setRole('role.roleId')">{{role.roleName}}<br> -->
-                  <!-- <input type="radio" [name]="row.userName" value="1"  [checked]="row.role === '1'" (change)="setRole('1')">Admin<br>
+                  <div [ngIf]="role.roleName != 'Customer' || role.roleName != 'Supplier'">
+                    <mat-radio-button color="warn" class="example-radio-button" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId"
+                      (change)="setRole(row,role.roleId)">{{role.roleName}}
+                    </mat-radio-button>
+                    <!-- <input type="radio" [name]="row.userName" [value]="role.roleId" [checked]="row.role === role.roleId" (change)="setRole(row,role.roleId)">{{role.roleName}} -->
+                    <br>
+                    <!-- <input type="radio" [name]="row.userName" [value]="role.roleId"  [checked]="row.role === 'role.roleId'" (change)="setRole('role.roleId')">{{role.roleName}}<br> -->
+                    <!-- <input type="radio" [name]="row.userName" value="1"  [checked]="row.role === '1'" (change)="setRole('1')">Admin<br>
                   <input type="radio" [name]="row.userName" value="2"  [checked]="row.role === '2'" (change)="setRole('2')">Director<br>
                   <input type="radio" [name]="row.userName" value="3"  [checked]="row.role === '3'" (change)="setRole('3')">Shareholder -->
+                  </div>
                 </div>
               </form>
 
@@ -72,7 +74,7 @@
             <br>
             <input type="radio" [name]="row.userName" value="inactive" [checked]="row.userStatus === 'inactive'" (change)="setStatus(row,'inactive')">Inactive -->
                 <section class="example-section">
-                  <mat-checkbox color="primary" class="example-margin" [checked]="row.userStatus === 'active'" [value]="row.userStatus" (change)="setStatus(row)">Activate</mat-checkbox>
+                  <mat-checkbox color="warn" class="example-margin" [checked]="row.userStatus === 'active'" [value]="row.userStatus" (change)="setStatus(row)">Activate</mat-checkbox>
                 </section>
               </form>
               <!-- <div>
@@ -89,7 +91,7 @@
               <!-- Button trigger update  -->
               <!-- <button type="button" class="btn btn-warning btn-sm" (click)="onClickReviewed(row)" [disabled]="disableUpdate">Update -->
               <!-- </button> -->
-              <button mat-raised-button color="primary" (click)="onClickReviewed(row)" [disabled]="!row.authenticate">Update
+              <button mat-raised-button color="warn" (click)="onClickReviewed(row)" [disabled]="!row.authenticate">Update
               </button>
               <!-- <button type="button" class="btn btn-warning btn-sm" (click)="onClickReviewed(row)" [disabled]="!row.authenticate">Update
             </button> -->

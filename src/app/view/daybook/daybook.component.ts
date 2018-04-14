@@ -13,7 +13,7 @@ import { UIService } from '../../shared/ui.service';
   styleUrls: ['./daybook.component.css']
 })
 export class DaybookComponent implements OnInit {
-  displayedColumns = ['index','voucherDate', 'partyLedgerName', 'voucherType', 'voucherNumber','amount', 'select', 'action'];
+  displayedColumns = ['index', 'voucherDate', 'partyLedgerName', 'voucherType', 'voucherNumber', 'amount', 'select', 'action'];
   dataSource = new MatTableDataSource<Daybook>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -51,19 +51,19 @@ export class DaybookComponent implements OnInit {
   //   });
   // }
   refreshList() {
-    this.uiService.loadingStateChanged.next(true);
+    // this.uiService.loadingStateChanged.next(true);
     this.subscription = this.serverService.getTallyDaybook().
       subscribe(list => {
         // console.log(list);
         // this.dayBook = list;
         this.dataSource.data = list;
         !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
-        // this.showLoader = false;
-        this.uiService.loadingStateChanged.next(false);
+        this.showLoader = false;
+        // this.uiService.loadingStateChanged.next(false);
       })
     this.showLoader = false;
   }
-  onClickView(record,key) {
+  onClickView(record, key) {
     this.dayBook_row = record;
     // console.log(this.dayBook_row);
     const dialogRef = this.dialog.open(DaybookDialogComponent, {
@@ -89,13 +89,20 @@ export class DaybookComponent implements OnInit {
     // console.log(key);
     this.serverService.setFlagTallyDaybook(key)
       .subscribe(
-      (success) => {
-        this.refreshList();
-      },
-      (error) => console.log(error)
+        (success) => {
+          this.refreshList();
+        },
+        (error) => console.log(error)
       );
   }
   displayINR(amount: number) {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
+  }
+  replaceZeros(key: string) {
+    // console.log(key.replace(".000", "")); 
+    return key.replace(".000", "");
+  }
+  displayIndianFormat(amount: number) {
+    return Number(Math.round(amount / 1000)).toLocaleString('en-IN');
   }
 }

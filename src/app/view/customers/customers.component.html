@@ -1,7 +1,9 @@
-<div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;">
+<!-- <div *ngIf="isLoading" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;"> -->
+<div *ngIf="showLoader" class="loader-padding" fxLayout="column" fxLayoutAlign="center center" style="position:fixed;top:40%;left:45%;">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
-<div *ngIf="!isLoading" style="padding:20px;">
+<!-- <div *ngIf="!isLoading" style="padding:20px;"> -->
+<div *ngIf="!showLoader" style="padding:20px;">
   <div fxLayoutAlign="center center">
     <mat-form-field fxFlex="40%">
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -61,6 +63,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[1, 5, 10, 20]">
+  <mat-paginator #paginator [pageSize]="25" [pageSizeOptions]="[10, 25, 50, 100]">
   </mat-paginator>
 </div>
